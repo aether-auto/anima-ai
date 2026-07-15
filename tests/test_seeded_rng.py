@@ -105,6 +105,14 @@ def test_uniform_rejects_non_finite_bounds(bad: float) -> None:
         stream.uniform(0.0, bad)
 
 
+def test_uniform_rejects_bounds_whose_span_overflows_to_non_finite() -> None:
+    import sys
+
+    stream = SeededRNG(1).for_node("a")
+    with pytest.raises(ValueError, match="span"):
+        stream.uniform(-sys.float_info.max, sys.float_info.max)
+
+
 @pytest.mark.parametrize("bad_seed", [-1, -100, 1.5, "0", True, False, None])
 def test_seeded_rng_rejects_invalid_project_seed(bad_seed: object) -> None:
     with pytest.raises((TypeError, ValueError)):

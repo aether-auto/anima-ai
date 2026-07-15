@@ -141,8 +141,10 @@ class RNGStream:
         """Return a deterministic float in ``[low, high)``.
 
         Raises:
-            ValueError: if ``low`` or ``high`` is not finite, or if
-                ``low > high``.
+            ValueError: if ``low`` or ``high`` is not finite, if
+                ``low > high``, or if ``high - low`` overflows to a
+                non-finite span (e.g. ``low=-sys.float_info.max``,
+                ``high=sys.float_info.max``).
         """
         if not _is_finite(low):
             raise ValueError(f"low must be finite, got {low!r}")
@@ -150,7 +152,13 @@ class RNGStream:
             raise ValueError(f"high must be finite, got {high!r}")
         if low > high:
             raise ValueError(f"low ({low!r}) must be <= high ({high!r})")
-        return low + (high - low) * self.random()
+        span = high - low
+        if not _is_finite(span):
+            raise ValueError(
+                f"high - low must be finite, got low={low!r}, high={high!r} "
+                f"(span={span!r})"
+            )
+        return low + span * self.random()
 
 
 def _is_finite(value: float) -> bool:
