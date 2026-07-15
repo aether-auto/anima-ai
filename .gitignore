@@ -19,6 +19,10 @@ __pycache__/
 build/
 dist/
 
+# Golden-image working directory: generated candidates, diffs, and reports.
+# Committed baselines live under tests/golden/baselines/ and are never here.
+.golden-work/
+
 # macOS junk
 .DS_Store
 Icon?

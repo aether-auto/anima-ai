@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anima-ai"
-version = "0.0.0.dev0"
+dynamic = ["version"]
 description = "Agent-authored, deterministically verifiable animated explainers"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -22,6 +22,8 @@ maps-data = [
     "anima-ai-data==0.0.0.dev0",
 ]
 dev = [
+    "fonttools==4.60.1",
+    "hypothesis==6.156.6",
     "mypy==1.19.1",
     "pytest==9.0.2",
     "PyYAML==6.0.3",
@@ -32,8 +34,12 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
+anima = ["assets/fonts/**/*.json", "assets/fonts/**/*.md", "assets/fonts/**/*.ttf", "assets/fonts/**/*.otf"]
 "anima.data" = ["catalog.json"]
 "anima.data.natural_earth" = ["*.txt", "ne_110m/*.geojson", "ne_50m/*.geojson"]
+
+[tool.setuptools.dynamic]
+version = {attr = "anima._version.__version__"}
 
 [tool.ruff]
 target-version = "py310"
@@ -41,6 +47,11 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["B", "E", "F", "I", "RUF", "UP"]
+
+[tool.ruff.lint.isort]
+# Src layout: declare the project's own package first-party so import grouping is
+# deterministic across Ruff versions (avoids I001 disagreements on tests/).
+known-first-party = ["anima"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -54,5 +65,5 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
-testpaths = ["tests"]
 pythonpath = ["src", "packages/anima-ai-data/src"]
+testpaths = ["tests"]
