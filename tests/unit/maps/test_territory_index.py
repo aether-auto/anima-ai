@@ -46,6 +46,12 @@ def test_signed_proleptic_dates_cover_bce_historical_snapshots() -> None:
         ValidityInterval(0, 1)
 
 
+def test_bce_leap_days_follow_labeled_chronology() -> None:
+    assert MapDate(-45, 2, 29).isoformat() == "-0045-02-29"
+    with pytest.raises(ValueError, match=r"day outside 1\.\.28"):
+        MapDate(-44, 2, 29)
+
+
 def test_dataset_rejects_overlapping_versions_for_same_territory() -> None:
     versions = (
         TerritoryVersion("state", _square(0), ValidityInterval(1900, 1920)),

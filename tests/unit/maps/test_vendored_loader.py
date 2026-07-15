@@ -219,6 +219,21 @@ def test_catalog_accepts_version_matched_companion_resource_package() -> None:
     assert parse_catalog(raw)[0].package == "anima_ai_data.historical_basemaps"
 
 
+def test_missing_companion_package_hides_dataset_with_actionable_error(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        vendored,
+        "_package_installed",
+        lambda package: not package.startswith("anima_ai_data"),
+    )
+
+    assert vendored.available_datasets() == ("natural-earth-110m", "natural-earth-50m")
+    assert vendored.verify_vendored_data() == ()
+    with pytest.raises(KeyError, match="maps-data"):
+        vendored.dataset_spec("historical-basemaps")
+
+
 def test_companion_package_version_must_match_main_package(monkeypatch: pytest.MonkeyPatch) -> None:
     payload = read_resource(
         "anima_ai_data.historical_basemaps",

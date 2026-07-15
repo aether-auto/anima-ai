@@ -35,7 +35,10 @@ class MapDate:
             raise ValueError("map date chronology has no year zero")
         if self.month < 1 or self.month > 12:
             raise ValueError(f"map date month outside 1..12: {self.month}")
-        maximum_day = calendar.monthrange(self.year, self.month)[1]
+        # BCE labels are one off from astronomical numbering (44 BCE is
+        # astronomical year -43), which is what leap-year rules apply to.
+        astronomical_year = self.year + 1 if self.year < 0 else self.year
+        maximum_day = calendar.monthrange(astronomical_year, self.month)[1]
         if self.day < 1 or self.day > maximum_day:
             raise ValueError(
                 f"map date day outside 1..{maximum_day} for "

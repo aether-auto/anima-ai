@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 from hashlib import sha256
 from importlib.resources import files
+from importlib.util import find_spec
 from pathlib import PurePosixPath
 from typing import Any
 
@@ -133,14 +134,31 @@ def _catalog() -> tuple[DatasetSpec, ...]:
     return parse_catalog(json.loads(payload))
 
 
+def _package_installed(package: str) -> bool:
+    root = package.split(".", 1)[0]
+    try:
+        return find_spec(root) is not None
+    except (ImportError, ValueError):
+        return False
+
+
 def available_datasets() -> tuple[str, ...]:
-    return tuple(spec.dataset_id for spec in _catalog())
+    """Return dataset IDs whose resource packages are installed and loadable."""
+
+    return tuple(
+        spec.dataset_id for spec in _catalog() if _package_installed(spec.package)
+    )
 
 
 def dataset_spec(dataset_id: str) -> DatasetSpec:
     normalized = dataset_id.strip().casefold()
     for spec in _catalog():
         if spec.dataset_id == normalized:
+            if not _package_installed(spec.package):
+                raise KeyError(
+                    f"vendored dataset {normalized!r} requires the optional companion "
+                    f"package providing {spec.package!r}; install anima-ai[maps-data]"
+                )
             return spec
     available = ", ".join(available_datasets()) or "<none>"
     raise KeyError(f"unknown vendored dataset {normalized!r}; available: {available}")
@@ -486,6 +504,9 @@ def verify_vendored_data() -> tuple[str, ...]:
 
     errors: list[str] = []
     for spec in _catalog():
+        if not _package_installed(spec.package):
+            # Optional companion datasets are simply absent, not corrupt.
+            continue
         try:
             _check_package_version(spec)
         except (ModuleNotFoundError, ValueError) as error:
