@@ -1,0 +1,46 @@
+[
+  {
+    "pack": "crude",
+    "role": "display",
+    "family": "Calistoga",
+    "weight": 400,
+    "style": "normal",
+    "filename": "crude/Calistoga-Regular.ttf",
+    "license_spdx": "OFL-1.1",
+    "copyright_holder": "The Calistoga Project Authors",
+    "source_url": "https://github.com/google/fonts/tree/main/ofl/calistoga"
+  },
+  {
+    "pack": "crude",
+    "role": "body",
+    "family": "Lato",
+    "weight": 400,
+    "style": "normal",
+    "filename": "crude/Lato-Regular.ttf",
+    "license_spdx": "OFL-1.1",
+    "copyright_holder": "tyPoland, Łukasz Dziedzic",
+    "source_url": "https://github.com/google/fonts/tree/main/ofl/lato"
+  },
+  {
+    "pack": "flat",
+    "role": "display",
+    "family": "Exo 2 ExtraBold",
+    "weight": 800,
+    "style": "normal",
+    "filename": "flat/Exo2ExtraBold-Regular.ttf",
+    "license_spdx": "OFL-1.1",
+    "copyright_holder": "The Exo 2 Project Authors",
+    "source_url": "https://github.com/google/fonts/tree/main/ofl/exo2"
+  },
+  {
+    "pack": "flat",
+    "role": "body",
+    "family": "Inter",
+    "weight": 400,
+    "style": "normal",
+    "filename": "flat/Inter-Regular.otf",
+    "license_spdx": "OFL-1.1",
+    "copyright_holder": "The Inter Project Authors",
+    "source_url": "https://github.com/google/fonts/tree/main/ofl/inter"
+  }
+]
