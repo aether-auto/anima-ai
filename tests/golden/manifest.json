@@ -1,0 +1,12 @@
+[
+  {
+    "container_ref": "ghcr.io/arnavmarda/anima-golden@sha256:efd96690f79222d0909355d608ffb13dfd49b412496fdc2c9b21000c480d2f72",
+    "fixture": "anima.testing.fixtures:trivial_shape",
+    "height": 256,
+    "id": "trivial-shape-fixture",
+    "params": {},
+    "png_path": "tests/golden/baselines/trivial-shape-fixture.png",
+    "tolerance": 0.1,
+    "width": 256
+  }
+]

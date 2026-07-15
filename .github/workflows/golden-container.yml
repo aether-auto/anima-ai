@@ -1,0 +1,59 @@
+name: Golden Container
+
+# Build and publish the deterministic golden image to GHCR, tagged immutably by
+# the source revision (never `latest`), and smoke-pull it by resolved digest
+# before succeeding. Least privilege: only packages:write is granted.
+#
+# NOTE: publishing to GHCR is an external, irreversible action under Arnav's
+# GitHub account and must be flagged and approved first (COFOUNDER_PERSONA.md).
+# It also requires the repository/remote to exist (repo-scaffold-ci's flagged
+# repo-creation deliverable). Until then this workflow is written and asserted
+# but never executed.
+
+on:
+  push:
+    paths:
+      - docker/golden.Dockerfile
+      - requirements/lock-linux.txt
+      - requirements/build-linux.txt
+      - .github/workflows/golden-container.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push golden image
+        id: build
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          file: docker/golden.Dockerfile
+          platforms: linux/amd64
+          push: true
+          # Immutable source-revision tag only. Never `latest`.
+          tags: ghcr.io/${{ github.repository_owner }}/anima-golden:${{ github.sha }}
+
+      - name: Report resolved digest
+        run: |
+          echo "Published ghcr.io/${{ github.repository_owner }}/anima-golden@${{ steps.build.outputs.digest }}"
+          echo "digest=${{ steps.build.outputs.digest }}" >> "$GITHUB_OUTPUT"
+
+      - name: Smoke-pull by digest and import skia
+        run: |
+          ref="ghcr.io/${{ github.repository_owner }}/anima-golden@${{ steps.build.outputs.digest }}"
+          docker pull "$ref"
+          docker run --rm "$ref" python -c "import skia; print('skia import OK from', '$ref')"

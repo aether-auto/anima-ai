@@ -1,0 +1,40 @@
+name: Goldens
+
+# Deterministic golden-image regression: run entirely inside the pinned-digest
+# golden container, generate every fixture's candidate, then compare against the
+# committed baselines. On any mismatch, upload the actual/diff/report artifacts
+# so an agent can inspect them. This workflow NEVER blesses baselines — updating
+# a baseline is a deliberate, container-gated bless run outside CI.
+#
+# The container image is pinned by digest. Until the golden-container workflow
+# has published to GHCR (flagged to Arnav; see golden-container.yml) this digest
+# is a placeholder and the workflow is asserted-only, not executed.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  goldens:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/arnavmarda/anima-golden@sha256:0000000000000000000000000000000000000000000000000000000000000000
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate candidate renders
+        run: python -m anima.testing.goldens generate --all
+
+      - name: Compare candidates against committed baselines
+        run: python -m anima.testing.goldens compare --all
+
+      - name: Upload actual / diff / report artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-diffs
+          path: .golden-work/
+          if-no-files-found: warn
