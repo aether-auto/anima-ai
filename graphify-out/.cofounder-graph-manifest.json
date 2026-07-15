@@ -1,0 +1,198 @@
+{
+  "PROJECT.md": {
+    "mtime": 1783971920280.3267,
+    "size": 5468
+  },
+  "docs/cofounder/specs/data-model.md": {
+    "mtime": 1783971717188.3474,
+    "size": 7355
+  },
+  "docs/cofounder/specs/feasibility-report.md": {
+    "mtime": 1783969678836.0503,
+    "size": 20963
+  },
+  "docs/cofounder/specs/go-to-market.md": {
+    "mtime": 1783971838885.243,
+    "size": 5507
+  },
+  "docs/cofounder/specs/non-functional-requirements.md": {
+    "mtime": 1783971800375.9104,
+    "size": 4164
+  },
+  "docs/cofounder/specs/product-spec.md": {
+    "mtime": 1783971598431.015,
+    "size": 15671
+  },
+  "docs/cofounder/specs/technical-architecture.md": {
+    "mtime": 1783971672970.8062,
+    "size": 13708
+  },
+  "docs/cofounder/specs/ux-design-spec.md": {
+    "mtime": 1783971770222.8315,
+    "size": 7619
+  },
+  "docs/cofounder/tasks.json": {
+    "mtime": 1784005583085.5505,
+    "size": 12941
+  },
+  "docs/cofounder/specs/tasks/agent-docs-surface.json": {
+    "mtime": 1784005099923.484,
+    "size": 6405
+  },
+  "docs/cofounder/specs/tasks/agent-repair-harness.json": {
+    "mtime": 1784005085852.9478,
+    "size": 9657
+  },
+  "docs/cofounder/specs/tasks/animation-system.json": {
+    "mtime": 1784005125987.2996,
+    "size": 11930
+  },
+  "docs/cofounder/specs/tasks/chapter-project-structure.json": {
+    "mtime": 1784005048268.9412,
+    "size": 7731
+  },
+  "docs/cofounder/specs/tasks/cli-framework.json": {
+    "mtime": 1784005106751.2747,
+    "size": 6539
+  },
+  "docs/cofounder/specs/tasks/cli-inspect-preview.json": {
+    "mtime": 1784005076074.713,
+    "size": 7849
+  },
+  "docs/cofounder/specs/tasks/cookbook-examples.json": {
+    "mtime": 1784005121946.8179,
+    "size": 5680
+  },
+  "docs/cofounder/specs/tasks/crude-pack.json": {
+    "mtime": 1784005065612.229,
+    "size": 10371
+  },
+  "docs/cofounder/specs/tasks/docs-site-context7.json": {
+    "mtime": 1784005083830.807,
+    "size": 7275
+  },
+  "docs/cofounder/specs/tasks/flat-pack.json": {
+    "mtime": 1784005292923.2957,
+    "size": 11626
+  },
+  "docs/cofounder/specs/tasks/font-bundling.json": {
+    "mtime": 1784004792573.0437,
+    "size": 13193
+  },
+  "docs/cofounder/specs/tasks/fresh-agent-test.json": {
+    "mtime": 1784005148281.6775,
+    "size": 6730
+  },
+  "docs/cofounder/specs/tasks/geometry-resolver.json": {
+    "mtime": 1784005205038.9119,
+    "size": 11990
+  },
+  "docs/cofounder/specs/tasks/golden-image-harness.json": {
+    "mtime": 1784005095184.172,
+    "size": 12570
+  },
+  "docs/cofounder/specs/tasks/launch-assets-posts.json": {
+    "mtime": 1784005109971.5754,
+    "size": 8191
+  },
+  "docs/cofounder/specs/tasks/longform-pipeline-proof.json": {
+    "mtime": 1784005140067.2976,
+    "size": 7851
+  },
+  "docs/cofounder/specs/tasks/map-camera-state.json": {
+    "mtime": 1784005093661.9824,
+    "size": 7972
+  },
+  "docs/cofounder/specs/tasks/map-geometry-foundation.json": {
+    "mtime": 1784004792589.024,
+    "size": 12103
+  },
+  "docs/cofounder/specs/tasks/map-mini-episode.json": {
+    "mtime": 1784005115023.9358,
+    "size": 9946
+  },
+  "docs/cofounder/specs/tasks/map-node-types.json": {
+    "mtime": 1784005068024.6606,
+    "size": 10728
+  },
+  "docs/cofounder/specs/tasks/map-verify-rules.json": {
+    "mtime": 1784005076951.3015,
+    "size": 11993
+  },
+  "docs/cofounder/specs/tasks/pack-pluggability-proof.json": {
+    "mtime": 1784005044016.9614,
+    "size": 6906
+  },
+  "docs/cofounder/specs/tasks/paint-primitives.json": {
+    "mtime": 1784005027652.5574,
+    "size": 11708
+  },
+  "docs/cofounder/specs/tasks/parallel-scene-render.json": {
+    "mtime": 1784005077266.1543,
+    "size": 7872
+  },
+  "docs/cofounder/specs/tasks/performance-nfr-targets.json": {
+    "mtime": 1784005109023.808,
+    "size": 8137
+  },
+  "docs/cofounder/specs/tasks/phase1-determinism-e2e.json": {
+    "mtime": 1784005111504.0322,
+    "size": 8651
+  },
+  "docs/cofounder/specs/tasks/pypi-name-and-publish.json": {
+    "mtime": 1784005058610.2234,
+    "size": 6451
+  },
+  "docs/cofounder/specs/tasks/repo-scaffold-ci.json": {
+    "mtime": 1784005030582.2432,
+    "size": 11567
+  },
+  "docs/cofounder/specs/tasks/scene-graph-model.json": {
+    "mtime": 1784005187778.2205,
+    "size": 11823
+  },
+  "docs/cofounder/specs/tasks/seeded-rng-service.json": {
+    "mtime": 1784005123418.6995,
+    "size": 6729
+  },
+  "docs/cofounder/specs/tasks/skia-rasterizer-cache.json": {
+    "mtime": 1784005011469.7659,
+    "size": 8229
+  },
+  "docs/cofounder/specs/tasks/streaming-encoder-render.json": {
+    "mtime": 1784005041253.7798,
+    "size": 7729
+  },
+  "docs/cofounder/specs/tasks/style-pack-system.json": {
+    "mtime": 1784005572345.7026,
+    "size": 14869
+  },
+  "docs/cofounder/specs/tasks/subtitle-rendering.json": {
+    "mtime": 1784005047443.3828,
+    "size": 8004
+  },
+  "docs/cofounder/specs/tasks/taste-constraint-rules.json": {
+    "mtime": 1784005076955.0613,
+    "size": 9810
+  },
+  "docs/cofounder/specs/tasks/timeline-compiler.json": {
+    "mtime": 1784004792612.6292,
+    "size": 13533
+  },
+  "docs/cofounder/specs/tasks/v1-flagship-episode.json": {
+    "mtime": 1784005178500.4854,
+    "size": 7318
+  },
+  "docs/cofounder/specs/tasks/verification-report-schema.json": {
+    "mtime": 1784004792618.012,
+    "size": 15297
+  },
+  "docs/cofounder/specs/tasks/verify-layout-rules.json": {
+    "mtime": 1784005007942.5176,
+    "size": 9195
+  },
+  "docs/cofounder/specs/tasks/verify-structural-checks.json": {
+    "mtime": 1784005572345.3994,
+    "size": 17065
+  }
+}

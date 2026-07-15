@@ -1,0 +1,74 @@
+{
+  "id": "geometry-resolver",
+  "title": "Shared geometry resolver (verify/render single code path)",
+  "short_description": "Build the single module that answers rendered-bounding-box-at-time-t in output pixels for every node type (including Skia text shaping), consumed by both verifier and renderer, unit-tested against rendered-pixel bounds on fixtures — the load-bearing verify/render-agreement invariant.",
+  "long_description_md": "# Geometry Resolver — Phase 1 Load-Bearing Module\n\n## Why This Task Exists\n\nThe geometry resolver is the architectural linchpin of anima-ai's verification strategy. Per the technical-architecture.md, verification honesty depends on one non-negotiable invariant: **the verifier and renderer compute geometry from identical code paths**. If the verifier claims \"text A does not overlap text B\" but the renderer places them on top of each other, verification is meaningless.\n\nThis task implements the single module that answers the core question: *given a node (shape, text, SVG, group, etc.) and a time t in the output timeline, where does it render in output pixels?* Both the verifier (which samples geometry at beat boundaries and animation keyframes to check constraints) and the renderer (which evaluates it at every frame) call this same resolver. When a node type's geometry cannot be resolved deterministically, that node type does not ship until it can.\n\n## What It Covers\n\nThe geometry resolver is responsible for:\n\n1. **Evaluating animated transforms at time t**: Given a node's position/rotation/scale keyframe tracks (compiled from the beat timeline), compute the resolved transform at any sample time t.\n2. **Rasterization-aware bounding boxes**: For every node type this task covers (shapes, text, SVG, groups — map elements are explicitly out of scope here, see below), compute the tight 2D bounding box in output pixels *as it will be rasterized*, not as abstract geometry. This requires:\n   - Skia text shaping and glyph metrics (bundled fonts, exact sizing as rendered)\n   - Stroke-width expansion for stroked primitives\n   - Composite bounds for groups (union of children)\n3. **Deterministic geometry for paint rendering**: When procedural wobble, stroke jitter, and textures are applied, the resolver tracks the parameter space (node ID, project seed, stroke profile) and reports bounding boxes that conservatively cover the rendered result.\n4. **Font resolution with bundling**: Text nodes resolve their font from the active style pack's bundled font set, with fallback rules, ensuring the verifier and renderer use identical typeface metrics.\n5. **Group and layer composition**: Hierarchical bounds computation, respecting clipping and masking where applicable.\n\n## How It Fits Phase 1\n\nPhase 1's goal is a multi-scene scripted video rendering end-to-end with determinism proven and geometry resolved for every node type shipped. The geometry resolver enables:\n\n- **Verifier**: every layout/readability check (overlap detection, safe-area margins, text reading time, contrast) depends on resolved geometry.\n- **Renderer**: frame-by-frame rasterization via Skia uses resolved bounds for layer caching, clipping, and composition.\n- **Determinism proof**: golden-image tests on the resolver's output (rendered pixels matched against fixture baselines) prove the geometry and rasterization path is bit-stable across runs.\n\nIts completion is a critical gate: if geometry resolution is incomplete or diverges between verify and render paths, the entire verification contract collapses.\n\n## Dependencies\n\n- **scene-graph-model**: Needs the final Node type definitions, property types, and keyframe-track structure. The resolver consumes the compiled scene graph.\n- **animation-system**: Needs keyframe interpolation (easing, tracking evaluation). The resolver calls the animation system to resolve node transforms at time t.\n- **font-bundling**: Needs the bundled font set, font-file paths, and fallback rules so text nodes can resolve typeface metrics identically in verify and render.\n\nDeliverables 3 and 4 (pixel-agreement golden and render-path validation) require Skia rasterization to check resolved bounds against actual rendered ink. Those two verifications assume **skia-rasterizer-cache** has landed; note that skia-rasterizer-cache itself depends on this task, so its rasterizer lands after this task's core module ships — treat deliverables 3 and 4's pixel-comparison steps as sequenced to run once skia-rasterizer-cache is available, not as a blocking dependency of this task. Deliverables 1, 2, and 5 are pure geometry (no rasterized pixels) and are independently verifiable without skia-rasterizer-cache.\n\n## What's Out of Scope\n\n- Map node bounds (BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker). Map geometry resolution is Phase 4 scope: the map-node-types and map-geometry-foundation tasks extend this resolver with map-specific `resolve_bounds_at_time` methods once map projection and territory data land. Nothing in this task's deliverables covers map elements.\n- Rendering pixels (that's the Skia rasterizer's job). The resolver outputs bounding boxes and geometry, not rasters.\n- Style-pack-specific constraint rules (that's the verification engine's job; the resolver just provides the geometry they evaluate).\n- Layer caching and frame streaming (that's the render pipeline; the resolver is a pure function).\n\n## Node Types Covered in Phase 1\n\nFrom the product spec and Phase 1 scope:\n\n1. **Shapes** (rectangle, circle, polygon, path): Skia-rendered primitives with transforms and strokes.\n2. **Text**: Bundled fonts, glyph metrics, stroke/fill, baseline-aligned positioning.\n3. **SVG assets**: Imported static SVG with transforms.\n4. **Groups**: Composite bounds, transform hierarchy.\n5. (Subtitles and style-pack-specific effects land in Phase 2; their geometry resolve here if already shipped.)\n\n**Map elements are explicitly out of scope for this task** (BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker) — see \"What's Out of Scope\" above. Phase 4 map tasks extend this resolver once map projection and territory data exist.\n\nEach type gets a dedicated `resolve_bounds_at_time(node, time, scene_state)` method and unit-tested fixtures.",
+  "roadmap_phase": "Phase 1: Scene graph, timeline, and first pixels",
+  "depends_on": [
+    "scene-graph-model",
+    "animation-system",
+    "font-bundling"
+  ],
+  "complexity": "complex",
+  "research_engine": "gpt-sol",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Core geometry-resolver module (`anima/_internal/geometry.py`) implementing `BoundsResolver` class with node-type-specific methods: `resolve_bounds_at_time(node, time, scene_state)` returning a typed `Bounds` dataclass (min_x, min_y, max_x, max_y in output pixels), and helper methods for transform evaluation, Skia text shaping, map projection, and composite bounds. Determinism ensured via seeded RNG for stroke/texture parameters.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/test_geometry_resolver.py -v --tb=short",
+        "steps": null
+      }
+    },
+    {
+      "description": "Property-based and edge-case test suite in a distinct file (`tests/test_geometry_resolver_properties.py`, separate from the core unit-test file in deliverable 1 so this deliverable is not a subset of a full-file run) covering: determinism property tests (same node + seed ⇒ identical geometry; different node ids ⇒ no correlation in wobble), Skia text-shaping parity beyond the core suite (font fallback chains, missing-glyph handling), stroke-width expansion edge cases (zero-width, dashed, mixed stroke/fill), and edge cases (zero-duration animations, clipped text, missing fonts, degenerate zero-area nodes).",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/test_geometry_resolver_properties.py -v --hypothesis-seed=0",
+        "steps": null
+      }
+    },
+    {
+      "description": "Golden-image fixture suite for geometry validation: renderable fixture projects (Phase 1 scope only: shapes, text, groups — map elements are out of scope for this task, see \"What's Out of Scope\"; this deliverable's pixel comparisons assume skia-rasterizer-cache has landed, see Dependencies) where resolved bounds are sampled at beat boundaries and animation keyframes, rasterized via Skia, and compared compare-only against committed baselines blessed in the pinned Docker container through the shared `anima.testing.goldens` registry (the same registry golden-image-harness establishes — no separate `--golden-baseline-dir` flag or second snapshot mechanism). The suite asserts bounds are tight, not merely containing: resolved-bounds edges must sit within a stated max-slack tolerance (default 2px per axis) of the actual rasterized ink extent (YIQ perceptual diff, anti-aliased pixel exclusion); a resolver that trivially returns the full frame for every node must fail this check.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/test_geometry_golden.py -v && python -m anima.testing.goldens compare --id geometry-resolver-fixtures",
+        "steps": null
+      }
+    },
+    {
+      "description": "Render-path geometry validation: a scripted integration test where a Phase 1 fixture project (shapes, text, groups only — no map elements) is rendered frame-by-frame; at every frame, resolved geometry is sampled and verified against the actual rendered pixels. The test asserts both containment (rendered ink stays within resolved bounds) and tightness (resolved-bounds edges sit within a stated max-slack tolerance, default 2px per axis, of the actual rendered ink extent) — a resolver that trivially returns the full frame for every node must fail this test, not merely pass a containment-only check. Overlaps flagged if verification would have missed them. This deliverable's pixel comparisons assume skia-rasterizer-cache has landed, see Dependencies. Failure here means verify/render divergence — a blocker for Phase 1 completion.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/test_geometry_render_agreement.py::test_bounds_contain_rendered_pixels tests/test_geometry_render_agreement.py::test_bounds_tightness_within_slack -v",
+        "steps": null
+      }
+    },
+    {
+      "description": "Bundled font resolution and Skia text-shaping parity test: verifies that text nodes resolve the correct font from the style pack's bundled set, Skia's glyph metrics match expectations (height, advance width, baseline), and text bounds are tight (no false-positive overlaps, reading-time calculations based on resolved width are accurate). Fixture with both Latin and test-coverage character sets.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/test_geometry_text_shaping.py -v",
+        "steps": null
+      }
+    },
+    {
+      "description": "API contract documentation: type stubs and docstrings for `BoundsResolver`, `Bounds`, and per-node-type resolver methods; examples showing verify-path usage (sampling at beat times) and render-path usage (per-frame evaluation). Enough detail that an agent writing a custom node type can implement the resolver contract.",
+      "verification": {
+        "type": "manual",
+        "command": null,
+        "steps": "Read anima/_internal/geometry.py docstrings and type stubs. Confirm every public method has a clear signature, return type, and a usage example. Verify docstrings explain the determinism contract and the difference between verify-time (sparse sampling) and render-time (per-frame) invocation patterns."
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "2026-07-13T00:00:00Z",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

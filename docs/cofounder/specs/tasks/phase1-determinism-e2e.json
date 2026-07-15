@@ -1,0 +1,58 @@
+{
+  "id": "phase1-determinism-e2e",
+  "title": "Phase 1 fixture project and determinism proof",
+  "short_description": "Author the scripted 60-90s multi-scene fixture (shapes, text, groups, entrances/exits, camera moves, transitions) rendering to a correct 1080p30 MP4, and prove determinism in CI: byte-identical frame hashes across two runs plus green property-based tests on graph and frame stability.",
+  "roadmap_phase": "Phase 1: Scene graph, timeline, and first pixels",
+  "depends_on": [
+    "streaming-encoder-render",
+    "cli-inspect-preview",
+    "seeded-rng-service"
+  ],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "long_description_md": "# Phase 1 fixture project and determinism proof\n\n## Why task exist\n\nThis is Phase 1's closing proof task -- it does not build a new engine surface, it authors the reference content and CI gate that shows everything Phase 1 built (scene graph, timeline compiler, geometry resolver, rasterizer + static-layer cache, streaming encoder, CLI) actually composes into the roadmap's stated done-when bar. Two roadmap done-when items land here directly: \"A scripted 60-90s multi-scene project (shapes, text, groups; entrances/exits/transforms; camera pan/zoom; scene transitions) renders to a correct 1080p30 MP4 from `anima render`\" and \"Determinism proven: same project+seed renders byte-identical frame hashes across two runs in CI; property tests green.\"\n\nDeterminism is not a nice-to-have here -- it is the whole trust boundary of anima-ai (technical-architecture.md: \"identical project source, seed, engine version, and style-pack version must produce identical serialized graphs, compiled tracks, frame hashes, reports, and exit codes\"; NFR.md: \"No flaky behavior: identical inputs => identical outputs (frames, reports, exit codes). A nondeterministic test or render is a P0 bug, not a retry candidate\"). Every earlier Phase 1 task tests determinism at its own layer (RNG streams, timeline compilation, geometry resolution, rasterization, encoding); this task is the one place that proves it end-to-end across the full pipeline on a real, non-trivial project, and locks that proof into CI so a regression in any layer trips a single, obvious gate.\n\n## Scope / contract\n\n1. **Author the fixture project.** A real, checked-in anima-ai project (Python scene code + beat-annotated script per the `anima new` shape from `cli-framework`) spanning 60-90 seconds of narration-driven runtime, multiple scenes (scene transitions between at least 2-3 scenes), and exercising: shape nodes, text nodes, groups, node entrance/exit animations, transform animations, camera pan and zoom, and at least one scene transition effect. Timing must derive from the beat-annotated script via the WPM model (per `timeline-compiler`), not hardcoded frame counts. This is genuinely representative content -- not a degenerate single-shape smoke test -- since it is the reference artifact later phases (crude pack in Phase 3, flat pack in Phase 5) reuse to prove pack pluggability.\n2. **Correctness proof.** `anima render` on this project produces a 1080p30 MP4 whose duration matches the compiled timeline's total duration (within one frame), whose frame count matches fps x duration, and which is a valid, decodable video file. \"Correct\" here means structurally correct and consistent with the compiled timeline -- not pixel-judged by a human (no VLM, no golden-image full-video comparison; that class of check belongs to golden-image-harness's primitive-level goldens plus geometry-resolver's golden fixture suite, not this task).\n3. **Determinism CI proof.** A CI-runnable job/test that: renders the fixture project twice (in separate processes, same project+seed), computes a hash per output frame (e.g. per-frame pixel hash from the decoded video or from the raw frame stream before encoding, whichever is more direct and still exercises the real render path) for both runs, and asserts every frame hash is byte-identical between the two runs. Must run inside the pinned/golden environment consistent with golden-image-harness's determinism story (documented which environment) so the proof is not accidentally laptop-specific.\n4. **Property-based tests, graph and frame stability.** Hypothesis-backed property tests (consistent with `seeded-rng-service`'s established pattern) asserting: (a) graph-level -- re-serializing the fixture project's scene graph twice from the same source produces byte-identical JSON; (b) frame-level -- for a sampled set of generated small variant projects (varying seed, varying a few scalar parameters) rendering twice with the same seed produces identical frame hashes, while different seeds produce at least one differing frame hash somewhere in the animated regions (proves the pipeline is actually seed-sensitive, not accidentally deterministic by ignoring the seed).\n5. **Wire it into CI.** Add or extend the project's CI workflow so this determinism job runs on every push/PR (verify via grepping the workflow file content, not by dispatching a run, per grounding rules since this project is not yet a git repo / has no GitHub remote to dispatch against).\n\n## Out of scope (tiles against sibling tasks)\n\n- Building the rasterizer, static-layer cache, streaming encoder, `anima render`/`inspect`/`preview` commands, timeline compiler, geometry resolver, seeded RNG -- all built by earlier Phase 1 tasks; this task only authors content and proof on top of them.\n- Golden-image pixel-level correctness of individual primitives -- `golden-image-harness` and `geometry-resolver`'s golden fixture suite own that; this task's \"correctness proof\" is structural (duration/frame-count/validity/determinism), not a pixel-perfect-vs-baseline claim.\n- CLI contract mechanics (`--json`, exit codes) -- already covered by `cli-framework`'s own tests; this task exercises those commands, does not re-test the contract itself.\n- Style-pack rendering (paint textures, wobble, `crude`/`flat` visual identity) -- Phase 3/5; the fixture in Phase 1 renders plain/unstyled or minimal-default-styled shapes, not a styled pack look.\n- Map elements -- Phase 4, not present in this fixture.\n- Verification (`anima verify`, structural/layout rule checking) -- Phase 2; this task proves render correctness and determinism, not verify-rule coverage.\n- Long-form (15-20 min) scale/performance targets -- Phase 6; this fixture is 60-90s per the roadmap's explicit Phase 1 scope.\n",
+  "deliverables": [
+    {
+      "description": "Author the checked-in 60-90s multi-scene fixture project (Python scene code + beat-annotated script) exercising shapes, text, groups, entrance/exit and transform animations, camera pan/zoom, and at least one scene transition, with WPM-derived timing. Test asserts the project loads, compiles via timeline-compiler without error, and anima render produces a valid MP4 with duration and frame count matching the compiled timeline within one frame.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/fixtures/phase1/test_fixture_renders.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "CI-runnable determinism proof: render the fixture project twice in separate processes with the same seed, compute per-frame hashes for both runs, and assert byte-identical hashes across every frame.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/fixtures/phase1/test_determinism_e2e.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Hypothesis-backed property tests: scene-graph re-serialization is byte-identical across repeated builds of the fixture project, and across generated small variant projects, same-seed reruns produce identical frame hashes while differing seeds produce at least one differing frame hash in animated regions.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/fixtures/phase1/test_determinism_properties.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "CI workflow wired to run the Phase 1 determinism job on every push/PR, verified by inspecting the workflow file content (no dispatch against a remote, since this repo has no GitHub remote yet).",
+      "verification": {
+        "type": "unit",
+        "command": "grep -q 'test_determinism_e2e' .github/workflows/*.yml",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

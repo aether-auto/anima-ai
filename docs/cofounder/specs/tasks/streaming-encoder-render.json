@@ -1,0 +1,57 @@
+{
+  "id": "streaming-encoder-render",
+  "title": "PyAV streaming encoder and anima render",
+  "short_description": "Implement the encode pipeline — frame production decoupled from a single PyAV encoder thread, memory bounded O(active scene), atomic output writes verified by a kill-test — surfaced as anima render with --scene/--beat/--range partial-render flags.",
+  "roadmap_phase": "Phase 1: Scene graph, timeline, and first pixels",
+  "depends_on": [
+    "skia-rasterizer-cache",
+    "cli-framework"
+  ],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "long_description_md": "# PyAV streaming encoder and `anima render`\n\n## Why task exist\n\nRasterizer (from `skia-rasterizer-cache`) produces frames one at a time; this task turns that stream into an actual MP4 file and exposes it as the `anima render` command an agent runs. Technical-architecture.md names the exact shape: \"RGBA frames stream to a single PyAV encoder thread (frame production decoupled from encoding; Manim PR #3888 pattern) -> atomic move of finished MP4 into place. `--scene/--beat/--range` renders subsets.\" PyAV chosen specifically because it bundles ffmpeg (\"pip install anima-ai is the entire setup\") and the architecture doc explicitly flags moviepy's \"never-fixed multiprocess pipe deadlocks\" as the cautionary tale this design avoids -- decoupling frame production from encoding via a single dedicated encoder thread is the mitigation, not incidental.\n\nRoadmap Phase 1 done-when items this task satisfies: \"A scripted 60-90s multi-scene project... renders to a correct 1080p30 MP4 from `anima render`\" (fixture project itself is `phase1-determinism-e2e`'s job, but the render path it uses is built here), \"renders stream with bounded memory,\" and \"atomic output writes verified by a kill-test.\" NFR doc: memory must be O(active scene) never O(project) -- this task is where that promise is actually kept, since frames must never buffer past the encoder.\n\n## Scope / contract\n\n1. **Streaming encoder.** A module (e.g. `anima._internal.encode`) that opens a PyAV output container/stream configured for 1080p30 H.264 (or documented pinned codec/container choice matching technical-architecture.md's PyAV pin), accepts a frame iterator/generator (from the rasterizer), and writes frames to a single encoder thread as they are produced -- frame production (rasterization) and encoding must run decoupled (e.g. producer thread/generator feeding a bounded queue consumed by one encoder thread), so a slow encoder does not force the whole video's frames to buffer in memory and a fast producer does not race the encoder. Memory use must stay bounded regardless of total video length -- test with a longer synthetic frame count to catch O(project) leaks.\n2. **Atomic output writes.** Render must write to a temporary path (e.g. `<out>.tmp` or a temp dir) and atomically rename/move to the final output path only on successful completion. A kill/crash mid-render (process killed, exception raised mid-stream) must never leave a corrupt or partial file at the final output path -- either the final path does not exist, or it holds a complete, valid, previous-good file (never overwritten with a partial one).\n3. **`anima render` CLI command**, built on the `cli-framework` contract (`--json`, typed exit codes, stdout/stderr separation, agent-readable `--help`): renders a project to MP4 at its configured resolution/fps. Support `--scene <id>`, `--beat <id>`, `--range <start>:<end>` (time-range, format documented) to render subsets instead of the whole project -- each must produce a correct, independently playable MP4 of just that subset, using the same rasterizer/geometry code path as a full render (no separate partial-render logic that could diverge). Must reject invalid scene/beat/range identifiers as typed user errors, not internal errors.\n4. **Determinism.** Rendering the same project+seed twice must produce byte-identical output files (or byte-identical decoded frame sequences if container/muxer metadata like timestamps are not bit-reproducible -- document and justify whichever guarantee is actually achievable, but frame pixel content itself must be identical; full byte-identical file determinism, if achievable, is preferred and should be attempted first).\n\n## Out of scope (tiles against sibling tasks)\n\n- Rasterization itself, static-layer cache -- `skia-rasterizer-cache` (already built, consumed here as a frame source).\n- `anima new`, CLI framework/contract primitives (exit codes, `--json`, error boundary) -- already built by `cli-framework`; this task adds the `render` command on top, does not rebuild the framework.\n- `anima inspect`, `anima preview`, contact sheets -- `cli-inspect-preview`.\n- Authoring the 60-90s Phase 1 fixture project and the CI job proving frame-hash determinism end-to-end plus property tests on graph/frame stability -- `phase1-determinism-e2e` (this task proves determinism at the encoder/render-path level with its own smaller fixture; the full fixture and its CI proof job live in the sibling task).\n- Per-scene parallel render across worker processes with concat -- Phase 6.\n- Verification gating render on error-severity findings (`verify` blocking `render`, `--force`) -- Phase 2 (`verify` structural checks not yet in scope for this render path in Phase 1; render runs unconditionally in Phase 1).\n",
+  "deliverables": [
+    {
+      "description": "Implement streaming PyAV encoder module: accepts a frame iterator, encodes on a single dedicated encoder thread decoupled from frame production via a bounded queue, writes a correct 1080p30 MP4. Unit/integration tests cover a short synthetic frame sequence encoding to a valid, playable MP4 with correct frame count and resolution, and a bounded-memory test asserting peak memory does not scale with total frame count for a longer synthetic sequence.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/encode/test_streaming_encoder.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement atomic output writes and prove them with a kill-test: start a render in a subprocess, SIGKILL it mid-stream at a randomized point, assert the final output path either does not exist or holds a complete, previously-verified-good file, never a partial/corrupt one.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/encode/test_atomic_write_killtest.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement `anima render` CLI command on the cli-framework contract with --scene/--beat/--range partial-render flags; each flag renders a correct, independently playable subset MP4 using the same rasterizer/geometry path as a full render, and invalid scene/beat/range identifiers return typed user errors (exit code 2) not internal errors.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/cli/test_render_command.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Determinism test: render the same small fixture project+seed twice in separate processes and assert identical output (byte-identical file, or documented-and-justified byte-identical decoded frame pixel sequence if container metadata prevents full file identity).",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/encode/test_render_determinism.py -q",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

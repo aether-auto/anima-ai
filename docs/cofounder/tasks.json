@@ -1,0 +1,500 @@
+{
+  "project": "anima-ai",
+  "generated_at": "2026-07-14T05:06:23Z",
+  "sprints": [
+    {
+      "sprint": 0,
+      "task_ids": [
+        "repo-scaffold-ci"
+      ],
+      "depends_on_sprints": []
+    },
+    {
+      "sprint": 1,
+      "task_ids": [
+        "font-bundling",
+        "golden-image-harness",
+        "map-geometry-foundation",
+        "scene-graph-model",
+        "seeded-rng-service"
+      ],
+      "depends_on_sprints": [
+        0
+      ]
+    },
+    {
+      "sprint": 2,
+      "task_ids": [
+        "cli-framework",
+        "timeline-compiler"
+      ],
+      "depends_on_sprints": [
+        0,
+        1
+      ]
+    },
+    {
+      "sprint": 3,
+      "task_ids": [
+        "animation-system",
+        "verification-report-schema"
+      ],
+      "depends_on_sprints": [
+        1,
+        2
+      ]
+    },
+    {
+      "sprint": 4,
+      "task_ids": [
+        "geometry-resolver",
+        "style-pack-system",
+        "verify-structural-checks"
+      ],
+      "depends_on_sprints": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "sprint": 5,
+      "task_ids": [
+        "skia-rasterizer-cache",
+        "verify-layout-rules"
+      ],
+      "depends_on_sprints": [
+        3,
+        4
+      ]
+    },
+    {
+      "sprint": 6,
+      "task_ids": [
+        "agent-repair-harness",
+        "cli-inspect-preview",
+        "paint-primitives",
+        "streaming-encoder-render",
+        "subtitle-rendering"
+      ],
+      "depends_on_sprints": [
+        1,
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "sprint": 7,
+      "task_ids": [
+        "crude-pack",
+        "phase1-determinism-e2e"
+      ],
+      "depends_on_sprints": [
+        1,
+        4,
+        6
+      ]
+    },
+    {
+      "sprint": 8,
+      "task_ids": [
+        "map-node-types",
+        "parallel-scene-render"
+      ],
+      "depends_on_sprints": [
+        1,
+        6,
+        7
+      ]
+    },
+    {
+      "sprint": 9,
+      "task_ids": [
+        "map-camera-state",
+        "map-verify-rules"
+      ],
+      "depends_on_sprints": [
+        3,
+        8
+      ]
+    },
+    {
+      "sprint": 10,
+      "task_ids": [
+        "flat-pack",
+        "map-mini-episode"
+      ],
+      "depends_on_sprints": [
+        1,
+        4,
+        7,
+        9
+      ]
+    },
+    {
+      "sprint": 11,
+      "task_ids": [
+        "pack-pluggability-proof",
+        "taste-constraint-rules"
+      ],
+      "depends_on_sprints": [
+        3,
+        7,
+        9,
+        10
+      ]
+    },
+    {
+      "sprint": 12,
+      "task_ids": [
+        "chapter-project-structure",
+        "cookbook-examples"
+      ],
+      "depends_on_sprints": [
+        5,
+        6,
+        10,
+        11
+      ]
+    },
+    {
+      "sprint": 13,
+      "task_ids": [
+        "agent-docs-surface",
+        "performance-nfr-targets"
+      ],
+      "depends_on_sprints": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "sprint": 14,
+      "task_ids": [
+        "docs-site-context7",
+        "fresh-agent-test",
+        "longform-pipeline-proof"
+      ],
+      "depends_on_sprints": [
+        6,
+        12,
+        13
+      ]
+    },
+    {
+      "sprint": 15,
+      "task_ids": [
+        "v1-flagship-episode"
+      ],
+      "depends_on_sprints": [
+        14
+      ]
+    },
+    {
+      "sprint": 16,
+      "task_ids": [
+        "pypi-name-and-publish"
+      ],
+      "depends_on_sprints": [
+        15
+      ]
+    },
+    {
+      "sprint": 17,
+      "task_ids": [
+        "launch-assets-posts"
+      ],
+      "depends_on_sprints": [
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "agent-docs-surface",
+      "title": "SKILL.md, llms.txt, AGENTS.md, and verification-rule catalog",
+      "sprint": 13,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/agent-docs-surface.json"
+    },
+    {
+      "id": "agent-repair-harness",
+      "title": "Agent-in-the-loop verification repair harness",
+      "sprint": 6,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/agent-repair-harness.json"
+    },
+    {
+      "id": "animation-system",
+      "title": "Declarative animation system, easing, camera, and transitions",
+      "sprint": 3,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/animation-system.json"
+    },
+    {
+      "id": "chapter-project-structure",
+      "title": "Chapter/package project structure and whole-project verify",
+      "sprint": 12,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/chapter-project-structure.json"
+    },
+    {
+      "id": "cli-framework",
+      "title": "Agent-facing CLI framework and anima new",
+      "sprint": 2,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/cli-framework.json"
+    },
+    {
+      "id": "cli-inspect-preview",
+      "title": "anima inspect and anima preview contact sheets",
+      "sprint": 6,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/cli-inspect-preview.json"
+    },
+    {
+      "id": "cookbook-examples",
+      "title": "Cookbook of CI-rendered worked examples",
+      "sprint": 12,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/cookbook-examples.json"
+    },
+    {
+      "id": "crude-pack",
+      "title": "crude style pack (OverSimplified-inspired)",
+      "sprint": 7,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/crude-pack.json"
+    },
+    {
+      "id": "docs-site-context7",
+      "title": "Docs site on GitHub Pages and Context7 listing",
+      "sprint": 14,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/docs-site-context7.json"
+    },
+    {
+      "id": "flat-pack",
+      "title": "flat style pack (Kurzgesagt-inspired)",
+      "sprint": 10,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/flat-pack.json"
+    },
+    {
+      "id": "font-bundling",
+      "title": "Bundle and license-vet fonts for both packs",
+      "sprint": 1,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/font-bundling.json"
+    },
+    {
+      "id": "fresh-agent-test",
+      "title": "Fresh-agent onboarding test",
+      "sprint": 14,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/fresh-agent-test.json"
+    },
+    {
+      "id": "geometry-resolver",
+      "title": "Shared geometry resolver (verify/render single code path)",
+      "sprint": 4,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/geometry-resolver.json"
+    },
+    {
+      "id": "golden-image-harness",
+      "title": "Golden-image test harness with pinned container",
+      "sprint": 1,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/golden-image-harness.json"
+    },
+    {
+      "id": "launch-assets-posts",
+      "title": "Launch assets, announcement posts, and post-launch flywheel",
+      "sprint": 17,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/launch-assets-posts.json"
+    },
+    {
+      "id": "longform-pipeline-proof",
+      "title": "Complete 15-20 minute episode pipeline proof",
+      "sprint": 14,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/longform-pipeline-proof.json"
+    },
+    {
+      "id": "map-camera-state",
+      "title": "Map camera flights and cross-scene map-state persistence",
+      "sprint": 9,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/map-camera-state.json"
+    },
+    {
+      "id": "map-geometry-foundation",
+      "title": "Vendored map data, projections, and topology-safe simplification",
+      "sprint": 1,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/map-geometry-foundation.json"
+    },
+    {
+      "id": "map-mini-episode",
+      "title": "Two-minute map-driven mini-episode end to end",
+      "sprint": 10,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/map-mini-episode.json"
+    },
+    {
+      "id": "map-node-types",
+      "title": "Map node types (BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker)",
+      "sprint": 8,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/map-node-types.json"
+    },
+    {
+      "id": "map-verify-rules",
+      "title": "Map verification rules",
+      "sprint": 9,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/map-verify-rules.json"
+    },
+    {
+      "id": "pack-pluggability-proof",
+      "title": "Style-pack pluggability proof",
+      "sprint": 11,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/pack-pluggability-proof.json"
+    },
+    {
+      "id": "paint-primitives",
+      "title": "Procedural paint rendering primitives",
+      "sprint": 6,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/paint-primitives.json"
+    },
+    {
+      "id": "parallel-scene-render",
+      "title": "Per-scene parallel render",
+      "sprint": 8,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/parallel-scene-render.json"
+    },
+    {
+      "id": "performance-nfr-targets",
+      "title": "Hit NFR performance targets and nightly regression gate",
+      "sprint": 13,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/performance-nfr-targets.json"
+    },
+    {
+      "id": "phase1-determinism-e2e",
+      "title": "Phase 1 fixture project and determinism proof",
+      "sprint": 7,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/phase1-determinism-e2e.json"
+    },
+    {
+      "id": "pypi-name-and-publish",
+      "title": "PyPI name confirmation and v0.1.0 publish",
+      "sprint": 16,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/pypi-name-and-publish.json"
+    },
+    {
+      "id": "repo-scaffold-ci",
+      "title": "Repo scaffold, packaging, and 3-OS CI matrix",
+      "sprint": 0,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/repo-scaffold-ci.json"
+    },
+    {
+      "id": "scene-graph-model",
+      "title": "Typed scene-graph data model with JSON serialization",
+      "sprint": 1,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/scene-graph-model.json"
+    },
+    {
+      "id": "seeded-rng-service",
+      "title": "Seeded RNG service keyed by (project_seed, node_id)",
+      "sprint": 1,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/seeded-rng-service.json"
+    },
+    {
+      "id": "skia-rasterizer-cache",
+      "title": "Skia rasterizer with static-layer cache",
+      "sprint": 5,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/skia-rasterizer-cache.json"
+    },
+    {
+      "id": "streaming-encoder-render",
+      "title": "PyAV streaming encoder and anima render",
+      "sprint": 6,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/streaming-encoder-render.json"
+    },
+    {
+      "id": "style-pack-system",
+      "title": "Style-pack schema, pinning, anima assets, and palette rule",
+      "sprint": 4,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/style-pack-system.json"
+    },
+    {
+      "id": "subtitle-rendering",
+      "title": "Burned-in subtitle rendering with verify rules",
+      "sprint": 6,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/subtitle-rendering.json"
+    },
+    {
+      "id": "taste-constraint-rules",
+      "title": "Taste constraint rules with per-pack profiles and severity config",
+      "sprint": 11,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/taste-constraint-rules.json"
+    },
+    {
+      "id": "timeline-compiler",
+      "title": "Script-to-timeline compiler: beat parsing, WPM estimation, and track lowering",
+      "sprint": 2,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/timeline-compiler.json"
+    },
+    {
+      "id": "v1-flagship-episode",
+      "title": "The v1 bar: flagship 15-20 minute agent-authored episode",
+      "sprint": 15,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/v1-flagship-episode.json"
+    },
+    {
+      "id": "verification-report-schema",
+      "title": "VerificationReport/Finding schema and render gating",
+      "sprint": 3,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/verification-report-schema.json"
+    },
+    {
+      "id": "verify-layout-rules",
+      "title": "Layout and readability verification rules with spatial index",
+      "sprint": 5,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/verify-layout-rules.json"
+    },
+    {
+      "id": "verify-structural-checks",
+      "title": "Structural verification checks",
+      "sprint": 4,
+      "status": "pending",
+      "spec_path": "docs/cofounder/specs/tasks/verify-structural-checks.json"
+    }
+  ]
+}

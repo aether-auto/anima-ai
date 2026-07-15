@@ -1,0 +1,63 @@
+{
+  "id": "verify-layout-rules",
+  "title": "Layout and readability verification rules with spatial index",
+  "short_description": "Ship OVERLAP.TEXT_TEXT, OVERLAP.TEXT_NODE, MARGIN.SAFE_AREA, FONT.MIN_SIZE, TIMING.READ_TIME, and CONTRAST.LOW computed from the shared geometry resolver, each with violating and passing fixtures and concrete fix_hints, with spatial indexing meeting the 5s/10-beat and 30s/100-beat verify budgets.",
+  "roadmap_phase": "Phase 2: Verification engine v1 + subtitles",
+  "depends_on": ["verification-report-schema", "geometry-resolver"],
+  "complexity": "complex",
+  "long_description_md": "## Why this exists\n\nStructural checks (verify-structural-checks) prove the project graph is well-formed. That is necessary but not the differentiator anima-ai is betting on. Product-spec capability 7 promises layout and readability checks computed straight from the renderer's own geometry -- no VLM, no pixel diffing, no human watching -- so an agent can trust that if `verify` is green, the video is not just structurally valid but actually readable. This task is that promise made real: the six rules named in product-spec.md (`OVERLAP.TEXT_TEXT`, `TIMING.READ_TIME`, plus `OVERLAP.TEXT_NODE`, `MARGIN.SAFE_AREA`, `FONT.MIN_SIZE`, `CONTRAST.LOW`) and the spatial index that keeps them fast at scale.\n\n## Roadmap fit\n\nPhase 2 is \"the differentiator.\" Roadmap line 40 names these six codes explicitly as done-when criteria, each needing violating + passing fixtures and concrete `fix_hint`s. Roadmap line 43 sets the performance bar this task must hit: verify <=5s on a 10-beat project, <=30s on a synthetic 100-beat/1000-node project, achieved via spatial indexing (technical-architecture.md calls out an R-tree or simple grid over bounding boxes so overlap checks stay subquadratic). This task depends on `geometry-resolver` (bounds-at-time for every node type) and `verification-report-schema` (the Finding/VerificationReport contract these rules populate).\n\n## Scope\n\n- A `LayoutIndex` (grid-based spatial index; R-tree only if the grid proves insufficient at the 1000-node benchmark) built once per verify run from geometry-resolver bounds sampled at beat boundaries and animation keyframe times, supporting fast candidate-pair queries for overlap checks instead of O(n^2) all-pairs comparison.\n- `OVERLAP.TEXT_TEXT`: any two text nodes whose resolved bounds intersect above a configurable area/IoU threshold during an overlapping visibility window.\n- `OVERLAP.TEXT_NODE`: a text node's resolved bounds intersecting a \"salient\" non-text node (node kinds flagged salient by scene-graph-model / style-pack constraint profile) during an overlapping window.\n- `MARGIN.SAFE_AREA`: any node's resolved bounds crossing the configured safe-area margin (percentage of frame, per output resolution) at any sampled time.\n- `FONT.MIN_SIZE`: any text node's *rendered* font size at output resolution (accounting for camera zoom / node scale transforms, not just the authored point size) falling below a configurable minimum.\n- `TIMING.READ_TIME`: any on-screen text node's visible duration falling below the estimated reading time for its content under a configurable words-per-minute reading model (distinct from the narration WPM model in timeline-compiler, but the same shape of estimator).\n- `CONTRAST.LOW`: resolved foreground text color against the resolved background color at the text's screen region computed at a contrast ratio below a configurable threshold (WCAG-style luminance contrast formula); background resolution reuses geometry-resolver's composite bounds/paint-order data, not a separate raster sample, to stay deterministic and VLM-free.\n- Every rule emits Findings via the verification-report-schema contract (namespaced code, severity, node_ids, beat_ids, t_window, expected/actual, non-empty fix_hint with concrete numeric guidance e.g. \"delay label_7 entry to t>=14.0 or move below y=820\").\n- A `run_layout_checks(project, compiled_timeline)` entry point callable alongside `run_structural_checks`, each rule independently toggleable/configurable (thresholds), assembling into one VerificationReport.\n- Fixture library: one clean-pass fixture project, and at least one deliberately-violating fixture per rule (6 rules => >=6 violation fixtures minimum), each asserting the exact expected Finding code and key fields.\n- Performance fixtures: a 10-beat project asserting full verify (structural + layout) completes in <=5s, and a synthetic 100-beat/1000-node project asserting <=30s, both measured on the reference machine / CI runner with a documented margin.\n\n## Out of scope\n\n- Structural checks (`REF.*`, ID uniqueness, timing closure, `BUILD.EXCEPTION`) -- owned by verify-structural-checks, already shipped as this task's sibling.\n- The VerificationReport/Finding data model, JSON codec, human formatter, and render-gate policy -- owned by verification-report-schema; this task only produces Findings through that contract, never redefines it.\n- Geometry/bounds-at-time computation itself, text shaping, transform evaluation -- owned by geometry-resolver; this task only consumes `BoundsResolver`.\n- Subtitle-specific rendering and the subtitle text nodes themselves -- owned by subtitle-rendering (this task's rules apply generically to any text node, subtitles included, but subtitle-rendering integrates and re-verifies once burned-in subtitles exist).\n- Taste/pacing/continuity rules (`PACING.*`, `CONTINUITY.*`) and severity promote/demote configuration -- Phase 5 scope, not this task.\n- Map-specific rules (`MAP.*`) -- Phase 4 scope.\n- `STYLE.PALETTE_VIOLATION` -- owned by style-pack-system.\n- The agent-repair regression harness that exercises these rules end-to-end against broken fixtures -- owned by agent-repair-harness, a sibling task; this task only needs to ship the rules and their own fixtures, not the cross-rule agent-fixability harness."
+  ,
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Grid-based LayoutIndex spatial index built from geometry-resolver bounds sampled at beat/keyframe times, exposing candidate-pair and region queries used by the overlap and margin rules; unit-tested for correctness against brute-force all-pairs comparison on randomized fixture sets and for subquadratic query-count scaling as node count grows.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/verification/test_layout_spatial_index.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "OVERLAP.TEXT_TEXT, OVERLAP.TEXT_NODE, and MARGIN.SAFE_AREA rules implemented against the spatial index, each with at least one violating fixture and one passing fixture, asserting exact Finding code, node_ids/beat_ids/t_window, and a non-empty numeric fix_hint.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/verification/test_rule_overlap_text_text.py tests/verification/test_rule_overlap_text_node.py tests/verification/test_rule_margin_safe_area.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "FONT.MIN_SIZE, TIMING.READ_TIME, and CONTRAST.LOW rules implemented against geometry-resolver's resolved text/paint state, each with at least one violating fixture and one passing fixture, including a FONT.MIN_SIZE fixture where camera zoom shrinks authored-large text below the effective minimum, and a CONTRAST.LOW fixture computed against a composited background rather than a flat fill.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/verification/test_rule_font_min_size.py tests/verification/test_rule_timing_read_time.py tests/verification/test_rule_contrast_low.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "run_layout_checks(project, compiled_timeline) integration entry point running all six rules in deterministic order, merging results into one VerificationReport via the verification-report-schema contract, exercised end-to-end against a clean-pass fixture project and against a project with one violation per rule; full lint/type checks pass on the new module.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/verification/test_layout_checks_integration.py && ruff check src/anima/verification tests/verification && mypy --strict src/anima/verification",
+        "steps": null
+      }
+    },
+    {
+      "description": "Performance budget proven on the reference machine: full verify (structural + layout, spatial index in place) completes within 5 seconds on a fixture project with 10 beats, and within 30 seconds on a synthetic generated fixture with 100 beats and 1000 nodes, both asserted as hard pytest timing assertions rather than manual observation.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/verification/test_layout_perf_budget.py",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

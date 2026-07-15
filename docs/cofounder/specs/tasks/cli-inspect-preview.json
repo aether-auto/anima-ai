@@ -1,0 +1,50 @@
+{
+  "id": "cli-inspect-preview",
+  "title": "anima inspect and anima preview contact sheets",
+  "short_description": "Ship anima inspect (full graph JSON, --compiled tracks, --at t resolved snapshots) and anima preview producing annotated contact sheets (beat IDs, timestamps, pack/seed header) and optional low-res MP4s, never opening a viewer.",
+  "roadmap_phase": "Phase 1: Scene graph, timeline, and first pixels",
+  "depends_on": [
+    "cli-framework",
+    "timeline-compiler",
+    "skia-rasterizer-cache"
+  ],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "long_description_md": "# `anima inspect` and `anima preview` contact sheets\n\n## Why task exist\n\nProduct-spec capability 10 (CLI) names both commands explicitly: `anima inspect` (\"dump scene graph / timeline / resolved timings as JSON\") and `anima preview` (\"produces a contact sheet... and/or a low-res fast-encoded MP4\"). Capability 9 (\"Preview artifacts\") is direct: \"For the human checkpoint without a full render... Contact sheets are the primary human review surface -- cheap, diffable, and they show style and layout at a glance.\" This matters doubly for anima-ai's whole thesis: verification is deterministic and machine-checked, so the *only* place a human (Arnav) or an agent needs a cheap non-rendering way to sanity-check layout/style is here. `inspect` is the machine-readable half of that (an agent reading its own project's resolved state without eyeballing pixels); `preview` is the cheap human-facing half.\n\nRoadmap Phase 1 done-when item: \"`anima new` scaffolds a runnable project; `preview` emits annotated contact sheets; `inspect`/`inspect --compiled`/`--at t` dump the documented JSON.\" Both commands must obey the CLI contract already built by `cli-framework` (`--json`, typed exit codes, stdout/stderr separation, agent-readable `--help`) -- this task adds two new commands on that framework, it does not touch the framework itself.\n\nCOFOUNDER_PERSONA.md constraint carried into this task directly: \"could an agent fix its scene from this error alone\" -- `inspect` output is designed so an agent can answer \"what does my project actually resolve to right now\" without rendering or looking at an image.\n\n## Scope / contract\n\n### `anima inspect`\n\n- Default (no flags): dump the full scene graph as JSON -- every Scene, node (id, type, transform, style ref, z-order, visibility window), matching the serializable graph the scene-graph-model task defines. Must be the actual in-memory graph, not a re-derived summary.\n- `--compiled`: dump the compiled timeline (from `timeline-compiler`'s `CompiledTimeline`) -- keyframe tracks, resolved beat boundaries/durations, timing metadata -- as JSON.\n- `--at <t>`: dump a resolved snapshot at time `t` -- every visible node's resolved transform/geometry (via geometry-resolver, same code path render/verify use) and any other resolved per-node state at that instant, as JSON. `t` accepts a time value in the project's documented time format (seconds, consistent with timeline-compiler conventions); out-of-range or malformed `t` is a typed user error.\n- All three modes are pure JSON to stdout (respecting the shared CLI framework's stdout-data/stderr-diagnostics separation) -- no pretty-printing side effects that break machine parsing, though `--json`/default formatting conventions should match what `cli-framework` already establishes for other commands.\n- Document each JSON shape (schema-level docstrings or a documented dict shape) so it's a stable, agent-consumable contract, not an ad hoc debug dump.\n\n### `anima preview`\n\n- Produces annotated contact sheets: PNG grid(s) of keyframe rasters (one or more frames per beat, via the rasterizer from `skia-rasterizer-cache`), each frame annotated with its beat ID and timestamp, and a sheet-level header showing style-pack id and project seed (so a human glancing at a contact sheet knows exactly which pack/seed produced it -- required for it to be a trustworthy review artifact, not just a picture).\n- Optional low-res MP4: a flag (e.g. `--video`) additionally renders a fast, low-resolution MP4 of the previewed scope using the same streaming-encoder path conceptually (may reuse encoder module from `streaming-encoder-render` if available at build time; if not yet merged, implement using the rasterizer + a minimal direct PyAV write sufficient for low-res preview -- but must not duplicate/fork the atomic-write or streaming-thread logic if that module exists, to avoid two encoder implementations drifting apart). Document which path was actually taken.\n- Supports scoping (at least `--scene`/`--beat`, matching the render command's subset flags for consistency) so an agent/human can preview just the part they're iterating on.\n- **Never opens a viewer or GUI** -- writes files to disk (path returned in JSON result) and exits; this is a hard product non-goal (\"No GUI editor, ever... Preview output yes; timeline-drag UI no\").\n- Contact sheet layout (grid dimensions, frame size) must be deterministic given the same project+seed -- same inputs produce byte-identical contact sheet PNGs.\n\n## Out of scope (tiles against sibling tasks)\n\n- `anima render`, `--scene/--beat/--range` full-quality render, PyAV streaming encoder module, atomic-write kill-test -- `streaming-encoder-render` (this task may reuse its encoder module for `--video` if it exists, but does not build or own it).\n- Rasterization, static-layer cache -- `skia-rasterizer-cache` (consumed here).\n- `anima new`, CLI framework/contract primitives -- `cli-framework` (consumed here).\n- Timeline compilation itself -- `timeline-compiler` (consumed here for `--compiled`).\n- `anima verify`, `anima assets` -- separate Phase 1/2 CLI surfaces, not this task.\n- Authoring the full 60-90s Phase 1 fixture project and the end-to-end determinism CI proof -- `phase1-determinism-e2e` (this task's own tests use smaller fixtures).\n",
+  "deliverables": [
+    {
+      "description": "Implement `anima inspect` with default full-graph-JSON mode, --compiled (compiled timeline JSON via timeline-compiler), and --at t (resolved per-node snapshot JSON via geometry-resolver's code path). Tests cover each mode on a fixture project, malformed/out-of-range --at t returning a typed user error, and JSON output respecting stdout/stderr separation from the shared CLI framework.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/cli/test_inspect_command.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement `anima preview` producing annotated contact-sheet PNGs (beat ID + timestamp per frame, style-pack id + seed header) with --scene/--beat scoping, on a fixture project. Tests verify contact sheet files are written to disk (paths returned in JSON result), annotations present, and identical projects+seeds produce byte-identical contact sheets across two runs.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/cli/test_preview_contact_sheet.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement optional --video low-res MP4 output on anima preview, reusing the shared streaming-encoder module rather than a forked implementation where that module is available. Test asserts a valid, playable low-res MP4 is produced and that preview never spawns a viewer/GUI process (assert no subprocess/webbrowser/GUI-launch calls occur).",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/cli/test_preview_video.py -q",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

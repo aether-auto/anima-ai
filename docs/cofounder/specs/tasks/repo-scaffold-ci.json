@@ -1,0 +1,62 @@
+{
+  "id": "repo-scaffold-ci",
+  "title": "Repo scaffold, packaging, and 3-OS CI matrix",
+  "short_description": "Scaffold the repository (pyproject for package anima-ai / import anima, Apache-2.0 LICENSE, hash-locked lockfile, mypy-strict, ruff, pytest) with pinned deps (skia-python, PyAV, shapely, pyproj, topojson, numpy) installing and importing on the macOS/Linux/Windows CI matrix, plus the socket-guard test fixture that fails on any network I/O in library code paths.",
+  "long_description_md": "# Repo scaffold, packaging, and 3-OS CI matrix\n\n## Why this task exists\n\nThis is the first task of **Phase 0: Foundations & determinism rig** (`docs/cofounder/ROADMAP.md`).\nPhase 0 exists because retrofitting determinism and reproducible packaging onto an animation\nengine after the fact is exactly the trap the founding feasibility research documents\n(matplotlib's decades-long tolerance-comparison wars, resvg's \"bundle everything or drift\"\nlesson). Everything downstream — the seeded-RNG service, the golden-image harness, the scene\ngraph, the renderer — gets built and tested inside the environment this task creates. If the\npackage doesn't install cleanly and identically on all three OSes an agent might run on, no\nlater verification claim is trustworthy.\n\nThis task is scoped to exactly the first two `Done when` bullets of Phase 0 plus the\nsocket-guard bullet:\n\n- \"Repo scaffolded: `pyproject.toml` (package `anima-ai`, import `anima`), Apache-2.0 LICENSE,\n  lockfile, mypy-strict + ruff, pytest wired.\"\n- \"Pinned deps installed and importing on the 3-OS CI matrix: skia-python, PyAV, shapely,\n  pyproj, topojson, numpy.\"\n- \"Socket-guard test fixture exists and passes (no network in library code paths).\"\n\nIt deliberately does **not** cover the remaining Phase 0 bullets (seeded-RNG service,\ngolden-image harness + pinned Docker container + GHCR publish, font bundling) — those are\nseparate follow-on tasks that depend on this one landing first, because they all need the\npackaging/tooling/CI skeleton this task builds. Do not fold them in here; do not stub them\nhere either — they simply belong to different task specs.\n\n## What this task builds\n\n1. **Package skeleton.** `pyproject.toml` describing PyPI distribution name `anima-ai` /\n   import package `anima` (per `docs/cofounder/specs/technical-architecture.md`'s\n   Deployment section and the 2026-07-13 DECISIONS.md entry locking this naming), using a\n   `src/` layout (`src/anima/__init__.py`) so mypy-strict and packaging both see only the\n   installed surface, not the repo root. Package version starts at `0.0.0.dev0` — no\n   PyPI publish happens in this task (that's Phase 8, an explicitly flagged external action).\n2. **Apache-2.0 LICENSE** at repo root, verbatim license text (matches the 2026-07-13 DECISIONS.md\n   license decision: patent grant, matches agent-tooling-ecosystem norms).\n3. **Dev tooling wired and green on a trivial fixture:** ruff (lint + format check), mypy in\n   `--strict` mode against the public `anima` package surface, pytest with at least one\n   real (non-trivial-stub) passing test that imports the package. Config lives in\n   `pyproject.toml` ( `[tool.ruff]`, `[tool.mypy]`, `[tool.pytest.ini_options]` ) so there is\n   one source of truth for tool config.\n4. **Hash-locked lockfile(s)** pinning the heavy native/binary dependencies named in\n   `technical-architecture.md`'s Stack section: skia-python (pinned to an exact version —\n   Skia milestone bumps shift rendering output, so exactness matters from day one), PyAV\n   (pinned/capped per the Manim v0.19 precedent cited in the spec), shapely, pyproj,\n   topojson, numpy. Because these ship platform-specific binary wheels, a single\n   `pip --require-hashes` lockfile cannot honestly cover all three OSes at once — produce\n   one hash-locked file per OS (`requirements/lock-linux.txt`, `requirements/lock-macos.txt`,\n   `requirements/lock-windows.txt`, generated with pip-tools or uv, whichever the build agent\n   judges more maintainable) and have the CI matrix install from the file matching its own OS.\n   This satisfies the non-functional-requirements.md security bullet: \"Dependencies pinned;\n   CI installs hash-locked.\"\n5. **Socket-guard pytest fixture.** An autouse fixture/plugin (e.g. `tests/conftest.py`) that\n   monkeypatches `socket.socket` (and any higher-level HTTP client actually imported anywhere\n   in `anima`) so that any attempted network connection during a test raises immediately,\n   plus a dedicated test file proving both directions: a deliberately-network-touching probe\n   fails loudly under the guard, and the guard does not false-positive on the rest of the\n   (network-free) suite. This is the enforcement mechanism referenced by\n   `non-functional-requirements.md` (\"Zero runtime network I/O, enforced by a socket-guard\n   test in CI\") and `technical-architecture.md`'s Security & privacy posture — it must apply\n   to every future test by default, not be something each new test file has to opt into.\n6. **3-OS GitHub Actions CI matrix** (`ubuntu-latest`, `macos-latest`, `windows-latest`,\n   free tier per `technical-architecture.md`'s Deployment section) running, on every push/PR:\n   editable install of the package + its OS-matched lockfile, the import smoke test for all\n   six heavy deps, `ruff check`, `mypy --strict`, and `pytest`. All three OS legs must be\n   green — that is the literal acceptance bar for \"installing and importing on the\n   macOS/Linux/Windows CI matrix\" in the phase's done-when list.\n\n## Explicitly out of scope for this task\n\n- The seeded-RNG service (separate Phase 0 task).\n- The golden-image harness, pinned Docker container, and GHCR publish (separate Phase 0 task).\n- Font bundling and license vetting for typography (separate Phase 0 task).\n- Any actual scene-graph, rendering, or CLI code — `anima/__init__.py` only needs to exist\n  and be importable with a `__version__` string; Phase 1 is where real functionality begins.\n\n## Acceptance shape\n\nDone when a clean checkout, on each of the three CI OSes, can install the package from its\nlockfile, import all six pinned heavy dependencies plus `anima` itself, and pass\n`ruff check`, `mypy --strict`, and `pytest` — and when a test that deliberately opens a socket\ninside the test-run process is caught and failed by the guard rather than silently succeeding\nor hanging on a real network call.\n",
+  "roadmap_phase": "Phase 0: Foundations & determinism rig",
+  "depends_on": [],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Package skeleton (src/anima src-layout, pyproject.toml with package name anima-ai / import name anima, version 0.0.0.dev0) plus Apache-2.0 LICENSE at repo root, with ruff, mypy --strict, and pytest all configured in pyproject.toml and passing against at least one real importing test.",
+      "verification": {
+        "type": "integration",
+        "command": "python -m pip install -e \".[dev]\" && ruff check . && mypy --strict src/anima && pytest -q && test $(wc -l < LICENSE) -ge 200 && grep -q \"Apache License\" LICENSE && grep -q \"Version 2.0, January 2004\" LICENSE && grep -q \"TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\" LICENSE && grep -q \"APPENDIX: How to apply the Apache License to your work\" LICENSE",
+        "steps": null
+      }
+    },
+    {
+      "description": "Hash-locked, per-OS lockfiles (requirements/lock-linux.txt, requirements/lock-macos.txt, requirements/lock-windows.txt) pinning skia-python, PyAV, shapely, pyproj, topojson, and numpy to exact versions; installing from the current OS's lockfile with --require-hashes succeeds and every one of the six packages imports cleanly.",
+      "verification": {
+        "type": "integration",
+        "command": "python -m pip install --require-hashes -r \"requirements/lock-$(python -c 'import sys;print({\"darwin\":\"macos\",\"win32\":\"windows\"}.get(sys.platform,\"linux\"))').txt\" && python -c \"import skia, av, shapely, pyproj, topojson, numpy; print('heavy deps import OK')\"",
+        "steps": null
+      }
+    },
+    {
+      "description": "Autouse socket-guard pytest fixture (tests/conftest.py) that raises on any socket-level network I/O during the test run, proven by a dedicated test file with two assertions: a deliberate network-touching probe is caught and fails under the guard, and the guard does not false-positive against the rest of the network-free suite.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/test_socket_guard.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "GitHub Actions workflow file (.github/workflows/ci.yml) defining a 3-OS matrix (ubuntu-latest, macos-latest, windows-latest) that installs the package from its OS-matched lockfile with --require-hashes, imports all six heavy deps, and runs ruff, mypy --strict, and pytest on every push/PR. Verified locally by parsing the workflow YAML and asserting its content, since the project has no git repo or GitHub remote yet and \"gh workflow run\" cannot be invoked until the workflow file exists on a pushed default branch.",
+      "verification": {
+        "type": "integration",
+        "command": "python -c \"import yaml; d = yaml.safe_load(open('.github/workflows/ci.yml')); assert d, 'workflow YAML did not parse'\" && grep -q \"ubuntu-latest\" .github/workflows/ci.yml && grep -q \"macos-latest\" .github/workflows/ci.yml && grep -q \"windows-latest\" .github/workflows/ci.yml && grep -q -- \"--require-hashes\" .github/workflows/ci.yml && grep -q \"lock-linux.txt\" .github/workflows/ci.yml && grep -q \"lock-macos.txt\" .github/workflows/ci.yml && grep -q \"lock-windows.txt\" .github/workflows/ci.yml && grep -q \"ruff check\" .github/workflows/ci.yml && grep -q -- \"mypy --strict\" .github/workflows/ci.yml && grep -q \"pytest\" .github/workflows/ci.yml",
+        "steps": null
+      }
+    },
+    {
+      "description": "GitHub repository creation and first push of the scaffolded project (including .github/workflows/ci.yml), so the 3-OS CI matrix can actually execute remotely and be observed green on all three legs. This is an external, irreversible action taken under Arnav's identity/account and must be flagged to him first per COFOUNDER_PERSONA.md — it cannot be a scripted verification command because no git repo or GitHub remote exists yet in this project.",
+      "verification": {
+        "type": "manual",
+        "command": null,
+        "steps": "Flag to Arnav first per COFOUNDER_PERSONA.md before creating any external GitHub resource or pushing under his account. Once approved, initialize the git repo, create the GitHub repository, and push the initial commit containing the scaffold, LICENSE, lockfiles, and .github/workflows/ci.yml to the default branch. After push, confirm via `gh run list --workflow=ci.yml --limit=1` (or the GitHub UI) that the push triggered the 3-OS matrix and all three legs (ubuntu-latest, macos-latest, windows-latest) report success. This remote confirmation is a final human-observed sanity check after the local workflow-content and package verifications above already pass — it is not the task's primary verification."
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "2026-07-13T19:46:23Z",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

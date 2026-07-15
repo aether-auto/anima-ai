@@ -1,0 +1,54 @@
+{
+  "id": "docs-site-context7",
+  "title": "Docs site on GitHub Pages and Context7 listing",
+  "short_description": "Stand up the mkdocs-material docs site (quickstart, cookbook, API reference, rule catalog) on GitHub Pages meeting WCAG 2.1 AA basics, and submit the Context7 listing so agents retrieve real versioned docs.",
+  "long_description_md": "# Docs site on GitHub Pages and Context7 listing\n\n## Why this task exists\n\nLaunch bar per `docs/cofounder/ROADMAP.md` Phase 8: \"Docs site live on GitHub Pages; Context7 listing submitted.\" `technical-architecture.md` names the docs stack: static site (mkdocs-material) on GitHub Pages. `go-to-market.md` names Context7 listing as acquisition channel #2 (\"agent-docs infrastructure\": llms.txt + AGENTS.md + version-pinned docs, Context7 listing so agents retrieve real API docs instead of hallucinating — the feasibility report's key adoption lesson: poorly structured agent docs measurably hurt, -success +20% cost). `non-functional-requirements.md` requires \"docs site WCAG 2.1 AA basics.\" `ux-design-spec.md` fixes the docs structure: quickstart -> cookbook (complete runnable examples, smallest first) -> API reference -> verification-rule catalog (every code, meaning, fix patterns) -> SKILL.md/llms.txt/AGENTS.md mirroring the same content for agent retrieval.\n\n## Roadmap fit\n\nDepends on `agent-docs-surface` (Phase 7: SKILL.md, llms.txt, AGENTS.md, verification-rule catalog content) and `cookbook-examples` (Phase 7: the CI-rendered, verify-snapshot-tested cookbook projects) because this task builds the *site* those content sources feed into — it does not author the underlying docs content, it packages, publishes, and lists it. Sibling to `pypi-name-and-publish` and feeds `launch-assets-posts` (launch posts link to the live docs site).\n\n## Scope\n\n1. `mkdocs.yml` + `docs/` site structure mirroring `ux-design-spec.md`'s order: quickstart, cookbook (rendered from the `cookbook-examples` task's worked examples), API reference (generated from the public `anima` package surface, e.g. via mkdocstrings), verification-rule catalog (every finding code from `agent-docs-surface`'s catalog, with meaning + fix pattern), and a page mirroring SKILL.md/llms.txt/AGENTS.md content for human readers. Site must build clean with `mkdocs build --strict` (zero warnings — broken internal links or missing nav entries fail strict mode).\n2. WCAG 2.1 AA basics per `non-functional-requirements.md`: sufficient color contrast, semantic heading structure, alt text on any images/diagrams, keyboard-navigable nav — checked with an automated accessibility linter (pa11y or axe-core) run locally against the built static site, not a formal certification claim (the spec explicitly says \"no formal certification claimed,\" basics only).\n3. Deploy the built site to GitHub Pages (external publish — a live public URL under the project's identity; not identity-sensitive like a PyPI account but still an external, visible action, so it gets a heads-up to Arnav before going live per the persona's spirit even though it isn't the narrow $-or-identity exception).\n4. Submit the Context7 listing (external, third-party service submission under the project/Arnav's identity — flag to Arnav first per COFOUNDER_PERSONA.md) so agents retrieving `anima-ai` docs via Context7 get real, version-pinned content instead of hallucinating the API.\n\n## Explicitly out of scope\n\n- Authoring SKILL.md, llms.txt, AGENTS.md, or the verification-rule catalog content itself — `agent-docs-surface`.\n- Authoring or CI-rendering the cookbook example projects — `cookbook-examples`.\n- PyPI publish — `pypi-name-and-publish`.\n- Launch video assets, Show HN / r/Python posts, issue template — `launch-assets-posts`.\n- Any renderer, verifier, CLI, or style-pack implementation work.\n",
+  "roadmap_phase": "Phase 8: Launch v0.1.0",
+  "depends_on": ["agent-docs-surface", "cookbook-examples"],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "mkdocs.yml + docs/ site scaffolded per ux-design-spec.md's order (quickstart, cookbook, API reference, verification-rule catalog, SKILL.md/llms.txt/AGENTS.md mirror page), sourcing content from the agent-docs-surface and cookbook-examples deliverables, building clean under strict mode with zero warnings.",
+      "verification": {
+        "type": "integration",
+        "command": "mkdocs build --strict --site-dir /tmp/anima-docs-site && test -f /tmp/anima-docs-site/quickstart/index.html && test -f /tmp/anima-docs-site/cookbook/index.html && test -f /tmp/anima-docs-site/reference/index.html && test -f /tmp/anima-docs-site/verification-rules/index.html",
+        "steps": null
+      }
+    },
+    {
+      "description": "WCAG 2.1 AA basics (color contrast, semantic headings, alt text, keyboard-navigable nav) verified against the built static site with an automated accessibility linter — basics-only check, no formal certification claimed, matching non-functional-requirements.md's stated bar.",
+      "verification": {
+        "type": "integration",
+        "command": "mkdocs build --strict --site-dir /tmp/anima-docs-site && (cd /tmp/anima-docs-site && python3 -m http.server 8931 &) && sleep 1 && npx --yes pa11y http://localhost:8931/ --standard WCAG2AA --runner axe",
+        "steps": null
+      }
+    },
+    {
+      "description": "Deploy the built site to GitHub Pages, making it live at the project's Pages URL — external, visible publish action, heads-up to Arnav before going live.",
+      "verification": {
+        "type": "manual",
+        "command": null,
+        "steps": "1. Give Arnav a one-line heads-up before deploying, since this makes documentation publicly live under the project's identity. 2. Deploy the mkdocs-built site to the repository's GitHub Pages (gh-pages branch or Pages-from-Actions, whichever the repo's Pages settings use). 3. Confirm the live URL (https://<org>.github.io/anima-ai/ or the configured custom domain) resolves and serves the quickstart page by fetching it directly and checking for expected content (e.g. curl -s <pages-url> | grep -qi 'anima-ai')."
+      }
+    },
+    {
+      "description": "Submit the Context7 listing for anima-ai so agents retrieve real, version-pinned docs via Context7 instead of hallucinating the API — external third-party submission under the project's identity, flagged to Arnav first.",
+      "verification": {
+        "type": "manual",
+        "command": null,
+        "steps": "1. Flag to Arnav first per COFOUNDER_PERSONA.md before submitting — this is an external action registering the project with a third-party service under his/the project's name. 2. Submit the anima-ai repository/docs URL to Context7's listing submission process. 3. Confirm the listing is live by querying Context7 for 'anima-ai' and verifying it returns real content sourced from the published docs site rather than a 404 or unrelated result. 4. Log the submission in docs/cofounder/DECISIONS.md."
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

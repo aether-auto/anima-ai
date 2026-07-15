@@ -1,0 +1,54 @@
+{
+  "id": "map-node-types",
+  "title": "Map node types (BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker)",
+  "short_description": "Ship the six typed map nodes — including dataset-ref and inline-polygon territories, curved growing invasion arrows with pack-styled heads, and label/marker pops — rendering styled through the pack system and golden-tested.",
+  "long_description_md": "# Map node types (BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker)\n\n## Why this task exists\n\nMap engine is capability 6, the genre-defining primitive (history/geopolitics wedge). Phase 4 done-when requires: \"Node types shipped and golden-tested in both pack styles: BaseMap, Territory (dataset-ref and inline polygon), Border, InvasionArrow (curved growth animation), MapLabel, MapMarker.\" This task is that line item, minus the second pack (flat lands in Phase 5) — golden-tested in `crude` only here.\n\nWithout typed map nodes, `map-geometry-foundation`'s dataset/projection/index work has no scene-graph surface, and there's nothing for the map camera (`map-camera-state`), map verify rules (future task), or a map-driven episode to target. This is the node-type layer between raw geometry and everything downstream.\n\n## Roadmap fit\n\nDepends on `map-geometry-foundation` (dataset registry, territory index, projections, topology-aware simplification — this task resolves geometry through that, never reimplements it), `crude-pack` (palette/stroke/texture roles and arrowhead/marker asset resources these nodes draw through), and `golden-image-harness` (compare-only baseline verification). Comes after paint rendering per the roadmap note so map elements ship styled, not placeholder-flat. Feeds `map-camera-state` (camera needs map nodes to fly to/persist), the future map verify-rules task (`MAP.UNKNOWN_TERRITORY`, `MAP.ARROW_OUT_OF_VIEW`, `MAP.DATE_MISMATCH` need these node types to exist first), and the Phase 4 mini-episode.\n\n## Required contract and scope\n\nAdd six Phase-1-parallel node subtypes under `anima.maps` (or the project's established `anima.nodes` map subpackage), each a typed, immutable scene-graph node subtype consistent with `scene-graph-model`'s Shape/Path/Text/Group pattern: stable ID, transform, style reference, z-order, visibility window, plus a typed subtype payload.\n\n- **BaseMap**: the map viewport root a scene's map nodes render within; carries the pinned projection reference (resolved via `map-geometry-foundation`'s projection support) and a world-bounds extent. Other map nodes resolve their screen geometry relative to a `BaseMap`.\n- **Territory**: fills/highlights a territory two ways — `dataset_ref` (a dataset-scoped territory ID resolved through the territory index, with the index's date-validity resolution honored so an invalid-for-date ID fails at build time, not silently rendering wrong borders) and `inline polygon` (an agent-authored custom Shapely-compatible polygon, for territories or annotations absent from Natural Earth / historical-basemaps). Fill/stroke are style-pack role references, never raw colors.\n- **Border**: renders territory boundary lines independent of fill — either derived from a `Territory`'s resolved geometry or an explicit border dataset reference — styled through a pack stroke profile role.\n- **InvasionArrow**: a curved arrow between two points or territory anchors, rendered as a deterministic quadratic/cubic Bézier-derived path with a pack-styled arrowhead. Exposes a `growth: float` property in `[0.0, 1.0]` (default `1.0`) that deterministically controls what fraction of the curve (from tail) is drawn, including a partially-drawn head only once growth reaches the head's arc-length threshold. `growth` is a plain animatable scalar node property — wiring it to beat-driven keyframes/easing is generic timeline-compiler/animation-system property animation and is explicitly out of scope here (see below); this task only guarantees the node renders correctly, deterministically, and pixel-stably for any given `growth` value.\n- **MapLabel**: pack-typography text anchored to a map coordinate or territory, honoring the same enter/exit families (fade/slide/pop) as any other node — no map-specific animation logic needed here since \"label pops\" is the existing generic `pop` enter family applied to this node type.\n- **MapMarker**: a pack-styled point glyph (city dot, event marker, etc.) anchored to a map coordinate or territory, selectable from the pack's marker asset roles.\n\nAll six nodes must resolve their final screen-space geometry through the same projection/geometry code path the map-geometry-foundation module exposes — the rule that renderer and verifier read the same geometry (no drift) applies here as much as it does to core scene-graph shapes. All fill/stroke/typography/marker-asset properties must be pack role references (`style_role`), never raw color/font literals, so the existing `STYLE.PALETTE_VIOLATION` rule (from `style-pack-system`) already covers these nodes without new rule code.\n\nGolden-test each node type rendered in `crude`: a `BaseMap` with world-bounds framing, a `dataset_ref` Territory and an inline-polygon Territory on adjacent geometry (proving no gap/overlap regression when rendered, not just at the geometry layer), a `Border`, an `InvasionArrow` sampled at `growth` values `{0.0, 0.35, 0.75, 1.0}` (0.0 renders nothing / a degenerate point, not an error), a `MapLabel`, and a `MapMarker` — plus one composed fixture scene using all six node types together in one `BaseMap`, golden-compared as a whole to catch z-order/compositing regressions between node types.\n\n## Out of scope\n\n- Dataset loading, territory index, date-validity resolution logic, and projection math themselves — that's `map-geometry-foundation`; this task only calls into it.\n- The `flat` pack and cross-pack parity proof — Phase 5 (`flat-pack` task), not here. Golden tests target `crude` only.\n- Map camera (viewport pan/zoom/flight) and cross-scene map-state persistence (fills/camera/labels carrying over) — `map-camera-state`, the sibling task.\n- Actually keyframing/easing `growth` (or any node property) over beat time — that is generic timeline-compiler/animation-system property animation machinery, not new node-type code. This task exposes the property; it does not compile or evaluate animation tracks against it.\n- Territory fill sweep and border morph animation families mentioned in `product-spec.md`'s animation list — not required by the Phase 4 done-when list for node types and not built here; only InvasionArrow's growth property is in scope per the explicit roadmap line.\n- `MAP.UNKNOWN_TERRITORY`, `MAP.ARROW_OUT_OF_VIEW`, `MAP.DATE_MISMATCH`, and other map verify rules — a separate future verification task consumes these node types, it isn't built here (this task only guarantees build-time failure on an invalid dataset-ref/date, via `map-geometry-foundation`'s existing typed errors, not a new Finding code).\n- The Phase 4 mini-episode end-to-end fixture — a separate integration deliverable outside this task.\n",
+  "roadmap_phase": "Phase 4: Map engine",
+  "depends_on": ["map-geometry-foundation", "crude-pack", "golden-image-harness"],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Implement typed, immutable BaseMap and Territory node subtypes under the anima map node package. BaseMap carries a pinned projection reference and world-bounds extent. Territory supports both dataset_ref (resolved through map-geometry-foundation's territory index with date-validity enforced at build time) and inline custom polygon variants, with fill/stroke as style-pack role references only. Cover ID/reference validation, geometry resolution through the shared projection code path, and rejection of an out-of-date-validity or unknown dataset-ref ID with a typed error.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/unit/maps/test_basemap_node.py tests/unit/maps/test_territory_node.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement typed Border, MapLabel, and MapMarker node subtypes. Border derives boundary geometry from a Territory's resolved geometry or an explicit border dataset reference, styled through a pack stroke-profile role. MapLabel is pack-typography text anchored to a map coordinate or territory (reusing existing enter/exit animation families, no new animation code). MapMarker is a pack marker-asset glyph anchored to a coordinate or territory. All three reject raw color/font literals in favor of style_role references.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/unit/maps/test_border_node.py tests/unit/maps/test_map_label_node.py tests/unit/maps/test_map_marker_node.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement the InvasionArrow node subtype: a deterministic Bezier-derived curved path between two points or territory anchors with a pack-styled arrowhead, and a growth float property in [0.0, 1.0] (default 1.0) that deterministically controls the drawn arc-length fraction from the tail, including correct partial/no head rendering below the head's arc-length threshold. Test growth=0.0, mid-range, and 1.0 for stable deterministic geometry output across repeated calls.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/unit/maps/test_invasion_arrow_node.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Golden-test all six node types in crude: BaseMap framing, dataset_ref and inline-polygon Territory on adjacent geometry (no render-time gap/overlap), Border, InvasionArrow sampled at growth in {0.0, 0.35, 0.75, 1.0}, MapLabel, MapMarker, plus one composed all-six-node-types fixture scene for z-order/compositing regressions. Baselines are pre-blessed in the pinned golden container; this only compares. Confirm no map node emits a raw color/font (STYLE.PALETTE_VIOLATION-clean) via an integration test, and keep the new module lint/type clean.",
+      "verification": {
+        "type": "integration",
+        "command": "python -m anima.testing.goldens compare --id map_nodes_crude_fixture && pytest -q tests/integration/maps/test_map_node_style_roles.py && ruff check src/anima/maps tests/unit/maps tests/integration/maps && mypy --strict src/anima/maps",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

@@ -1,0 +1,48 @@
+{
+  "id": "seeded-rng-service",
+  "title": "Seeded RNG service keyed by (project_seed, node_id)",
+  "short_description": "Implement the deterministic RNG service that keys streams by (project_seed, node_id), property-tested so identical keys yield identical streams and different node ids yield decorrelated streams.",
+  "long_description_md": "# Seeded RNG service keyed by `(project_seed, node_id)`\n\n## Why this task exists\n\nDeterminism is the trust boundary of anima-ai: identical project source, seed, engine version, and style-pack version must produce identical serialized graphs, compiled tracks, frame hashes, reports, and exit codes. The Phase 0 roadmap explicitly requires a seeded-RNG service before any renderer work, because the procedural paint look—wobbly strokes, width variation, jitter, and textures—must be repeatable without causing separate nodes to wobble in lockstep.\n\nThis task implements the Phase 0 done-when item: \"Seeded-RNG service implemented: keyed by `(project_seed, node_id)`, property-tested (same key ⇒ same stream; different node ids ⇒ decorrelated).\" It supports the technical architecture's rule that the paint-rendering path has no ambient `random`, wall-clock, environment, locale, or iteration-order dependence.\n\n## Placement in the roadmap\n\n`repo-scaffold-ci` establishes the `anima` package, strict tooling, pytest, hash-locked dependencies, and CI matrix this task relies on. This task then creates the deterministic randomness boundary consumed later by Phase 1's renderer and style packs. The golden-image harness and font bundling remain separate Phase 0 tasks; scene graphs, rendering, CLI work, and style-pack behavior remain Phase 1+ scope.\n\n## Required service contract\n\nExpose a small, typed public API from `anima`, backed by `src/anima/rng.py`:\n\n```python\nproject_rng = SeededRNG(project_seed)\nstream = project_rng.for_node(node_id)\nvalue = stream.random()\njitter = stream.uniform(-amplitude, amplitude)\n```\n\n`for_node(node_id)` must return a fresh, independent stream every time. Recreating a stream with the same project seed and stable node ID must restart at the exact same sequence; consuming one node's stream must never affect another node's stream. Validate that `project_seed` is an integer (excluding `bool`) and that `node_id` is a non-empty string, with clear deterministic exceptions for invalid inputs.\n\nDerive each stream from a canonical, domain-separated byte encoding of the integer project seed and UTF-8 node ID. The encoding must be unambiguous—for example, length-prefix variable fields—so distinct key pairs cannot collide through delimiter ambiguity. Do not use Python's randomized `hash()`, the module-global `random` API, OS entropy, time, UUIDs, environment state, or unordered-container traversal. Implement a documented, versioned, fixed-width pure-Python PRNG algorithm for v1 (SHA-256 key derivation followed by PCG32 XSH-RR is the intended shape), with explicitly masked integer arithmetic so the stream is stable across supported Python versions and operating systems.\n\nThe service is deterministic rather than cryptographic. \"Decorrelated\" here means independently keyed streams: distinct node IDs must not share a stream prefix or be coupled by creation/consumption order. Add a frozen known-answer test vector so an accidental algorithm or serialization change is a deliberate compatibility decision rather than silent render drift.\n\n## Testing and dependency expectations\n\nUse Hypothesis for the property suite, adding it as a development dependency and regenerating the repository's established hash-locked dependency files as necessary. Test negative and large integer seeds, Unicode IDs, and generated distinct node-ID pairs. Include a cross-process test that runs the same request under different `PYTHONHASHSEED` values and compares its serialized output, proving the implementation does not accidentally depend on Python hash randomization.\n\n## Explicitly out of scope\n\n- Procedural stroke, texture, or renderer implementation.\n- Project/scene/node models and their ID-uniqueness validation.\n- Per-property substream APIs, cryptographic randomness, or nondeterministic effects.\n- Golden-image baseline generation, Docker/GHCR work, font bundling, and CLI commands.\n",
+  "roadmap_phase": "Phase 0: Foundations & determinism rig",
+  "depends_on": [
+    "repo-scaffold-ci"
+  ],
+  "complexity": "simple",
+  "research_engine": "gpt-terra",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Implement and re-export a typed `SeededRNG(project_seed)` service with `for_node(node_id)` streams supporting deterministic `random()` and `uniform(low, high)` calls. Streams must use canonical domain-separated `(project_seed, node_id)` key material and a documented fixed-width pure-Python PRNG, return fresh independent streams for repeated `for_node` calls, and reject invalid seed/node-ID inputs.",
+      "verification": {
+        "type": "unit",
+        "command": "ruff check src/anima/rng.py tests/test_seeded_rng.py && mypy --strict src/anima/rng.py && pytest tests/test_seeded_rng.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Add Hypothesis-backed tests (and the required dev dependency plus regenerated lockfiles) covering generated integer seeds and Unicode node IDs: identical keys yield byte-for-byte identical sampled sequences, recreating a stream restarts the sequence, bounded samples remain within their requested range, and distinct node IDs produce distinct sampled prefixes without cross-stream state coupling. Include a fixed v1 known-answer stream vector.",
+      "verification": {
+        "type": "unit",
+        "command": "grep -l hypothesis requirements/lock-linux.txt requirements/lock-macos.txt requirements/lock-windows.txt >/dev/null && pytest tests/test_seeded_rng.py -q -k 'hypothesis or property or known_answer'",
+        "steps": null
+      }
+    },
+    {
+      "description": "Prove ambient runtime state cannot alter a keyed stream by testing equivalent stream output from separate Python subprocesses launched with different `PYTHONHASHSEED` values. The implementation must not depend on Python `hash()`, module-global randomness, clocks, environment entropy, or node traversal order.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/test_seeded_rng.py::test_seeded_rng_is_cross_process_and_hash_seed_stable -q",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "2026-07-13T19:46:23Z",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

@@ -1,0 +1,49 @@
+{
+  "id": "pack-pluggability-proof",
+  "title": "Style-pack pluggability proof",
+  "short_description": "Prove packs are genuinely pluggable: rendering the same fixture project under crude and flat requires zero scene-code changes beyond the pack id, enforced as a test.",
+  "roadmap_phase": "Phase 5: `flat` pack + taste constraints + continuity",
+  "depends_on": [
+    "flat-pack",
+    "crude-pack"
+  ],
+  "complexity": "simple",
+  "long_description_md": "# Style-pack pluggability proof\n\n## Why this task exists\n\nPhase 5 done-when item 2 says plainly: \"Rendering the same fixture project under each pack requires zero scene-code changes beyond the pack id (pluggability proof).\" This is not a nice-to-have — it is the load-bearing claim behind capability 5's design (style packs are pluggable, core engine stays general, wedge does not bleed into core). If `flat` only renders because the fixture author quietly special-cased asset IDs or palette roles per pack, the whole \"packs are packs, not forks\" architecture claim is false and the engine is secretly crude-shaped. This task turns that claim into a standing, CI-enforced test, not a one-time founder assertion.\n\n## Roadmap fit\n\nSits in Phase 5 after both launch packs exist (`crude-pack`, `flat-pack`), because pluggability can only be proven with two real, asset-complete packs — not stubs. It runs alongside, and is distinct from, `taste-constraint-rules` (which proves per-pack *threshold tuning*, not zero-code-diff swapping) and `flat-pack` itself (which proves flat ships at parity bar, not that swapping is code-free).\n\n## Required contract and scope\n\nBuild a single shared fixture project (scene script + narration beats + camera/map usage + at least one character and one prop reference) whose Python source file(s) are used, byte-for-byte unmodified, for both pack runs. The only difference between a crude run and a flat run must be the resolved `(pack_id, pack_version)` pin, supplied outside the scene-code path (project manifest field or CLI/render-call argument) — never a code branch, conditional import, or per-pack literal inside the fixture's scene module.\n\nThe proof must cover three angles, each a real automated check, not a visual eyeball:\n\n1. **Structural equivalence.** Compile the fixture's scene graph under both pack pins and diff the serialized graphs with only pack-scoped fields masked (`pack_id`, `pack_version`, and resolved style/asset reference values that are expected to differ). Node IDs, hierarchy, ref graph, beat/timing structure, and node *types* must be identical.\n2. **Real visual difference plus preserved invariants at the CLI/render layer.** Running `anima render` and `anima verify` against the identical fixture source with only the pack pin swapped must both succeed; the two renders' frame hashes must differ (proving the styles genuinely diverge, not that pluggability is a no-op); node count, beat count, and timing sums must be identical across the two runs.\n3. **Vocabulary parity of the fixture itself.** Every character/prop ID and palette role the fixture references must resolve successfully via `anima assets --json` under both packs — if the fixture only works because it happens to reference a crude-only character, the whole test is fraudulent. This is a property of the fixture, checked automatically, not a hand-audit.\n\nUse the existing `anima assets --json`, `anima render`, `anima verify` CLI surfaces (`cli-framework`, `style-pack-system`) and the scene-graph serialization contract (`scene-graph-model`) as given; this task does not modify those surfaces, it exercises them.\n\n## Out of scope\n\n- Building or extending crude or flat pack assets, palettes, typography, or manifests — owned by `crude-pack` and `flat-pack`.\n- Implementing or tuning the taste/continuity rules (`PACING.*`, `CONTINUITY.*`) or per-pack severity/threshold profiles — owned by `taste-constraint-rules`. This task's fixture may trip those rules incidentally but does not assert on them.\n- The founder style checkpoint (subjective \"does flat look right\" judgment) — that lives in `flat-pack`'s own deliverables.\n- Any new CLI flags, render-gate policy changes, or scene-graph schema changes.\n\n## Known overlap flagged for the orchestrator\n\n`flat-pack.json`'s third deliverable already ships a `tests/integration/test_style_pack_parity.py` file asserting \"a single source fixture verifies and renders under both crude and flat with only the exact pack pin changed\" — the same claim this task exists to prove authoritatively. This task supersedes that smoke-level check with the full three-angle proof above; whoever executes `flat-pack` should treat its parity deliverable as satisfied by this task's fixture and tests rather than re-implementing a second, thinner one. Left as-is here since spec files are not being retroactively edited as part of this pass.\n",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Build the shared pluggability fixture project (one unmodified scene-code source tree; pack pin supplied only via project manifest/CLI argument, never scene-code branching) and a structural-equivalence test that compiles its scene graph under both crude and flat pins and diffs the serialized graphs with only pack-scoped fields masked. Node IDs, hierarchy, ref graph, node types, and beat/timing structure must be identical across the two compiles.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/integration/pluggability/test_fixture_structural_parity.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "CLI-level end-to-end test: run `anima render` and `anima verify` against the identical fixture source with only the pack pin swapped between crude and flat. Both invocations must succeed, resulting frame hashes must differ (proving a real visual difference, not a no-op swap), and node count/beat count/timing sums must be identical across the two runs.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/integration/pluggability/test_cli_render_pack_switch.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Vocabulary-parity test proving every character ID, prop ID, and palette role the fixture references resolves via `anima assets --json` under both crude and flat, so the fixture cannot silently depend on a pack-only asset for the other two deliverables to pass.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/integration/pluggability/test_fixture_vocabulary_parity.py",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

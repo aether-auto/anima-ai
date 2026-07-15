@@ -1,0 +1,46 @@
+{
+  "id": "map-camera-state",
+  "title": "Map camera flights and cross-scene map-state persistence",
+  "short_description": "Implement smooth deterministic map viewport animations (center/zoom flight paths) and engine-managed persistence of territory fills, camera, and label state across scenes unless a beat changes them.",
+  "long_description_md": "# Map camera flights and cross-scene map-state persistence\n\n## Why this task exists\n\nProduct spec capability 6 requires \"a map camera with animated viewport (center/zoom/flight paths)\" and that \"map state (colors, fills, camera) persists across scenes unless changed — recurring-map continuity is engine-managed, not agent-managed.\" Phase 4 done-when lists both as separate line items: \"Map camera flights (center/zoom paths) render smoothly and deterministically\" and \"Engine-managed map-state persistence across scenes works (fills/camera/labels carry over unless changed).\" This task is those two line items together, because they share one mechanism: both are about map viewport/state continuity across time and scene boundaries, evaluated by the same engine service rather than left to the agent to hand-recompute per scene.\n\nThis matters for the recurring-map genre pattern (a history episode that keeps returning to the same regional map across many beats/scenes): without engine-managed persistence, an agent would have to re-specify every territory fill and camera position on every scene, which is exactly the kind of manual bookkeeping this library exists to remove, and a rich source of silent continuity bugs a human wouldn't watch for and verify can't catch if it isn't itself deterministic and testable.\n\n## Roadmap fit\n\nDepends on `map-node-types` (BaseMap, Territory, MapLabel, MapMarker — camera flies over and persistence tracks these) and `animation-system` (the generic camera-state contract/evaluator supporting pan, positive zoom, and focus-on-node through a narrow world-bounds resolver protocol — this task specializes that contract to the map's geographic coordinate space and world-bounds resolver, it does not reimplement camera math). Feeds the future map verify-rules task (`MAP.ARROW_OUT_OF_VIEW` needs to know the resolved camera viewport at a given time) and the Phase 4 mini-episode (camera flies across the 2-minute fixture).\n\n## Required contract and scope\n\n**Map camera flight.** Implement a map-specific camera-state specialization built on `animation-system`'s generic camera contract: a geographic center (lat/lon or projected-plane coordinate, consistent with the pinned `BaseMap` projection) and zoom level, animated via center/zoom flight paths (straight interpolation and one curved/eased flight variant, matching the generic contract's pan/zoom verbs — no new easing math, reuse the shared easing registry). Implement the narrow world-bounds resolver the generic contract requires, backed by the map's projection and territory geometry (so `focus-on-node` can resolve a Territory's or MapMarker's bounds to a camera center/zoom that frames it). Camera state at any sampled time must be pure, deterministic, renderer-neutral inspectable data (matching `animation-system`'s no-Skia-specific-composition-logic rule) — this task adds map-domain resolution on top, not a parallel camera implementation.\n\n**Cross-scene map-state persistence.** Implement an engine-managed persistence service that, given an ordered scene sequence sharing a `BaseMap` (or a declared map continuity group), carries forward the prior scene's ending territory-fill state, camera state, and active label/marker set into the next scene's starting state, unless the new scene's beats explicitly declare a change (a new Territory fill, an explicit camera flight, a label/marker add or remove). This must be a pure function over the ordered scene/beat data (no agent-authored copy-paste of prior state, no mutable global), produce identical resolved starting state on repeated compilation, and be inspectable (e.g. \"what is the resolved map state entering scene N\") for downstream verify rules and debugging. Define and test the explicit-change precedence rule unambiguously: an explicit beat-level change in scene N always wins over carried-forward state from scene N-1, and an unset property always carries forward.\n\n## Out of scope\n\n- The generic camera-state contract, easing registry, and pan/zoom/focus-on-node evaluator themselves — `animation-system` owns those; this task only specializes/resolves against them for the map domain.\n- The map node types the camera flies to and the persistence service tracks (BaseMap, Territory, MapLabel, MapMarker) — `map-node-types`, the sibling task.\n- `MAP.ARROW_OUT_OF_VIEW` and other map verify rules that would consume resolved camera viewport state — a separate future verification task.\n- Scene transitions (cut/crossfade/wipe/paper-slide) between scenes — already covered by `animation-system`'s generic transition evaluator; this task's persistence service determines *what state* a new scene starts from, not how the visual cut between scenes is rendered.\n- Territory fill-sweep or border-morph animation, and non-camera map animation families generally — not required by the Phase 4 done-when list for this task and not built here.\n- The Phase 4 mini-episode end-to-end fixture and `flat` pack parity — later/separate tasks.\n",
+  "roadmap_phase": "Phase 4: Map engine",
+  "depends_on": ["map-node-types", "animation-system"],
+  "complexity": "simple",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Implement the map camera flight specialization on animation-system's generic camera-state contract: geographic center/zoom state, straight and curved/eased flight-path interpolation (reusing the shared easing registry, no new easing math), and the narrow world-bounds resolver protocol backed by the map projection and BaseMap/Territory/MapMarker geometry so focus-on-node resolves a real framing center/zoom. Camera state at any sampled time must be pure, deterministic, renderer-neutral data with repeated-evaluation stability tested.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/unit/maps/test_camera_flight.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement the cross-scene map-state persistence service: given an ordered scene sequence sharing a BaseMap/continuity group, carry forward the prior scene's ending territory-fill, camera, and active label/marker state into the next scene's start unless a beat explicitly changes it, with explicit-change-always-wins precedence, deterministic repeated-compilation stability, and an inspectable resolved-starting-state query for downstream consumers.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/unit/maps/test_map_state_persistence.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Golden-test a two-plus-scene map fixture in crude proving smooth, deterministic camera flight interpolation across a scene boundary and unchanged territory-fill/camera/label state correctly persisting while an explicit beat-level change in the second scene overrides it. Baseline is pre-blessed in the pinned golden container; this only compares. Keep the new module lint/type clean.",
+      "verification": {
+        "type": "integration",
+        "command": "python -m anima.testing.goldens compare --id map_camera_persistence_fixture && pytest -q tests/integration/maps/test_camera_persistence_integration.py && ruff check src/anima/maps tests/integration/maps/test_camera_persistence_integration.py && mypy --strict src/anima/maps",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

@@ -1,0 +1,54 @@
+{
+  "id": "longform-pipeline-proof",
+  "title": "Complete 15-20 minute episode pipeline proof",
+  "short_description": "Produce a complete 15-20 minute silent episode (maps, characters, text, subtitles) that verifies and renders end-to-end -- the scale proof ahead of the polished flagship, expected to surface cross-scene consistency and performance bugs.",
+  "long_description_md": "# Complete 15-20 minute episode pipeline proof\n\n## Why task exists\n\nEvery Phase 6 task before this one builds mechanism (chapter structure, parallel render, tuned performance, nightly gate) and proves it on synthetic or partial fixtures. None of them prove the whole pipeline holds together end to end on real, full-length, real-genre content -- maps plus characters plus text plus subtitles, 15-20 minutes, one continuous authored project. ROADMAP Phase 6 bullet 5, verbatim: \"A complete 15-20 minute silent episode (maps + characters + text + subtitles) verifies and renders end-to-end -- the pipeline proof, ahead of the polished flagship.\" PROJECT.md's success bar makes the same point: \"15-20 min ~= 100+ scenes/beats, so render performance, cross-scene consistency, and verification at scale are v1 requirements\" -- this task is where that requirement gets tested against something real instead of assumed.\n\nThis is deliberately **not** the Phase 7 v1 bar. The v1 bar (Phase 7, done-when: \"an agent produces a coherent 15-20 minute script-driven episode passing verify end-to-end, and Arnav watches it once and says 'yes, that's the style'\") requires founder approval of the finished look. This task's job is narrower and comes first: prove the pipeline survives real scale and content variety without falling over, and catalog whatever cross-scene consistency or performance bugs it surfaces so they get fixed before the flagship attempt, not discovered during it. No founder style checkpoint is required here -- that is explicitly Phase 7 scope.\n\n## Roadmap fit\n\nLast task in Phase 6, depends on everything else in the phase being real:\n- **`performance-nfr-targets`** -- supplies the tuned, NFR-passing render/verify pipeline (worker counts, cache behavior, reference-machine timing bars) this episode is rendered through; without it this task would just be discovering performance problems `performance-nfr-targets` already exists to fix.\n- **`subtitle-rendering`** -- supplies burned-in subtitle rendering and its verify rules (Phase 2 scope); this episode is explicitly silent-with-subtitles, so subtitle rendering must exist before a real episode can use it.\n\n## Required scope\n\n**Content.** Author one complete project (using the chapter/package structure from `chapter-project-structure`) totaling 15-20 minutes of narration-driven timeline duration, with a real script (narration text, beats, holds/pauses) -- not filler lorem-ipsum-shaped beats. Content must genuinely exercise all four listed elements across multiple chapters: map scenes (territory fills, invasion arrows, camera flights, using real vendored dataset territories), character scenes (multiple characters/poses from a shipped style pack), text/label content, and burned-in subtitles throughout. Pick one style pack (`crude` or `flat`) and use it consistently -- pack-switching mid-episode is not required or expected.\n\n**Verify.** The complete project must pass `anima verify` with zero error-severity findings (warnings are acceptable and should be reviewed, not silently ignored) -- this exercises structural checks, layout/readability rules, taste/continuity rules, and map verify rules simultaneously across 100+ real beats for the first time.\n\n**Render.** The complete project must render end-to-end to a valid MP4 via `anima render` producing correct total duration (within the WPM-model tolerance of the authored script's target 15-20 min), using the parallel render path and hitting (or explicitly documenting where it misses, with a filed follow-up) the NFR bars this project's scale should already satisfy per `performance-nfr-targets`.\n\n**Bug catalog.** Any cross-scene consistency bug (map-state carry-over breaking across a chapter boundary, style/palette drift, continuity-rule false negative/positive at scale) or performance bug (memory creep, throughput cliff on a specific scene type) this real content surfaces must be logged as a concrete, reproducible finding -- either fixed in this task if small and clearly in-scope, or filed as a named follow-up with enough detail (project path, scene id, exact symptom) that it is not lost. This task's completion bar is \"the pipeline proof ran and its results are known and recorded,\" not \"zero bugs found\" -- a clean bug catalog that turns out empty is a fine outcome too, but silence on this point is not acceptable per the persona's nothing-gets-stubbed rule.\n\n## Explicitly out of scope\n\n- Any founder style approval / \"yes, that's the style\" checkpoint -- that is the Phase 7 v1 bar, a distinct later task, not this one.\n- Building or tuning the parallel-render, chapter-structure, or NFR-target mechanisms themselves -- consumed here, not built here.\n- Adding new map territories, characters, props, or style-pack assets beyond what already shipped -- this task authors content using the existing asset vocabulary, it does not extend the vocabulary.\n- Fixing every discovered bug inline if the fix is itself substantial (e.g. a new indexing algorithm, a new verify rule family) -- those get filed as named follow-ups per the bug-catalog requirement above, not force-fit into this task's scope.\n- Publishing or sharing the episode externally -- purely an in-repo pipeline proof artifact.\n",
+  "roadmap_phase": "Phase 6: Long-form scale & performance",
+  "depends_on": ["performance-nfr-targets", "subtitle-rendering"],
+  "complexity": "complex",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Complete chapter-structured 15-20 minute project authored and checked in (real narration script, multiple chapters, map + character + text + subtitle content throughout, one consistently-used style pack) under an examples/ or fixtures/longform_pipeline_proof/ path.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/pipeline_proof/test_longform_project_shape.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "anima verify on the complete project passes with zero error-severity findings across all rule families (structural, layout/readability, taste/continuity, map) at real 100+ beat scale.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/pipeline_proof/test_longform_verify_passes.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "anima render on the complete project produces a valid MP4 via the parallel render path with correct total duration within the WPM-model tolerance of the authored script's 15-20 minute target.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/pipeline_proof/test_longform_render_end_to_end.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Bug catalog produced and checked in (e.g. docs/cofounder/specs/tasks/longform-pipeline-proof-findings.md or equivalent) recording every cross-scene consistency or performance bug surfaced by this content, each either fixed with a passing regression test or filed as a named, reproducible follow-up.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/pipeline_proof/test_bug_catalog_present.py",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

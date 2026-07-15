@@ -1,0 +1,4879 @@
+{
+  "nodes": [
+    {
+      "id": "project_md",
+      "label": "PROJECT.md",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_anima_ai",
+      "label": "anima-ai",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_vision",
+      "label": "Vision",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_users",
+      "label": "Users",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_core_value_proposition",
+      "label": "Core value proposition",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_business_model",
+      "label": "Business model",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_non_goals",
+      "label": "Non-goals",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_technical_foundation",
+      "label": "Technical foundation",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_technical_architecture_md",
+      "label": "docs/cofounder/specs/technical-architecture.md",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_success_looks_like",
+      "label": "Success looks like",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_current_state",
+      "label": "Current state",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_feasibility_report_md",
+      "label": "docs/cofounder/specs/feasibility-report.md",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "project_key_links",
+      "label": "Key links",
+      "source_file": "PROJECT.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_cofounder_persona_md",
+      "label": "docs/cofounder/COFOUNDER_PERSONA.md",
+      "source_file": "docs/cofounder/COFOUNDER_PERSONA.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_decisions_md",
+      "label": "docs/cofounder/DECISIONS.md",
+      "source_file": "docs/cofounder/DECISIONS.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_roadmap_md",
+      "label": "docs/cofounder/ROADMAP.md",
+      "source_file": "docs/cofounder/ROADMAP.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_data_model_md",
+      "label": "docs/cofounder/specs/data-model.md",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_data_model_anima_ai",
+      "label": "Data Model — anima-ai",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_entities",
+      "label": "Entities",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_project",
+      "label": "Project",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_script_beat",
+      "label": "Script / Beat",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_scene",
+      "label": "Scene",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_node_abstract_shape_path_text_asset_character_group_basemap",
+      "label": "Node (abstract) → Shape, Path, Text, Asset, Character, Group, BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_track_keyframe_compiled_not_authored",
+      "label": "Track / Keyframe (compiled, not authored)",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_stylepack",
+      "label": "StylePack",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_assetref_mapdataset",
+      "label": "AssetRef / MapDataset",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_verificationreport_finding",
+      "label": "VerificationReport / Finding",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_goldenbaseline_repo_internal",
+      "label": "GoldenBaseline (repo-internal)",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_relationships",
+      "label": "Relationships",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_invariants",
+      "label": "Invariants",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "data_model_lifecycle_state",
+      "label": "Lifecycle & state",
+      "source_file": "docs/cofounder/specs/data-model.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_feasibility_report_anima_ai",
+      "label": "Feasibility report — anima-ai",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_verdict",
+      "label": "Verdict",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_opposition_research",
+      "label": "Opposition research",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_user_sentiment",
+      "label": "User sentiment",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_market_landscape",
+      "label": "Market landscape",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_market_gaps_and_differentiation",
+      "label": "Market gaps and differentiation",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_recommended_build_tooling",
+      "label": "Recommended build tooling",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "feasibility_report_sources",
+      "label": "Sources",
+      "source_file": "docs/cofounder/specs/feasibility-report.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_go_to_market_md",
+      "label": "docs/cofounder/specs/go-to-market.md",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_go_to_market_anima_ai",
+      "label": "Go-To-Market — anima-ai",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_positioning",
+      "label": "Positioning",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_pricing_monetization",
+      "label": "Pricing / monetization",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_acquisition",
+      "label": "Acquisition",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_launch_plan",
+      "label": "Launch plan",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_growth_loops",
+      "label": "Growth loops",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "go_to_market_competitive_moat",
+      "label": "Competitive moat",
+      "source_file": "docs/cofounder/specs/go-to-market.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_non_functional_requirements_md",
+      "label": "docs/cofounder/specs/non-functional-requirements.md",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_non_functional_requirements_anima_ai",
+      "label": "Non-Functional Requirements — anima-ai",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_performance",
+      "label": "Performance",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_reliability",
+      "label": "Reliability",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_security",
+      "label": "Security",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_compliance",
+      "label": "Compliance",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_observability",
+      "label": "Observability",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "non_functional_requirements_accessibility_standards",
+      "label": "Accessibility standards",
+      "source_file": "docs/cofounder/specs/non-functional-requirements.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_product_spec_md",
+      "label": "docs/cofounder/specs/product-spec.md",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_product_spec_anima_ai",
+      "label": "Product Spec — anima-ai",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_positioning",
+      "label": "Positioning",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_users",
+      "label": "Users",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_core_value_proposition",
+      "label": "Core value proposition",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_full_capability_set",
+      "label": "Full capability set",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_1_scene_graph_engine_core",
+      "label": "1. Scene-graph engine (core)",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_2_narration_shaped_timeline",
+      "label": "2. Narration-shaped timeline",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_3_animation_system",
+      "label": "3. Animation system",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_4_procedural_paint_rendering",
+      "label": "4. Procedural paint rendering",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_5_style_packs_two_at_launch",
+      "label": "5. Style packs (two at launch)",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_6_map_engine_core_primitive_not_a_plugin",
+      "label": "6. Map engine (core primitive, not a plugin)",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_7_verification_engine_the_differentiator",
+      "label": "7. Verification engine (the differentiator)",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_8_rendering_encoding_pipeline",
+      "label": "8. Rendering & encoding pipeline",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_9_preview_artifacts",
+      "label": "9. Preview artifacts",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_10_agent_facing_cli",
+      "label": "10. Agent-facing CLI",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_11_agent_onboarding_surface",
+      "label": "11. Agent onboarding surface",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_12_determinism_trust_infrastructure",
+      "label": "12. Determinism & trust infrastructure",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_explicit_non_goals",
+      "label": "Explicit non-goals",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_competitive_landscape",
+      "label": "Competitive landscape",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "product_spec_success_metrics",
+      "label": "Success metrics",
+      "source_file": "docs/cofounder/specs/product-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_technical_architecture_anima_ai",
+      "label": "Technical Architecture — anima-ai",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_stack",
+      "label": "Stack",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_system_architecture",
+      "label": "System architecture",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_data_flow",
+      "label": "Data flow",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_key_technical_decisions",
+      "label": "Key technical decisions",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_deployment_infrastructure",
+      "label": "Deployment & infrastructure",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_security_privacy_posture",
+      "label": "Security & privacy posture",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_integrations",
+      "label": "Integrations",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_scalability",
+      "label": "Scalability",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "technical_architecture_testing_strategy",
+      "label": "Testing strategy",
+      "source_file": "docs/cofounder/specs/technical-architecture.md",
+      "file_type": "document"
+    },
+    {
+      "id": "docs_cofounder_specs_ux_design_spec_md",
+      "label": "docs/cofounder/specs/ux-design-spec.md",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_ux_design_spec_anima_ai",
+      "label": "UX / Design Spec — anima-ai",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_design_principles_voice",
+      "label": "Design principles & voice",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_information_architecture",
+      "label": "Information architecture",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_key_flows",
+      "label": "Key flows",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_flow_1_agent_authors_an_episode_the_core_loop",
+      "label": "Flow 1 — Agent authors an episode (the core loop)",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_flow_2_human_style_checkpoint",
+      "label": "Flow 2 — Human style checkpoint",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_flow_3_verification_failure_autopsy_when_verify_passed_but_t",
+      "label": "Flow 3 — Verification failure autopsy (when verify passed but the human spots a defect)",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_flow_4_long_form_assembly_15_20_min_episode",
+      "label": "Flow 4 — Long-form assembly (15–20 min episode)",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_screen_view_breakdown_cli_outputs_and_artifacts",
+      "label": "Screen / view breakdown (CLI outputs and artifacts)",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_accessibility",
+      "label": "Accessibility",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "ux_design_spec_platform_specific_behavior",
+      "label": "Platform-specific behavior",
+      "source_file": "docs/cofounder/specs/ux-design-spec.md",
+      "file_type": "document"
+    },
+    {
+      "id": "sprint_0",
+      "label": "Sprint 0",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_1",
+      "label": "Sprint 1",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_2",
+      "label": "Sprint 2",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_3",
+      "label": "Sprint 3",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_4",
+      "label": "Sprint 4",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_5",
+      "label": "Sprint 5",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_6",
+      "label": "Sprint 6",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_7",
+      "label": "Sprint 7",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_8",
+      "label": "Sprint 8",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_9",
+      "label": "Sprint 9",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_10",
+      "label": "Sprint 10",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_11",
+      "label": "Sprint 11",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_12",
+      "label": "Sprint 12",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_13",
+      "label": "Sprint 13",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_14",
+      "label": "Sprint 14",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_15",
+      "label": "Sprint 15",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_16",
+      "label": "Sprint 16",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "sprint_17",
+      "label": "Sprint 17",
+      "source_file": "docs/cofounder/tasks.json",
+      "file_type": "sprint"
+    },
+    {
+      "id": "agent-docs-surface",
+      "label": "SKILL.md, llms.txt, AGENTS.md, and verification-rule catalog",
+      "source_file": "docs/cofounder/specs/tasks/agent-docs-surface.json",
+      "file_type": "task"
+    },
+    {
+      "id": "agent-repair-harness",
+      "label": "Agent-in-the-loop verification repair harness",
+      "source_file": "docs/cofounder/specs/tasks/agent-repair-harness.json",
+      "file_type": "task"
+    },
+    {
+      "id": "animation-system",
+      "label": "Declarative animation system, easing, camera, and transitions",
+      "source_file": "docs/cofounder/specs/tasks/animation-system.json",
+      "file_type": "task"
+    },
+    {
+      "id": "chapter-project-structure",
+      "label": "Chapter/package project structure and whole-project verify",
+      "source_file": "docs/cofounder/specs/tasks/chapter-project-structure.json",
+      "file_type": "task"
+    },
+    {
+      "id": "cli-framework",
+      "label": "Agent-facing CLI framework and anima new",
+      "source_file": "docs/cofounder/specs/tasks/cli-framework.json",
+      "file_type": "task"
+    },
+    {
+      "id": "cli-inspect-preview",
+      "label": "anima inspect and anima preview contact sheets",
+      "source_file": "docs/cofounder/specs/tasks/cli-inspect-preview.json",
+      "file_type": "task"
+    },
+    {
+      "id": "cookbook-examples",
+      "label": "Cookbook of CI-rendered worked examples",
+      "source_file": "docs/cofounder/specs/tasks/cookbook-examples.json",
+      "file_type": "task"
+    },
+    {
+      "id": "crude-pack",
+      "label": "crude style pack (OverSimplified-inspired)",
+      "source_file": "docs/cofounder/specs/tasks/crude-pack.json",
+      "file_type": "task"
+    },
+    {
+      "id": "docs-site-context7",
+      "label": "Docs site on GitHub Pages and Context7 listing",
+      "source_file": "docs/cofounder/specs/tasks/docs-site-context7.json",
+      "file_type": "task"
+    },
+    {
+      "id": "flat-pack",
+      "label": "flat style pack (Kurzgesagt-inspired)",
+      "source_file": "docs/cofounder/specs/tasks/flat-pack.json",
+      "file_type": "task"
+    },
+    {
+      "id": "font-bundling",
+      "label": "Bundle and license-vet fonts for both packs",
+      "source_file": "docs/cofounder/specs/tasks/font-bundling.json",
+      "file_type": "task"
+    },
+    {
+      "id": "fresh-agent-test",
+      "label": "Fresh-agent onboarding test",
+      "source_file": "docs/cofounder/specs/tasks/fresh-agent-test.json",
+      "file_type": "task"
+    },
+    {
+      "id": "geometry-resolver",
+      "label": "Shared geometry resolver (verify/render single code path)",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "task"
+    },
+    {
+      "id": "golden-image-harness",
+      "label": "Golden-image test harness with pinned container",
+      "source_file": "docs/cofounder/specs/tasks/golden-image-harness.json",
+      "file_type": "task"
+    },
+    {
+      "id": "launch-assets-posts",
+      "label": "Launch assets, announcement posts, and post-launch flywheel",
+      "source_file": "docs/cofounder/specs/tasks/launch-assets-posts.json",
+      "file_type": "task"
+    },
+    {
+      "id": "longform-pipeline-proof",
+      "label": "Complete 15-20 minute episode pipeline proof",
+      "source_file": "docs/cofounder/specs/tasks/longform-pipeline-proof.json",
+      "file_type": "task"
+    },
+    {
+      "id": "map-camera-state",
+      "label": "Map camera flights and cross-scene map-state persistence",
+      "source_file": "docs/cofounder/specs/tasks/map-camera-state.json",
+      "file_type": "task"
+    },
+    {
+      "id": "map-geometry-foundation",
+      "label": "Vendored map data, projections, and topology-safe simplification",
+      "source_file": "docs/cofounder/specs/tasks/map-geometry-foundation.json",
+      "file_type": "task"
+    },
+    {
+      "id": "map-mini-episode",
+      "label": "Two-minute map-driven mini-episode end to end",
+      "source_file": "docs/cofounder/specs/tasks/map-mini-episode.json",
+      "file_type": "task"
+    },
+    {
+      "id": "map-node-types",
+      "label": "Map node types (BaseMap, Territory, Border, InvasionArrow, MapLabel, MapMarker)",
+      "source_file": "docs/cofounder/specs/tasks/map-node-types.json",
+      "file_type": "task"
+    },
+    {
+      "id": "map-verify-rules",
+      "label": "Map verification rules",
+      "source_file": "docs/cofounder/specs/tasks/map-verify-rules.json",
+      "file_type": "task"
+    },
+    {
+      "id": "pack-pluggability-proof",
+      "label": "Style-pack pluggability proof",
+      "source_file": "docs/cofounder/specs/tasks/pack-pluggability-proof.json",
+      "file_type": "task"
+    },
+    {
+      "id": "paint-primitives",
+      "label": "Procedural paint rendering primitives",
+      "source_file": "docs/cofounder/specs/tasks/paint-primitives.json",
+      "file_type": "task"
+    },
+    {
+      "id": "parallel-scene-render",
+      "label": "Per-scene parallel render",
+      "source_file": "docs/cofounder/specs/tasks/parallel-scene-render.json",
+      "file_type": "task"
+    },
+    {
+      "id": "performance-nfr-targets",
+      "label": "Hit NFR performance targets and nightly regression gate",
+      "source_file": "docs/cofounder/specs/tasks/performance-nfr-targets.json",
+      "file_type": "task"
+    },
+    {
+      "id": "phase1-determinism-e2e",
+      "label": "Phase 1 fixture project and determinism proof",
+      "source_file": "docs/cofounder/specs/tasks/phase1-determinism-e2e.json",
+      "file_type": "task"
+    },
+    {
+      "id": "pypi-name-and-publish",
+      "label": "PyPI name confirmation and v0.1.0 publish",
+      "source_file": "docs/cofounder/specs/tasks/pypi-name-and-publish.json",
+      "file_type": "task"
+    },
+    {
+      "id": "repo-scaffold-ci",
+      "label": "Repo scaffold, packaging, and 3-OS CI matrix",
+      "source_file": "docs/cofounder/specs/tasks/repo-scaffold-ci.json",
+      "file_type": "task"
+    },
+    {
+      "id": "scene-graph-model",
+      "label": "Typed scene-graph data model with JSON serialization",
+      "source_file": "docs/cofounder/specs/tasks/scene-graph-model.json",
+      "file_type": "task"
+    },
+    {
+      "id": "seeded-rng-service",
+      "label": "Seeded RNG service keyed by (project_seed, node_id)",
+      "source_file": "docs/cofounder/specs/tasks/seeded-rng-service.json",
+      "file_type": "task"
+    },
+    {
+      "id": "skia-rasterizer-cache",
+      "label": "Skia rasterizer with static-layer cache",
+      "source_file": "docs/cofounder/specs/tasks/skia-rasterizer-cache.json",
+      "file_type": "task"
+    },
+    {
+      "id": "streaming-encoder-render",
+      "label": "PyAV streaming encoder and anima render",
+      "source_file": "docs/cofounder/specs/tasks/streaming-encoder-render.json",
+      "file_type": "task"
+    },
+    {
+      "id": "style-pack-system",
+      "label": "Style-pack schema, pinning, anima assets, and palette rule",
+      "source_file": "docs/cofounder/specs/tasks/style-pack-system.json",
+      "file_type": "task"
+    },
+    {
+      "id": "subtitle-rendering",
+      "label": "Burned-in subtitle rendering with verify rules",
+      "source_file": "docs/cofounder/specs/tasks/subtitle-rendering.json",
+      "file_type": "task"
+    },
+    {
+      "id": "taste-constraint-rules",
+      "label": "Taste constraint rules with per-pack profiles and severity config",
+      "source_file": "docs/cofounder/specs/tasks/taste-constraint-rules.json",
+      "file_type": "task"
+    },
+    {
+      "id": "timeline-compiler",
+      "label": "Script-to-timeline compiler: beat parsing, WPM estimation, and track lowering",
+      "source_file": "docs/cofounder/specs/tasks/timeline-compiler.json",
+      "file_type": "task"
+    },
+    {
+      "id": "v1-flagship-episode",
+      "label": "The v1 bar: flagship 15-20 minute agent-authored episode",
+      "source_file": "docs/cofounder/specs/tasks/v1-flagship-episode.json",
+      "file_type": "task"
+    },
+    {
+      "id": "verification-report-schema",
+      "label": "VerificationReport/Finding schema and render gating",
+      "source_file": "docs/cofounder/specs/tasks/verification-report-schema.json",
+      "file_type": "task"
+    },
+    {
+      "id": "verify-layout-rules",
+      "label": "Layout and readability verification rules with spatial index",
+      "source_file": "docs/cofounder/specs/tasks/verify-layout-rules.json",
+      "file_type": "task"
+    },
+    {
+      "id": "verify-structural-checks",
+      "label": "Structural verification checks",
+      "source_file": "docs/cofounder/specs/tasks/verify-structural-checks.json",
+      "file_type": "task"
+    },
+    {
+      "id": "agent_docs_surface_deliverable_0",
+      "label": "SKILL.md at repo root, valid agent-skills frontmatter (name, description), teach",
+      "source_file": "docs/cofounder/specs/tasks/agent-docs-surface.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_docs_surface_deliverable_1",
+      "label": "llms.txt and AGENTS.md at repo root, llms.txt convention structure (H1/blockquot",
+      "source_file": "docs/cofounder/specs/tasks/agent-docs-surface.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_docs_surface_deliverable_2",
+      "label": "docs/verification-rules.md catalog: one entry (code, namespace, severity, descri",
+      "source_file": "docs/cofounder/specs/tasks/agent-docs-surface.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_docs_surface_deliverable_3",
+      "label": "Version-pin integrity check: SKILL.md/llms.txt/AGENTS.md's declared engine-versi",
+      "source_file": "docs/cofounder/specs/tasks/agent-docs-surface.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_repair_harness_deliverable_0",
+      "label": "Fixture corpus of at least 10 deliberately-broken projects under tests/fixtures/",
+      "source_file": "docs/cofounder/specs/tasks/agent-repair-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_repair_harness_deliverable_1",
+      "label": "Corpus integrity self-check: running anima verify --json against every broken fi",
+      "source_file": "docs/cofounder/specs/tasks/agent-repair-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_repair_harness_deliverable_2",
+      "label": "Harness entry point (scripts/agent_repair_harness.py) that packages each broken ",
+      "source_file": "docs/cofounder/specs/tasks/agent-repair-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "agent_repair_harness_deliverable_3",
+      "label": "Documented, repeatable measurement protocol (docs/cofounder/specs/tasks-support ",
+      "source_file": "docs/cofounder/specs/tasks/agent-repair-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "animation_system_deliverable_0",
+      "label": "A typed, immutable standard easing registry with stable serializable IDs for lin",
+      "source_file": "docs/cofounder/specs/tasks/animation-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "animation_system_deliverable_1",
+      "label": "Declarative beat-attached node-animation specifications and timeline-compiler lo",
+      "source_file": "docs/cofounder/specs/tasks/animation-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "animation_system_deliverable_2",
+      "label": "A generic camera-state contract and animation evaluator supporting pan, positive",
+      "source_file": "docs/cofounder/specs/tasks/animation-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "animation_system_deliverable_3",
+      "label": "A deterministic multi-beat, multi-scene compiler fixture that exercises every sh",
+      "source_file": "docs/cofounder/specs/tasks/animation-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "chapter_project_structure_deliverable_0",
+      "label": "Package/chapter project structure implemented: chapters/ directory of modules ea",
+      "source_file": "docs/cofounder/specs/tasks/chapter-project-structure.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "chapter_project_structure_deliverable_1",
+      "label": "CLI support: anima new --chapters scaffolds a package-shaped project; anima rend",
+      "source_file": "docs/cofounder/specs/tasks/chapter-project-structure.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "chapter_project_structure_deliverable_2",
+      "label": "Synthetic 100+ beat, multi-chapter fixture project verifies in <=30s wall time o",
+      "source_file": "docs/cofounder/specs/tasks/chapter-project-structure.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "chapter_project_structure_deliverable_3",
+      "label": "Chapter/package project structure documented with a worked example (chapters/ la",
+      "source_file": "docs/cofounder/specs/tasks/chapter-project-structure.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cli_framework_deliverable_0",
+      "label": "Implement the shared `anima` CLI framework and root entry point. Apply one resul",
+      "source_file": "docs/cofounder/specs/tasks/cli-framework.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cli_framework_deliverable_1",
+      "label": "Implement `anima new <destination>` with style selection and non-interactive, ov",
+      "source_file": "docs/cofounder/specs/tasks/cli-framework.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cli_inspect_preview_deliverable_0",
+      "label": "Implement `anima inspect` with default full-graph-JSON mode, --compiled (compile",
+      "source_file": "docs/cofounder/specs/tasks/cli-inspect-preview.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cli_inspect_preview_deliverable_1",
+      "label": "Implement `anima preview` producing annotated contact-sheet PNGs (beat ID + time",
+      "source_file": "docs/cofounder/specs/tasks/cli-inspect-preview.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cli_inspect_preview_deliverable_2",
+      "label": "Implement optional --video low-res MP4 output on anima preview, reusing the shar",
+      "source_file": "docs/cofounder/specs/tasks/cli-inspect-preview.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cookbook_examples_deliverable_0",
+      "label": "examples/cookbook/map_scene/ — BaseMap, ≥2 Territory fills, Border, curved-growt",
+      "source_file": "docs/cofounder/specs/tasks/cookbook-examples.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cookbook_examples_deliverable_1",
+      "label": "examples/cookbook/character_dialogue/ — ≥2 Character nodes with pose changes, en",
+      "source_file": "docs/cofounder/specs/tasks/cookbook-examples.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cookbook_examples_deliverable_2",
+      "label": "examples/cookbook/full_episode/ — ~120s composite of map + character + subtitle ",
+      "source_file": "docs/cofounder/specs/tasks/cookbook-examples.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "cookbook_examples_deliverable_3",
+      "label": "examples/cookbook/README.md index listing all 3 examples and the node types/anim",
+      "source_file": "docs/cofounder/specs/tasks/cookbook-examples.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "crude_pack_deliverable_0",
+      "label": "Ship the exact-versioned `crude` StylePack: role-based palette, bundled crude ty",
+      "source_file": "docs/cofounder/specs/tasks/crude-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "crude_pack_deliverable_1",
+      "label": "Ship blob-nation shape assets and the comedic label-pop animation set (transitio",
+      "source_file": "docs/cofounder/specs/tasks/crude-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "crude_pack_deliverable_2",
+      "label": "Register golden coverage for every crude-specific rendered element: palette/typo",
+      "source_file": "docs/cofounder/specs/tasks/crude-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "crude_pack_deliverable_3",
+      "label": "Pass and log the founder style checkpoint: re-render the Phase 1 scripted 60-90s",
+      "source_file": "docs/cofounder/specs/tasks/crude-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "docs_site_context7_deliverable_0",
+      "label": "mkdocs.yml + docs/ site scaffolded per ux-design-spec.md's order (quickstart, co",
+      "source_file": "docs/cofounder/specs/tasks/docs-site-context7.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "docs_site_context7_deliverable_1",
+      "label": "WCAG 2.1 AA basics (color contrast, semantic headings, alt text, keyboard-naviga",
+      "source_file": "docs/cofounder/specs/tasks/docs-site-context7.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "docs_site_context7_deliverable_2",
+      "label": "Deploy the built site to GitHub Pages, making it live at the project's Pages URL",
+      "source_file": "docs/cofounder/specs/tasks/docs-site-context7.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "docs_site_context7_deliverable_3",
+      "label": "Submit the Context7 listing for anima-ai so agents retrieve real, version-pinned",
+      "source_file": "docs/cofounder/specs/tasks/docs-site-context7.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "flat_pack_deliverable_0",
+      "label": "Ship the exact-versioned `flat` StylePack with its role-based palette, bundled t",
+      "source_file": "docs/cofounder/specs/tasks/flat-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "flat_pack_deliverable_1",
+      "label": "Register golden coverage for every flat-specific rendered pack element: palette ",
+      "source_file": "docs/cofounder/specs/tasks/flat-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "flat_pack_deliverable_2",
+      "label": "Implement the five Phase 5 taste and continuity rules with validated per-pack pr",
+      "source_file": "docs/cofounder/specs/tasks/flat-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "flat_pack_deliverable_3",
+      "label": "Pass and log the founder style checkpoint using the flat tech-explainer fixture.",
+      "source_file": "docs/cofounder/specs/tasks/flat-pack.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "font_bundling_deliverable_0",
+      "label": "Machine-readable font manifest (src/anima/assets/fonts/manifest.json) naming lic",
+      "source_file": "docs/cofounder/specs/tasks/font-bundling.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "font_bundling_deliverable_1",
+      "label": "Font binaries actually bundled as package data under src/anima/assets/fonts/crud",
+      "source_file": "docs/cofounder/specs/tasks/font-bundling.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "font_bundling_deliverable_2",
+      "label": "Every bundled font file is a valid, parseable font (via fontTools.ttLib, added a",
+      "source_file": "docs/cofounder/specs/tasks/font-bundling.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "font_bundling_deliverable_3",
+      "label": "In-package attribution file (src/anima/assets/fonts/ATTRIBUTION.md) listing ever",
+      "source_file": "docs/cofounder/specs/tasks/font-bundling.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "fresh_agent_test_deliverable_0",
+      "label": "Onboarding-mode target/config added to the existing agent harness: zero-context ",
+      "source_file": "docs/cofounder/specs/tasks/fresh-agent-test.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "fresh_agent_test_deliverable_1",
+      "label": "Deterministic, pure-function scoring of a trial outcome (pass/fail, human-interv",
+      "source_file": "docs/cofounder/specs/tasks/fresh-agent-test.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "fresh_agent_test_deliverable_2",
+      "label": "Live fresh-agent onboarding run: real agent session with no prior context, only ",
+      "source_file": "docs/cofounder/specs/tasks/fresh-agent-test.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "geometry_resolver_deliverable_0",
+      "label": "Core geometry-resolver module (`anima/_internal/geometry.py`) implementing `Boun",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "geometry_resolver_deliverable_1",
+      "label": "Property-based and edge-case test suite in a distinct file (`tests/test_geometry",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "geometry_resolver_deliverable_2",
+      "label": "Golden-image fixture suite for geometry validation: renderable fixture projects ",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "geometry_resolver_deliverable_3",
+      "label": "Render-path geometry validation: a scripted integration test where a Phase 1 fix",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "geometry_resolver_deliverable_4",
+      "label": "Bundled font resolution and Skia text-shaping parity test: verifies that text no",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "geometry_resolver_deliverable_5",
+      "label": "API contract documentation: type stubs and docstrings for `BoundsResolver`, `Bou",
+      "source_file": "docs/cofounder/specs/tasks/geometry-resolver.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "golden_image_harness_deliverable_0",
+      "label": "Digest-pinned CPU-only Linux golden Dockerfile, built from a digest-pinned base ",
+      "source_file": "docs/cofounder/specs/tasks/golden-image-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "golden_image_harness_deliverable_1",
+      "label": "Least-privilege GitHub Actions workflow file (.github/workflows/golden-container",
+      "source_file": "docs/cofounder/specs/tasks/golden-image-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "golden_image_harness_deliverable_2",
+      "label": "Vendored deterministic PNG comparator implementing YIQ perceptual distance and n",
+      "source_file": "docs/cofounder/specs/tasks/golden-image-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "golden_image_harness_deliverable_3",
+      "label": "Typed, manifest-backed GoldenBaseline registry with stable IDs, canonical parame",
+      "source_file": "docs/cofounder/specs/tasks/golden-image-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "golden_image_harness_deliverable_4",
+      "label": "One committed, text-free direct-Skia fixture registered as a GoldenBaseline, wit",
+      "source_file": "docs/cofounder/specs/tasks/golden-image-harness.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "launch_assets_posts_deliverable_0",
+      "label": "Render the 2-3 minute flagship crude-pack cut (history topic, subtitles on, deri",
+      "source_file": "docs/cofounder/specs/tasks/launch-assets-posts.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "launch_assets_posts_deliverable_1",
+      "label": "Render the separate 60-second flat-pack tech explainer via anima render; generat",
+      "source_file": "docs/cofounder/specs/tasks/launch-assets-posts.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "launch_assets_posts_deliverable_2",
+      "label": "GitHub issue template for 'verify passed but a human flagged it' reports exists ",
+      "source_file": "docs/cofounder/specs/tasks/launch-assets-posts.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "launch_assets_posts_deliverable_3",
+      "label": "Draft Show HN and r/Python posts anchored on the real flagship episode and its v",
+      "source_file": "docs/cofounder/specs/tasks/launch-assets-posts.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "longform_pipeline_proof_deliverable_0",
+      "label": "Complete chapter-structured 15-20 minute project authored and checked in (real n",
+      "source_file": "docs/cofounder/specs/tasks/longform-pipeline-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "longform_pipeline_proof_deliverable_1",
+      "label": "anima verify on the complete project passes with zero error-severity findings ac",
+      "source_file": "docs/cofounder/specs/tasks/longform-pipeline-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "longform_pipeline_proof_deliverable_2",
+      "label": "anima render on the complete project produces a valid MP4 via the parallel rende",
+      "source_file": "docs/cofounder/specs/tasks/longform-pipeline-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "longform_pipeline_proof_deliverable_3",
+      "label": "Bug catalog produced and checked in (e.g. docs/cofounder/specs/tasks/longform-pi",
+      "source_file": "docs/cofounder/specs/tasks/longform-pipeline-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_camera_state_deliverable_0",
+      "label": "Implement the map camera flight specialization on animation-system's generic cam",
+      "source_file": "docs/cofounder/specs/tasks/map-camera-state.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_camera_state_deliverable_1",
+      "label": "Implement the cross-scene map-state persistence service: given an ordered scene ",
+      "source_file": "docs/cofounder/specs/tasks/map-camera-state.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_camera_state_deliverable_2",
+      "label": "Golden-test a two-plus-scene map fixture in crude proving smooth, deterministic ",
+      "source_file": "docs/cofounder/specs/tasks/map-camera-state.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_geometry_foundation_deliverable_0",
+      "label": "Version-pinned Natural Earth 1:110m and 1:50m plus historical-basemaps package d",
+      "source_file": "docs/cofounder/specs/tasks/map-geometry-foundation.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_geometry_foundation_deliverable_1",
+      "label": "A deterministic MapDataset registry and territory index mapping canonical datase",
+      "source_file": "docs/cofounder/specs/tasks/map-geometry-foundation.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_geometry_foundation_deliverable_2",
+      "label": "Pinned-pyproj projection support with EPSG:8857 Equal Earth as the world default",
+      "source_file": "docs/cofounder/specs/tasks/map-geometry-foundation.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_geometry_foundation_deliverable_3",
+      "label": "Topology-aware collection simplification using shared quantized topojson arcs, w",
+      "source_file": "docs/cofounder/specs/tasks/map-geometry-foundation.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_mini_episode_deliverable_0",
+      "label": "Author the ~2-minute crude-pack fixture project (project.py + beat-annotated scr",
+      "source_file": "docs/cofounder/specs/tasks/map-mini-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_mini_episode_deliverable_1",
+      "label": "anima verify --json against the authored project returns pass=true with zero err",
+      "source_file": "docs/cofounder/specs/tasks/map-mini-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_mini_episode_deliverable_2",
+      "label": "anima render against the same project produces a 1080p30 MP4 whose duration/fram",
+      "source_file": "docs/cofounder/specs/tasks/map-mini-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_node_types_deliverable_0",
+      "label": "Implement typed, immutable BaseMap and Territory node subtypes under the anima m",
+      "source_file": "docs/cofounder/specs/tasks/map-node-types.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_node_types_deliverable_1",
+      "label": "Implement typed Border, MapLabel, and MapMarker node subtypes. Border derives bo",
+      "source_file": "docs/cofounder/specs/tasks/map-node-types.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_node_types_deliverable_2",
+      "label": "Implement the InvasionArrow node subtype: a deterministic Bezier-derived curved ",
+      "source_file": "docs/cofounder/specs/tasks/map-node-types.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_node_types_deliverable_3",
+      "label": "Golden-test all six node types in crude: BaseMap framing, dataset_ref and inline",
+      "source_file": "docs/cofounder/specs/tasks/map-node-types.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_verify_rules_deliverable_0",
+      "label": "MAP.UNKNOWN_TERRITORY check: dataset-ref Territory/Border/InvasionArrow nodes re",
+      "source_file": "docs/cofounder/specs/tasks/map-verify-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_verify_rules_deliverable_1",
+      "label": "MAP.ARROW_OUT_OF_VIEW check: InvasionArrow paths resolved via the shared geometr",
+      "source_file": "docs/cofounder/specs/tasks/map-verify-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_verify_rules_deliverable_2",
+      "label": "MAP.DATE_MISMATCH check: dataset-ref Territory/Border node dates resolved agains",
+      "source_file": "docs/cofounder/specs/tasks/map-verify-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "map_verify_rules_deliverable_3",
+      "label": "run_map_checks(project) -> list[Finding] entry point running all four families i",
+      "source_file": "docs/cofounder/specs/tasks/map-verify-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "pack_pluggability_proof_deliverable_0",
+      "label": "Build the shared pluggability fixture project (one unmodified scene-code source ",
+      "source_file": "docs/cofounder/specs/tasks/pack-pluggability-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "pack_pluggability_proof_deliverable_1",
+      "label": "CLI-level end-to-end test: run `anima render` and `anima verify` against the ide",
+      "source_file": "docs/cofounder/specs/tasks/pack-pluggability-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "pack_pluggability_proof_deliverable_2",
+      "label": "Vocabulary-parity test proving every character ID, prop ID, and palette role the",
+      "source_file": "docs/cofounder/specs/tasks/pack-pluggability-proof.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "paint_primitives_deliverable_0",
+      "label": "Implement the wobbly-stroke primitive (`anima/_internal/paint/stroke.py`): noise",
+      "source_file": "docs/cofounder/specs/tasks/paint-primitives.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "paint_primitives_deliverable_1",
+      "label": "Implement paint/paper texture fills (`anima/_internal/paint/texture.py`) and pai",
+      "source_file": "docs/cofounder/specs/tasks/paint-primitives.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "paint_primitives_deliverable_2",
+      "label": "Implement glyph-outline-tracing text strokes (`anima/_internal/paint/text_stroke",
+      "source_file": "docs/cofounder/specs/tasks/paint-primitives.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "paint_primitives_deliverable_3",
+      "label": "Property-test decorrelation and re-render determinism across all four primitive ",
+      "source_file": "docs/cofounder/specs/tasks/paint-primitives.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "paint_primitives_deliverable_4",
+      "label": "Register golden baselines at parameter extremes for all four primitive families ",
+      "source_file": "docs/cofounder/specs/tasks/paint-primitives.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "parallel_scene_render_deliverable_0",
+      "label": "N-worker-process parallel render implemented: whole-scene work units, single coo",
+      "source_file": "docs/cofounder/specs/tasks/parallel-scene-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "parallel_scene_render_deliverable_1",
+      "label": "Determinism proof: on a real multi-scene fixture project, per-frame hashes of a ",
+      "source_file": "docs/cofounder/specs/tasks/parallel-scene-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "parallel_scene_render_deliverable_2",
+      "label": "Worker failure isolation: a crash rendering one scene produces a clear, scene/wo",
+      "source_file": "docs/cofounder/specs/tasks/parallel-scene-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "parallel_scene_render_deliverable_3",
+      "label": "CLI, lint, and type-check pass on the new parallel render module and --workers f",
+      "source_file": "docs/cofounder/specs/tasks/parallel-scene-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "performance_nfr_targets_deliverable_0",
+      "label": "Reference machine spec documented in-repo; representative chapter-structured 15-",
+      "source_file": "docs/cofounder/specs/tasks/performance-nfr-targets.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "performance_nfr_targets_deliverable_1",
+      "label": "Full benchmark-fixture render on the reference machine measures and asserts all ",
+      "source_file": "docs/cofounder/specs/tasks/performance-nfr-targets.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "performance_nfr_targets_deliverable_2",
+      "label": "Any optimization made for the above does not regress render output determinism -",
+      "source_file": "docs/cofounder/specs/tasks/performance-nfr-targets.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "performance_nfr_targets_deliverable_3",
+      "label": "Standalone timing-regression gate script/module (parse two render-timing records",
+      "source_file": "docs/cofounder/specs/tasks/performance-nfr-targets.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "phase1_determinism_e2e_deliverable_0",
+      "label": "Author the checked-in 60-90s multi-scene fixture project (Python scene code + be",
+      "source_file": "docs/cofounder/specs/tasks/phase1-determinism-e2e.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "phase1_determinism_e2e_deliverable_1",
+      "label": "CI-runnable determinism proof: render the fixture project twice in separate proc",
+      "source_file": "docs/cofounder/specs/tasks/phase1-determinism-e2e.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "phase1_determinism_e2e_deliverable_2",
+      "label": "Hypothesis-backed property tests: scene-graph re-serialization is byte-identical",
+      "source_file": "docs/cofounder/specs/tasks/phase1-determinism-e2e.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "phase1_determinism_e2e_deliverable_3",
+      "label": "CI workflow wired to run the Phase 1 determinism job on every push/PR, verified ",
+      "source_file": "docs/cofounder/specs/tasks/phase1-determinism-e2e.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "pypi_name_and_publish_deliverable_0",
+      "label": "Re-check PyPI at publish time for squatting on project name `anima-ai` and impor",
+      "source_file": "docs/cofounder/specs/tasks/pypi-name-and-publish.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "pypi_name_and_publish_deliverable_1",
+      "label": "Prepare the local release: bump pyproject.toml version to 0.1.0, add the v0.1.0 ",
+      "source_file": "docs/cofounder/specs/tasks/pypi-name-and-publish.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "pypi_name_and_publish_deliverable_2",
+      "label": "Publish v0.1.0 to PyPI under Arnav's account (external, irreversible action unde",
+      "source_file": "docs/cofounder/specs/tasks/pypi-name-and-publish.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "repo_scaffold_ci_deliverable_0",
+      "label": "Package skeleton (src/anima src-layout, pyproject.toml with package name anima-a",
+      "source_file": "docs/cofounder/specs/tasks/repo-scaffold-ci.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "repo_scaffold_ci_deliverable_1",
+      "label": "Hash-locked, per-OS lockfiles (requirements/lock-linux.txt, requirements/lock-ma",
+      "source_file": "docs/cofounder/specs/tasks/repo-scaffold-ci.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "repo_scaffold_ci_deliverable_2",
+      "label": "Autouse socket-guard pytest fixture (tests/conftest.py) that raises on any socke",
+      "source_file": "docs/cofounder/specs/tasks/repo-scaffold-ci.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "repo_scaffold_ci_deliverable_3",
+      "label": "GitHub Actions workflow file (.github/workflows/ci.yml) defining a 3-OS matrix (",
+      "source_file": "docs/cofounder/specs/tasks/repo-scaffold-ci.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "repo_scaffold_ci_deliverable_4",
+      "label": "GitHub repository creation and first push of the scaffolded project (including .",
+      "source_file": "docs/cofounder/specs/tasks/repo-scaffold-ci.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "scene_graph_model_deliverable_0",
+      "label": "Typed, immutable Project/Scene/Layer/Node hierarchy and supporting value objects",
+      "source_file": "docs/cofounder/specs/tasks/scene-graph-model.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "scene_graph_model_deliverable_1",
+      "label": "Phase 1 Shape, Path, Text, and recursive Group node subclasses with typed subtyp",
+      "source_file": "docs/cofounder/specs/tasks/scene-graph-model.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "scene_graph_model_deliverable_2",
+      "label": "Public schema-version 1.0 JSON codec with explicit node discriminators, canonica",
+      "source_file": "docs/cofounder/specs/tasks/scene-graph-model.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "scene_graph_model_deliverable_3",
+      "label": "Strictly typed public anima exports and scene-graph contract documentation suita",
+      "source_file": "docs/cofounder/specs/tasks/scene-graph-model.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "seeded_rng_service_deliverable_0",
+      "label": "Implement and re-export a typed `SeededRNG(project_seed)` service with `for_node",
+      "source_file": "docs/cofounder/specs/tasks/seeded-rng-service.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "seeded_rng_service_deliverable_1",
+      "label": "Add Hypothesis-backed tests (and the required dev dependency plus regenerated lo",
+      "source_file": "docs/cofounder/specs/tasks/seeded-rng-service.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "seeded_rng_service_deliverable_2",
+      "label": "Prove ambient runtime state cannot alter a keyed stream by testing equivalent st",
+      "source_file": "docs/cofounder/specs/tasks/seeded-rng-service.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "skia_rasterizer_cache_deliverable_0",
+      "label": "Implement `anima._internal.raster` frame rasterizer: given compiled timeline + s",
+      "source_file": "docs/cofounder/specs/tasks/skia-rasterizer-cache.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "skia_rasterizer_cache_deliverable_1",
+      "label": "Implement static-layer cache: deterministic content-hash-keyed layer caching whe",
+      "source_file": "docs/cofounder/specs/tasks/skia-rasterizer-cache.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "skia_rasterizer_cache_deliverable_2",
+      "label": "Determinism property test: rasterizing the same project+seed twice (fresh proces",
+      "source_file": "docs/cofounder/specs/tasks/skia-rasterizer-cache.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "skia_rasterizer_cache_deliverable_3",
+      "label": "CI-runnable benchmark comparing cached vs uncached rasterization wall-clock on a",
+      "source_file": "docs/cofounder/specs/tasks/skia-rasterizer-cache.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "streaming_encoder_render_deliverable_0",
+      "label": "Implement streaming PyAV encoder module: accepts a frame iterator, encodes on a ",
+      "source_file": "docs/cofounder/specs/tasks/streaming-encoder-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "streaming_encoder_render_deliverable_1",
+      "label": "Implement atomic output writes and prove them with a kill-test: start a render i",
+      "source_file": "docs/cofounder/specs/tasks/streaming-encoder-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "streaming_encoder_render_deliverable_2",
+      "label": "Implement `anima render` CLI command on the cli-framework contract with --scene/",
+      "source_file": "docs/cofounder/specs/tasks/streaming-encoder-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "streaming_encoder_render_deliverable_3",
+      "label": "Determinism test: render the same small fixture project+seed twice in separate p",
+      "source_file": "docs/cofounder/specs/tasks/streaming-encoder-render.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "style_pack_system_deliverable_0",
+      "label": "Implement the immutable, typed, schema-versioned StylePack contract covering exa",
+      "source_file": "docs/cofounder/specs/tasks/style-pack-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "style_pack_system_deliverable_1",
+      "label": "Implement the offline style-pack registry and exact project-pin resolver. Projec",
+      "source_file": "docs/cofounder/specs/tasks/style-pack-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "style_pack_system_deliverable_2",
+      "label": "Implement `anima assets` with human and `--json` output generated from one deter",
+      "source_file": "docs/cofounder/specs/tasks/style-pack-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "style_pack_system_deliverable_3",
+      "label": "Register and activate the versioned `STYLE.PALETTE_VIOLATION` rule against the `",
+      "source_file": "docs/cofounder/specs/tasks/style-pack-system.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "subtitle_rendering_deliverable_0",
+      "label": "Subtitle synthesis: given a compiled timeline with narration-bearing beats and a",
+      "source_file": "docs/cofounder/specs/tasks/subtitle-rendering.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "subtitle_rendering_deliverable_1",
+      "label": "Per-pack subtitle styling resolved from the active StylePack's palette/typograph",
+      "source_file": "docs/cofounder/specs/tasks/subtitle-rendering.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "subtitle_rendering_deliverable_2",
+      "label": "End-to-end render integration: a multi-beat fixture project with subtitles enabl",
+      "source_file": "docs/cofounder/specs/tasks/subtitle-rendering.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "subtitle_rendering_deliverable_3",
+      "label": "Verify-rule fixtures proving CONTRAST.LOW, FONT.MIN_SIZE, and TIMING.READ_TIME (",
+      "source_file": "docs/cofounder/specs/tasks/subtitle-rendering.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "taste_constraint_rules_deliverable_0",
+      "label": "Implement and register the three pacing rules (`PACING.BEAT_STALL`, `PACING.ENTR",
+      "source_file": "docs/cofounder/specs/tasks/taste-constraint-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "taste_constraint_rules_deliverable_1",
+      "label": "Implement and register the two continuity rules (`CONTINUITY.COLOR_DRIFT`, `CONT",
+      "source_file": "docs/cofounder/specs/tasks/taste-constraint-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "taste_constraint_rules_deliverable_2",
+      "label": "Per-pack profile differential test: for each of the five rules, a shared borderl",
+      "source_file": "docs/cofounder/specs/tasks/taste-constraint-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "taste_constraint_rules_deliverable_3",
+      "label": "Per-project severity promote/demote for the five taste/continuity codes: validat",
+      "source_file": "docs/cofounder/specs/tasks/taste-constraint-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "timeline_compiler_deliverable_0",
+      "label": "Core Timeline data model (Beat, Script, CompiledTimeline, Keyframe, TimingMetada",
+      "source_file": "docs/cofounder/specs/tasks/timeline-compiler.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "timeline_compiler_deliverable_1",
+      "label": "Script parser and compiler (compile_timeline function) that lowers beat sequence",
+      "source_file": "docs/cofounder/specs/tasks/timeline-compiler.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "timeline_compiler_deliverable_2",
+      "label": "Multi-beat, multi-scene fixture projects (hand-authored .py scene code) that com",
+      "source_file": "docs/cofounder/specs/tasks/timeline-compiler.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "timeline_compiler_deliverable_3",
+      "label": "Comprehensive error-case fixtures exercising every TimingError violation (empty ",
+      "source_file": "docs/cofounder/specs/tasks/timeline-compiler.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "timeline_compiler_deliverable_4",
+      "label": "Type stubs and API documentation for the Timeline module (docstrings on Script, ",
+      "source_file": "docs/cofounder/specs/tasks/timeline-compiler.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "v1_flagship_episode_deliverable_0",
+      "label": "Agent-authored 15-20 minute, 100+ beat episode project (maps + characters + text",
+      "source_file": "docs/cofounder/specs/tasks/v1-flagship-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "v1_flagship_episode_deliverable_1",
+      "label": "Full-resolution, full-length render produced via `anima render`, output MP4 writ",
+      "source_file": "docs/cofounder/specs/tasks/v1-flagship-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "v1_flagship_episode_deliverable_2",
+      "label": "Founder style checkpoint: Arnav watches the finished full-length render once end",
+      "source_file": "docs/cofounder/specs/tasks/v1-flagship-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "v1_flagship_episode_deliverable_3",
+      "label": "Flow-3 autopsy log (structured artifact, e.g. docs/cofounder/specs/flagship-auto",
+      "source_file": "docs/cofounder/specs/tasks/v1-flagship-episode.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verification_report_schema_deliverable_0",
+      "label": "Immutable, typed VerificationReport and Finding value objects (namespaced/valida",
+      "source_file": "docs/cofounder/specs/tasks/verification-report-schema.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verification_report_schema_deliverable_1",
+      "label": "Public schema-version 1.0 JSON codec for VerificationReport/Finding with determi",
+      "source_file": "docs/cofounder/specs/tasks/verification-report-schema.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verification_report_schema_deliverable_2",
+      "label": "Human-readable report formatter that renders directly from the same Verification",
+      "source_file": "docs/cofounder/specs/tasks/verification-report-schema.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verification_report_schema_deliverable_3",
+      "label": "Render-gate policy module enforcing: proceed silently on zero error-severity fin",
+      "source_file": "docs/cofounder/specs/tasks/verification-report-schema.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_layout_rules_deliverable_0",
+      "label": "Grid-based LayoutIndex spatial index built from geometry-resolver bounds sampled",
+      "source_file": "docs/cofounder/specs/tasks/verify-layout-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_layout_rules_deliverable_1",
+      "label": "OVERLAP.TEXT_TEXT, OVERLAP.TEXT_NODE, and MARGIN.SAFE_AREA rules implemented aga",
+      "source_file": "docs/cofounder/specs/tasks/verify-layout-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_layout_rules_deliverable_2",
+      "label": "FONT.MIN_SIZE, TIMING.READ_TIME, and CONTRAST.LOW rules implemented against geom",
+      "source_file": "docs/cofounder/specs/tasks/verify-layout-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_layout_rules_deliverable_3",
+      "label": "run_layout_checks(project, compiled_timeline) integration entry point running al",
+      "source_file": "docs/cofounder/specs/tasks/verify-layout-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_layout_rules_deliverable_4",
+      "label": "Performance budget proven on the reference machine: full verify (structural + la",
+      "source_file": "docs/cofounder/specs/tasks/verify-layout-rules.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_structural_checks_deliverable_0",
+      "label": "Build-boundary exception capture: wraps project graph construction so scene-grap",
+      "source_file": "docs/cofounder/specs/tasks/verify-structural-checks.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_structural_checks_deliverable_1",
+      "label": "REF.* reference resolution over the built graph and its beat/action layer: unkno",
+      "source_file": "docs/cofounder/specs/tasks/verify-structural-checks.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_structural_checks_deliverable_2",
+      "label": "Timing-closure and visibility-window re-checks computed independently from the c",
+      "source_file": "docs/cofounder/specs/tasks/verify-structural-checks.json",
+      "file_type": "deliverable"
+    },
+    {
+      "id": "verify_structural_checks_deliverable_3",
+      "label": "run_structural_checks(project) entry point running all three check families in d",
+      "source_file": "docs/cofounder/specs/tasks/verify-structural-checks.json",
+      "file_type": "deliverable"
+    }
+  ],
+  "links": [
+    {
+      "source": "project_md",
+      "target": "project_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_vision",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_users",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_core_value_proposition",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_business_model",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_non_goals",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_technical_foundation",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_technical_foundation",
+      "target": "docs_cofounder_specs_technical_architecture_md",
+      "relation": "references",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_success_looks_like",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_current_state",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_current_state",
+      "target": "docs_cofounder_specs_feasibility_report_md",
+      "relation": "references",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_md",
+      "target": "project_key_links",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_key_links",
+      "target": "docs_cofounder_cofounder_persona_md",
+      "relation": "references",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_key_links",
+      "target": "docs_cofounder_decisions_md",
+      "relation": "references",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "project_key_links",
+      "target": "docs_cofounder_roadmap_md",
+      "relation": "references",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_data_model_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_entities",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_project",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_script_beat",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_scene",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_node_abstract_shape_path_text_asset_character_group_basemap",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_track_keyframe_compiled_not_authored",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_stylepack",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_assetref_mapdataset",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_verificationreport_finding",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_goldenbaseline_repo_internal",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_relationships",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_invariants",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_data_model_md",
+      "target": "data_model_lifecycle_state",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_feasibility_report_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_verdict",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_opposition_research",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_user_sentiment",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_market_landscape",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_market_gaps_and_differentiation",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_recommended_build_tooling",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_feasibility_report_md",
+      "target": "feasibility_report_sources",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_go_to_market_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_positioning",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_pricing_monetization",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_acquisition",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_launch_plan",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_growth_loops",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_go_to_market_md",
+      "target": "go_to_market_competitive_moat",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_non_functional_requirements_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_performance",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_reliability",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_security",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_compliance",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_observability",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_non_functional_requirements_md",
+      "target": "non_functional_requirements_accessibility_standards",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_product_spec_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_positioning",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_users",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_core_value_proposition",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_full_capability_set",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_1_scene_graph_engine_core",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_2_narration_shaped_timeline",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_3_animation_system",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_4_procedural_paint_rendering",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_5_style_packs_two_at_launch",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_6_map_engine_core_primitive_not_a_plugin",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_7_verification_engine_the_differentiator",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_8_rendering_encoding_pipeline",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_9_preview_artifacts",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_10_agent_facing_cli",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_11_agent_onboarding_surface",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_12_determinism_trust_infrastructure",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_explicit_non_goals",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_competitive_landscape",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_product_spec_md",
+      "target": "product_spec_success_metrics",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_technical_architecture_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_stack",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_system_architecture",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_data_flow",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_key_technical_decisions",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_deployment_infrastructure",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_security_privacy_posture",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_integrations",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_scalability",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_technical_architecture_md",
+      "target": "technical_architecture_testing_strategy",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_ux_design_spec_anima_ai",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_design_principles_voice",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_information_architecture",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_key_flows",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_flow_1_agent_authors_an_episode_the_core_loop",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_flow_2_human_style_checkpoint",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_flow_3_verification_failure_autopsy_when_verify_passed_but_t",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_flow_4_long_form_assembly_15_20_min_episode",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_screen_view_breakdown_cli_outputs_and_artifacts",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_accessibility",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs_cofounder_specs_ux_design_spec_md",
+      "target": "ux_design_spec_platform_specific_behavior",
+      "relation": "has_section",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "repo-scaffold-ci",
+      "target": "sprint_0",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_1",
+      "target": "sprint_0",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "font-bundling",
+      "target": "sprint_1",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "sprint_1",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-geometry-foundation",
+      "target": "sprint_1",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "scene-graph-model",
+      "target": "sprint_1",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "seeded-rng-service",
+      "target": "sprint_1",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_2",
+      "target": "sprint_0",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_2",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-framework",
+      "target": "sprint_2",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "sprint_2",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_3",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_3",
+      "target": "sprint_2",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "animation-system",
+      "target": "sprint_3",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "sprint_3",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_4",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_4",
+      "target": "sprint_2",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_4",
+      "target": "sprint_3",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "sprint_4",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "sprint_4",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "sprint_4",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_5",
+      "target": "sprint_3",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_5",
+      "target": "sprint_4",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "skia-rasterizer-cache",
+      "target": "sprint_5",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "sprint_5",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_6",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_6",
+      "target": "sprint_2",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_6",
+      "target": "sprint_4",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_6",
+      "target": "sprint_5",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "sprint_6",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "sprint_6",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "sprint_6",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "sprint_6",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "sprint_6",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_7",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_7",
+      "target": "sprint_4",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_7",
+      "target": "sprint_6",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "sprint_7",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "sprint_7",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_8",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_8",
+      "target": "sprint_6",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_8",
+      "target": "sprint_7",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "sprint_8",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "sprint_8",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_9",
+      "target": "sprint_3",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_9",
+      "target": "sprint_8",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-camera-state",
+      "target": "sprint_9",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "sprint_9",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_10",
+      "target": "sprint_1",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_10",
+      "target": "sprint_4",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_10",
+      "target": "sprint_7",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_10",
+      "target": "sprint_9",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "sprint_10",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-mini-episode",
+      "target": "sprint_10",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_11",
+      "target": "sprint_3",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_11",
+      "target": "sprint_7",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_11",
+      "target": "sprint_9",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_11",
+      "target": "sprint_10",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pack-pluggability-proof",
+      "target": "sprint_11",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "sprint_11",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_12",
+      "target": "sprint_5",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_12",
+      "target": "sprint_6",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_12",
+      "target": "sprint_10",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_12",
+      "target": "sprint_11",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "sprint_12",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "sprint_12",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_13",
+      "target": "sprint_8",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_13",
+      "target": "sprint_9",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_13",
+      "target": "sprint_10",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_13",
+      "target": "sprint_11",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_13",
+      "target": "sprint_12",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "sprint_13",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "sprint_13",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_14",
+      "target": "sprint_6",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_14",
+      "target": "sprint_12",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_14",
+      "target": "sprint_13",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "sprint_14",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "sprint_14",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "sprint_14",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_15",
+      "target": "sprint_14",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "sprint_15",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_16",
+      "target": "sprint_15",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pypi-name-and-publish",
+      "target": "sprint_16",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_17",
+      "target": "sprint_14",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_17",
+      "target": "sprint_15",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "sprint_17",
+      "target": "sprint_16",
+      "relation": "depends_on_sprint",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "sprint_17",
+      "relation": "member_of",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "taste-constraint-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "map-verify-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "chapter-project-structure",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "agent_docs_surface_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "agent_docs_surface_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "agent_docs_surface_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-docs-surface",
+      "target": "agent_docs_surface_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "verify-structural-checks",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "verify-layout-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "agent_repair_harness_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "agent_repair_harness_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "agent_repair_harness_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "agent-repair-harness",
+      "target": "agent_repair_harness_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "animation-system",
+      "target": "timeline-compiler",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "animation-system",
+      "target": "animation_system_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "animation-system",
+      "target": "animation_system_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "animation-system",
+      "target": "animation_system_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "animation-system",
+      "target": "animation_system_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "taste-constraint-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "verify-layout-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "chapter_project_structure_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "chapter_project_structure_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "chapter_project_structure_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "chapter-project-structure",
+      "target": "chapter_project_structure_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-framework",
+      "target": "repo-scaffold-ci",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-framework",
+      "target": "scene-graph-model",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-framework",
+      "target": "cli_framework_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-framework",
+      "target": "cli_framework_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "cli-framework",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "timeline-compiler",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "skia-rasterizer-cache",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "cli_inspect_preview_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "cli_inspect_preview_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cli-inspect-preview",
+      "target": "cli_inspect_preview_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "map-mini-episode",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "pack-pluggability-proof",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "subtitle-rendering",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "cookbook_examples_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "cookbook_examples_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "cookbook_examples_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "cookbook-examples",
+      "target": "cookbook_examples_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "style-pack-system",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "paint-primitives",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "golden-image-harness",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "crude_pack_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "crude_pack_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "crude_pack_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "crude-pack",
+      "target": "crude_pack_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "agent-docs-surface",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "cookbook-examples",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "docs_site_context7_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "docs_site_context7_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "docs_site_context7_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "docs-site-context7",
+      "target": "docs_site_context7_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "style-pack-system",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "golden-image-harness",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "crude-pack",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "geometry-resolver",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "map-camera-state",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "flat_pack_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "flat_pack_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "flat_pack_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "flat-pack",
+      "target": "flat_pack_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "font-bundling",
+      "target": "repo-scaffold-ci",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "font-bundling",
+      "target": "font_bundling_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "font-bundling",
+      "target": "font_bundling_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "font-bundling",
+      "target": "font_bundling_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "font-bundling",
+      "target": "font_bundling_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "agent-docs-surface",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "cookbook-examples",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "agent-repair-harness",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "fresh_agent_test_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "fresh_agent_test_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "fresh-agent-test",
+      "target": "fresh_agent_test_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "scene-graph-model",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "animation-system",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "font-bundling",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "geometry_resolver_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "geometry_resolver_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "geometry_resolver_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "geometry_resolver_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "geometry_resolver_deliverable_4",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "geometry-resolver",
+      "target": "geometry_resolver_deliverable_5",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "repo-scaffold-ci",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "golden_image_harness_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "golden_image_harness_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "golden_image_harness_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "golden_image_harness_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "golden-image-harness",
+      "target": "golden_image_harness_deliverable_4",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "v1-flagship-episode",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "pypi-name-and-publish",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "docs-site-context7",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "launch_assets_posts_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "launch_assets_posts_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "launch_assets_posts_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "launch-assets-posts",
+      "target": "launch_assets_posts_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "performance-nfr-targets",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "subtitle-rendering",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "longform_pipeline_proof_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "longform_pipeline_proof_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "longform_pipeline_proof_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "longform-pipeline-proof",
+      "target": "longform_pipeline_proof_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-camera-state",
+      "target": "map-node-types",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-camera-state",
+      "target": "animation-system",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-camera-state",
+      "target": "map_camera_state_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-camera-state",
+      "target": "map_camera_state_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-camera-state",
+      "target": "map_camera_state_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-geometry-foundation",
+      "target": "repo-scaffold-ci",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-geometry-foundation",
+      "target": "map_geometry_foundation_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-geometry-foundation",
+      "target": "map_geometry_foundation_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-geometry-foundation",
+      "target": "map_geometry_foundation_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-geometry-foundation",
+      "target": "map_geometry_foundation_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-mini-episode",
+      "target": "map-camera-state",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-mini-episode",
+      "target": "map-verify-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-mini-episode",
+      "target": "map_mini_episode_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-mini-episode",
+      "target": "map_mini_episode_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-mini-episode",
+      "target": "map_mini_episode_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "map-geometry-foundation",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "crude-pack",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "golden-image-harness",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "map_node_types_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "map_node_types_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "map_node_types_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-node-types",
+      "target": "map_node_types_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "map-node-types",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "verification-report-schema",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "map_verify_rules_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "map_verify_rules_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "map_verify_rules_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "map-verify-rules",
+      "target": "map_verify_rules_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pack-pluggability-proof",
+      "target": "flat-pack",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pack-pluggability-proof",
+      "target": "crude-pack",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pack-pluggability-proof",
+      "target": "pack_pluggability_proof_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pack-pluggability-proof",
+      "target": "pack_pluggability_proof_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pack-pluggability-proof",
+      "target": "pack_pluggability_proof_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "seeded-rng-service",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "skia-rasterizer-cache",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "golden-image-harness",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "paint_primitives_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "paint_primitives_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "paint_primitives_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "paint_primitives_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "paint-primitives",
+      "target": "paint_primitives_deliverable_4",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "streaming-encoder-render",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "phase1-determinism-e2e",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "parallel_scene_render_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "parallel_scene_render_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "parallel_scene_render_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "parallel-scene-render",
+      "target": "parallel_scene_render_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "parallel-scene-render",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "chapter-project-structure",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "map-mini-episode",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "performance_nfr_targets_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "performance_nfr_targets_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "performance_nfr_targets_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "performance-nfr-targets",
+      "target": "performance_nfr_targets_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "streaming-encoder-render",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "cli-inspect-preview",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "seeded-rng-service",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "phase1_determinism_e2e_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "phase1_determinism_e2e_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "phase1_determinism_e2e_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "phase1-determinism-e2e",
+      "target": "phase1_determinism_e2e_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pypi-name-and-publish",
+      "target": "v1-flagship-episode",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pypi-name-and-publish",
+      "target": "pypi_name_and_publish_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pypi-name-and-publish",
+      "target": "pypi_name_and_publish_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "pypi-name-and-publish",
+      "target": "pypi_name_and_publish_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "repo-scaffold-ci",
+      "target": "repo_scaffold_ci_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "repo-scaffold-ci",
+      "target": "repo_scaffold_ci_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "repo-scaffold-ci",
+      "target": "repo_scaffold_ci_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "repo-scaffold-ci",
+      "target": "repo_scaffold_ci_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "repo-scaffold-ci",
+      "target": "repo_scaffold_ci_deliverable_4",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "scene-graph-model",
+      "target": "repo-scaffold-ci",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "scene-graph-model",
+      "target": "scene_graph_model_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "scene-graph-model",
+      "target": "scene_graph_model_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "scene-graph-model",
+      "target": "scene_graph_model_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "scene-graph-model",
+      "target": "scene_graph_model_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "seeded-rng-service",
+      "target": "repo-scaffold-ci",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "seeded-rng-service",
+      "target": "seeded_rng_service_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "seeded-rng-service",
+      "target": "seeded_rng_service_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "seeded-rng-service",
+      "target": "seeded_rng_service_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "skia-rasterizer-cache",
+      "target": "geometry-resolver",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "skia-rasterizer-cache",
+      "target": "skia_rasterizer_cache_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "skia-rasterizer-cache",
+      "target": "skia_rasterizer_cache_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "skia-rasterizer-cache",
+      "target": "skia_rasterizer_cache_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "skia-rasterizer-cache",
+      "target": "skia_rasterizer_cache_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "skia-rasterizer-cache",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "cli-framework",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "streaming_encoder_render_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "streaming_encoder_render_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "streaming_encoder_render_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "streaming-encoder-render",
+      "target": "streaming_encoder_render_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "scene-graph-model",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "verification-report-schema",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "cli-framework",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "font-bundling",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "style_pack_system_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "style_pack_system_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "style_pack_system_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "style-pack-system",
+      "target": "style_pack_system_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "timeline-compiler",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "skia-rasterizer-cache",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "font-bundling",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "verify-layout-rules",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "subtitle_rendering_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "subtitle_rendering_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "subtitle_rendering_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "subtitle-rendering",
+      "target": "subtitle_rendering_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "verification-report-schema",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "crude-pack",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "flat-pack",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "map-camera-state",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "taste_constraint_rules_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "taste_constraint_rules_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "taste_constraint_rules_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "taste-constraint-rules",
+      "target": "taste_constraint_rules_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "scene-graph-model",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "timeline_compiler_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "timeline_compiler_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "timeline_compiler_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "timeline_compiler_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "timeline-compiler",
+      "target": "timeline_compiler_deliverable_4",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "longform-pipeline-proof",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "fresh-agent-test",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "v1_flagship_episode_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "v1_flagship_episode_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "v1_flagship_episode_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "v1-flagship-episode",
+      "target": "v1_flagship_episode_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "scene-graph-model",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "cli-framework",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "verification_report_schema_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "verification_report_schema_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "verification_report_schema_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verification-report-schema",
+      "target": "verification_report_schema_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "verification-report-schema",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "geometry-resolver",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "verify_layout_rules_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "verify_layout_rules_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "verify_layout_rules_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "verify_layout_rules_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-layout-rules",
+      "target": "verify_layout_rules_deliverable_4",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "verification-report-schema",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "timeline-compiler",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "font-bundling",
+      "relation": "depends_on",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "verify_structural_checks_deliverable_0",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "verify_structural_checks_deliverable_1",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "verify_structural_checks_deliverable_2",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    },
+    {
+      "source": "verify-structural-checks",
+      "target": "verify_structural_checks_deliverable_3",
+      "relation": "has_deliverable",
+      "confidence": 1,
+      "method": "EXTRACTED"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "performance-nfr-targets",
+  "title": "Hit NFR performance targets and nightly regression gate",
+  "short_description": "Profile and optimize until the reference machine hits the NFR bars -- single-scene re-render <=2 min, full 15-min typical-content render <=60 min, memory <=2GB throughout, >=8 fps sustained -- and wire the nightly CI long-form render with a >20% timing-regression failure gate.",
+  "long_description_md": "# Hit NFR performance targets and nightly regression gate\n\n## Why task exists\n\nnon-functional-requirements.md sets four hard numbers that nothing before Phase 6 was ever measured against end-to-end: single-scene re-render ≤2 min, full 15-20 min 1080p30 render ≤60 min on typical explainer content, sustained throughput ≥8 fps with encoder never the bottleneck, memory O(active scene) bounded ≤2GB regardless of project length. Those bars were architectural intent from day one (streaming encode, static-layer cache, per-scene parallel render) but this is the task where the project actually measures itself against them on the reference machine and fixes whatever's slow or leaky until it's true, not aspirational. non-functional-requirements.md also requires the ongoing guard: \"CI is the fleet monitor: golden diffs, determinism property tests, nightly long-form render with timing regression tracking (a >20% render-time regression fails the nightly).\" ROADMAP Phase 6 bullets 3-4, verbatim: \"NFR targets hit on the reference machine... Nightly CI renders a long-form fixture with timing-regression gate (>20% fail).\"\n\n## Roadmap fit\n\nThird task in Phase 6, deliberately after the mechanisms it tunes exist:\n- **`parallel-scene-render`** — supplies the N-worker escape hatch this task tunes worker count and measures against the ≤60 min / ≥8 fps bars for fully-dynamic content where the static-layer cache alone isn't enough.\n- **`chapter-project-structure`** — supplies the long-form multi-chapter project shape this task's benchmark fixture must actually use (measuring a flat single-file 15-min project would validate the wrong shape given how real long-form content will be authored).\n- **`map-mini-episode`** — supplies the map-engine content mix (territory fills, invasion arrows, camera flights) that is part of \"typical explainer content\" the render-time bar is defined against; this task's benchmark fixture must include real map content, not placeholder shapes, or the profile is measuring the wrong workload.\n\n## Required scope\n\n**Reference machine.** Define and document the reference machine spec (CPU, RAM, OS) once, in-repo, as the fixed baseline every timing bar and the nightly regression gate measure against. All four NFR numbers are reference-machine numbers, not \"works on my laptop.\"\n\n**Benchmark fixture.** Build (or extend an existing long-form fixture) a synthetic-but-representative 15-20 min project using chapter/package structure, mixing map scenes, character scenes, text, and typical entrance/exit/camera-move density matching what `verify`'s `PACING.*` taste rules already consider normal (not an adversarial fully-dynamic worst case -- that's explicitly out of scope per non-functional-requirements.md's own \"where it breaks first, honestly\" carve-out for fully-dynamic content).\n\n**Profiling and optimization.** Profile the render path (rasterization, static-layer cache hit rate, encoder throughput, per-worker overhead in the parallel path, memory high-water mark over the full run) on the benchmark fixture; fix whatever bottleneck keeps any of the four bars from passing -- this may mean tuning default `--workers` count, cache eviction/reuse logic, or encoder buffering, but must not mean silently narrowing the fixture until it passes (that would falsify the proof). Any code change made purely for performance must not change render output determinism -- rerun the parallel-render and Phase 1 determinism proofs after each optimization pass.\n\n**Memory bound proof.** Instrument and assert peak RSS stays ≤2GB throughout a full benchmark-fixture render regardless of project length -- run it and measure, not estimate.\n\n**Nightly CI gate.** Add a scheduled (cron-triggered, not per-commit) CI workflow that renders the long-form benchmark fixture, records wall-clock render time to a checked-in or artifact-persisted timing baseline, and fails the job if the new run is >20% slower than the rolling baseline. The regression-comparison logic itself (parse two timing records, compute percent delta, fail above threshold) must be a standalone, locally-runnable script/module -- testable and verifiable without triggering an actual GitHub Actions run, per this project's no-remote-dispatch constraint. The workflow YAML wires that script into a `schedule:` trigger; this task verifies the YAML's trigger and gate logic by content, not by dispatching it.\n\n## Explicitly out of scope\n\n- The parallel-render mechanism itself (worker model, determinism proof, failure isolation) -- `parallel-scene-render`; this task only tunes and measures it.\n- Chapter/package project structure and its own ≤30s whole-project-verify bar -- `chapter-project-structure`; this task's benchmark fixture uses that structure but does not build it.\n- Map engine content -- `map-mini-episode`; this task's fixture consumes shipped map primitives, does not add new ones.\n- Actually triggering/watching a real nightly GitHub Actions run -- CI dispatch is out of reach in this environment; this task ships and locally verifies the workflow file and gate script, it does not (and cannot) confirm a live scheduled run executed.\n- Producing the real 15-20 minute flagship-content episode -- `longform-pipeline-proof`; this task's fixture is representative-synthetic, tuned for profiling, not the actual pipeline-proof deliverable.\n",
+  "roadmap_phase": "Phase 6: Long-form scale & performance",
+  "depends_on": ["parallel-scene-render", "chapter-project-structure", "map-mini-episode"],
+  "complexity": "complex",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Reference machine spec documented in-repo; representative chapter-structured 15-20 min benchmark fixture (map + character + text content, typical entrance/pacing density) built and checked in under a benchmarks/ or fixtures/ directory.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/performance/test_benchmark_fixture_shape.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Full benchmark-fixture render on the reference machine measures and asserts all four NFR bars: single-scene re-render <=2 min, full render <=60 min, sustained throughput >=8 fps with encoder never the bottleneck, peak RSS <=2GB throughout. Test fails loudly (not skips) if any bar is missed.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/performance/test_nfr_targets.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Any optimization made for the above does not regress render output determinism -- serial and parallel frame-hash determinism proofs still pass after optimization.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/render/test_parallel_render_determinism.py tests/render/test_determinism_e2e.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Standalone timing-regression gate script/module (parse two render-timing records, compute percent delta, exit nonzero above 20% regression) implemented and unit-tested locally; nightly CI workflow YAML wires it to a schedule: trigger rendering the benchmark fixture.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/performance/test_regression_gate.py && grep -q 'schedule:' .github/workflows/nightly-longform.yml",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

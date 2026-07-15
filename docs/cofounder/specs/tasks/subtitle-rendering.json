@@ -1,0 +1,54 @@
+{
+  "id": "subtitle-rendering",
+  "title": "Burned-in subtitle rendering with verify rules",
+  "short_description": "Render optional burned-in subtitles from beat narration with per-pack typography timed to beats, with their contrast (>=4.5:1), minimum-size, and reading-time verify rules passing on fixtures.",
+  "roadmap_phase": "Phase 2: Verification engine v1 + subtitles",
+  "depends_on": ["timeline-compiler", "skia-rasterizer-cache", "font-bundling", "verify-layout-rules"],
+  "complexity": "simple",
+  "long_description_md": "## Why this exists\n\nproduct-spec.md capability 2 promises optional burned-in subtitles rendering narration text with style-pack typography, timed to beats -- v1 is silent (no audio) but not unreadable, and this is the feature that keeps the video comprehensible without sound. non-functional-requirements.md line 46 makes subtitle contrast (>=4.5:1) and minimum-size a hard produced-video bar, and product-spec.md's v1 bar explicitly says \"subtitles on.\" This task closes the loop: subtitle text nodes are real scene-graph text nodes, timed by the existing beat/timeline machinery, rendered by the existing rasterizer, and checked by the layout/readability rules that already understand text -- no bespoke subtitle-only code path.\n\n## Roadmap fit\n\nRoadmap line 42 (Phase 2) states burned-in subtitles render from beat narration with per-pack typography, and their verify rules pass on fixtures -- listed as its own done-when bullet, separate from the layout-rules bullet, because subtitle rendering is new render-path work (text-node synthesis + per-pack subtitle style + positioning) on top of rules that already exist by the time this lands (verify-layout-rules is a dependency, not a sibling being built in parallel). This task depends on timeline-compiler (beat timing), skia-rasterizer-cache (actual text rasterization), font-bundling (the bundled typography this must use, never system fonts), and verify-layout-rules (CONTRAST.LOW, FONT.MIN_SIZE, TIMING.READ_TIME rules this task's fixtures must pass, not redefine).\n\n## Scope\n\n- A `subtitles` project/style-pack-level toggle (default on per product-spec's v1 bar framing, but explicitly configurable off since v1 subtitles are optional) that, when enabled, synthesizes one subtitle text node per beat from that beat's narration text -- positioned in a reserved lower-safe-area region distinct from author-placed scene content, using the active style pack's bundled subtitle typography role (a new `subtitle` font/style role sourced from font-bundling's manifest, or the existing `body` role if no dedicated subtitle role is bundled -- decide during implementation and document the choice).\n- Timing: subtitle visible window matches its beat's resolved time window from the compiled timeline (no independent timing model); text wrapping to fit safe-area width using geometry-resolver's text-shaping so wrapped lines never overflow the reserved region.\n- Per-pack subtitle style: font role, size, weight, color, and background treatment (e.g. semi-opaque backing plate for contrast) resolved from the active StylePack's palette/typography roles -- crude and flat packs must each be able to express a subtitle style once style-pack-system's schema exists; if flat/crude pack assets aren't ready yet, this task ships against whatever pack fixture exists at build time (crude-first) and documents the extension point rather than blocking on Phase 3/5 pack content.\n- Rendering path: subtitle nodes rasterize through the existing skia-rasterizer-cache pipeline (no parallel raster code path), respecting static-layer cache invalidation semantics (subtitle layer changes every beat, so it should not silently defeat caching of unrelated stable layers).\n- Verify integration: subtitle text nodes are ordinary text nodes to the geometry resolver and layout rules, so CONTRAST.LOW, FONT.MIN_SIZE, and TIMING.READ_TIME apply to them automatically; this task adds fixture projects proving each of those three rules passes cleanly on well-formed subtitles and fails correctly when subtitle styling is deliberately broken (contrast too low, font too small, on-screen duration shorter than reading time).\n\n## Out of scope\n\n- Defining or modifying the CONTRAST.LOW, FONT.MIN_SIZE, TIMING.READ_TIME rule implementations themselves, or any other layout rule -- owned entirely by verify-layout-rules; this task only adds subtitle-specific fixtures proving those already-shipped rules behave correctly on subtitle content.\n- The rasterizer, static-layer cache, and text-shaping/geometry-resolver internals -- owned by skia-rasterizer-cache and geometry-resolver; this task is a consumer.\n- TTS / real audio-driven subtitle timing -- v1 non-goal per PROJECT.md; subtitle timing here is strictly beat-window-derived, matching the WPM-estimator-is-swappable design so nothing here needs a rewrite when audio lands.\n- Full `crude` and `flat` style-pack asset production (characters, props, full palettes) -- Phase 3 and Phase 5 scope; this task only needs each pack's typography/palette roles to be resolvable enough to style a subtitle line.\n- `STYLE.PALETTE_VIOLATION` and other style-pack verify rules -- owned by style-pack-system.\n- Multi-language / non-Latin subtitle text and RTL layout -- not in v1 product-spec scope.",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Subtitle synthesis: given a compiled timeline with narration-bearing beats and an active style pack, produce one subtitle text node per beat positioned in a reserved lower safe-area region with wrapped text that never overflows the region's width, timed to the beat's resolved visibility window; unit-tested against fixture beats of varying narration length (short, long-wraps-to-multiple-lines, empty-narration-skipped).",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/subtitles/test_subtitle_synthesis.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Per-pack subtitle styling resolved from the active StylePack's palette/typography roles (bundled font from font-bundling, size, color, backing-plate treatment for contrast), with a project/style-level on/off toggle defaulting subtitles on; unit-tested that toggling off produces zero subtitle nodes and toggling on resolves style deterministically for a given pack.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/subtitles/test_subtitle_styling.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "End-to-end render integration: a multi-beat fixture project with subtitles enabled rasterizes through the existing skia-rasterizer-cache pipeline with subtitle layers appearing at the correct frames and static-layer cache invalidation still measurably working for unrelated stable background layers (no cache-defeat regression introduced by per-beat subtitle changes).",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/subtitles/test_subtitle_render_integration.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Verify-rule fixtures proving CONTRAST.LOW, FONT.MIN_SIZE, and TIMING.READ_TIME (shipped by verify-layout-rules) pass cleanly on well-formed subtitle fixtures and fail with the correct Finding code when subtitle styling is deliberately broken (low-contrast color pair, undersized font, on-screen duration shorter than reading time); full lint/type checks pass on the new module.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/subtitles/test_subtitle_verify_rules.py && ruff check src/anima/subtitles tests/subtitles && mypy --strict src/anima/subtitles",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

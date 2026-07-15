@@ -1,0 +1,56 @@
+{
+  "id": "skia-rasterizer-cache",
+  "title": "Skia rasterizer with static-layer cache",
+  "short_description": "Implement frame-exact Skia rasterization of the scene graph with a static-layer cache (unchanged layers composite from cache, only animated layers redraw), proven by a cached-vs-uncached CI benchmark showing at least 3x on the fixture project.",
+  "roadmap_phase": "Phase 1: Scene graph, timeline, and first pixels",
+  "depends_on": [
+    "geometry-resolver"
+  ],
+  "complexity": "complex",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "long_description_md": "# Skia rasterizer with static-layer cache\n\n## Why task exist\n\nThis is paint step. Scene graph + timeline + geometry resolver give position/shape/text data; this task turns that into actual RGBA pixels via Skia, per frame, for whole render. Tech-architecture diagram names this box directly: \"Skia rasterizer / layer cache -> frame stream.\" Render loop text: \"per-frame: evaluate keyframe tracks -> resolve geometry -> rasterize via Skia with static-layer cache (unchanged layers composite from cache; only animated layers redraw) -> RGBA frames stream to a single PyAV encoder thread.\"\n\nStatic-layer cache not optional polish -- roadmap Phase 1 done-when item names it explicitly with a hard number: \"Static-layer cache measurably works (cached vs uncached benchmark in CI, >=3x on the fixture project) and renders stream with bounded memory.\" NFR doc says scale axis is video length not concurrency: 15-20min at 1080p30 = 27k-36k frames, memory must stay O(active scene) not O(project). Typical explainer frame is one or two animated elements over stable map/background -- cache is what makes that cheap. Without it render throughput on long videos is dead on arrival, which is core v1 requirement per PROJECT.md (100+ scenes/beats, render performance is v1 not stretch).\n\n## Scope / contract\n\nBuild `anima._internal.raster` (or equivalent module) with:\n\n1. **Frame rasterizer.** Given a compiled timeline (from timeline-compiler), scene graph, style-pack assets, and time `t`, produce one RGBA output frame (numpy array or Skia surface snapshot convertible to bytes) at the project's configured resolution (1080p in Phase 1 fixture) using skia-python. Must cover every node type shipped by end of Phase 1: shapes/paths, text (Skia text shaping, consistent with geometry-resolver's shaping), groups, transforms (position/rotation/scale/anchor), camera pan/zoom, scene transitions. Rasterization must use the same geometry-resolver bounds/transform math the verifier uses -- no separate paint-time geometry logic (load-bearing verify/render-agreement invariant from technical-architecture.md).\n2. **Static-layer cache.** Partition each frame's paint into layers (e.g. per top-level scene layer / per subtree keyed by a content+transform hash). A layer whose resolved geometry, style, and paint inputs are unchanged from the previous frame is composited from a cached raster (Skia surface or bitmap) instead of repainted; only layers whose inputs changed (camera move, animated node) are redrawn and recomposited. Cache key must be a deterministic hash over the layer's resolved inputs (positions, styles, seeded-RNG-derived stroke/texture params) -- never wall-clock or object identity. Cache invalidation must be correct: a layer that becomes stale (camera move invalidates everything under it, node enters/exits visibility window, style-pack swap) must never serve a stale bitmap.\n3. **Determinism.** Same project + seed + engine version + style-pack version -> byte-identical rasterized frames across repeated runs on the same platform/container, whether or not the cache is warm (cache must not be a source of nondeterminism -- cached vs uncached paint of the same frame must produce identical pixels).\n4. **Benchmark harness.** A CI-runnable benchmark that rasterizes the Phase 1 scope of frames for a representative fixture project twice -- once with static-layer cache disabled/cold-every-frame, once with cache enabled warm -- and asserts wall-clock (or frame-paint-cost proxy, documented) speedup >= 3x. This benchmark can use a smaller/synthetic fixture scene checked into the repo (does not require the full phase1-determinism-e2e fixture, which is a separate task and dependency-safe since this task has no dependency on it) as long as it has a stable/mostly-static background layer and 1-2 animated foreground elements, matching the \"typical explainer frame\" profile the NFR doc names.\n5. **Memory bound.** Rasterizer must not accumulate frames in memory -- it exposes a per-frame or frame-iterator API (`rasterize_frame(scene_state, t) -> Frame`) so the caller (streaming-encoder-render task) can consume frames one at a time; this task does not itself buffer a whole video's frames.\n\n## Out of scope (tiles against sibling tasks)\n\n- PyAV encoding, frame streaming to an encoder thread, `anima render` CLI, `--scene/--beat/--range` flags, atomic output writes -- all `streaming-encoder-render`.\n- `anima inspect`/`anima preview`, contact sheets -- `cli-inspect-preview`.\n- Full 60-90s fixture project authoring and end-to-end determinism proof (frame-hash CI job, property tests on graph/frame stability) -- `phase1-determinism-e2e`; this task's own benchmark fixture is scoped smaller and reused/superseded, not identical.\n- Geometry resolution itself (bounding boxes, text shaping metrics, transform interpolation) -- already built by `geometry-resolver`; this task consumes it, does not reimplement it.\n- Procedural paint textures, wobble strokes, paint-reveal animation, glyph-tracing -- Phase 3 (`crude` pack rendering primitives). Phase 1 rasterization draws plain shapes/text/groups without paint-style embellishment.\n- Map node rasterization -- Phase 4.\n- Per-scene parallel render across worker processes -- Phase 6.\n",
+  "deliverables": [
+    {
+      "description": "Implement `anima._internal.raster` frame rasterizer: given compiled timeline + scene state + time t, produce an RGBA frame via skia-python for every Phase 1 node type (shapes, paths, text, groups, transforms, camera pan/zoom, scene transitions), using geometry-resolver for all bounds/transform math. Unit tests cover each node type rasterizing to non-empty, correctly-sized RGBA output and pixel content matching expected shape/color/position on small fixtures.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/raster/test_rasterizer.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement static-layer cache: deterministic content-hash-keyed layer caching where unchanged layers composite from a cached Skia bitmap and changed layers redraw. Tests cover cache-hit correctness (identical pixels whether painted cold or served from cache), correct invalidation on camera move / node visibility change / animated property change, and that a full re-render with cache enabled produces byte-identical frames to cache disabled.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/raster/test_layer_cache.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Determinism property test: rasterizing the same project+seed twice (fresh process each time, cache cold) produces byte-identical frame arrays for a sampled set of frames across the benchmark fixture; also assert cached-vs-uncached rasterization of the same frame is byte-identical.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest tests/raster/test_determinism.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "CI-runnable benchmark comparing cached vs uncached rasterization wall-clock on a committed fixture project with a stable background layer and 1-2 animated foreground elements; asserts >=3x speedup and fails the run if not met.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest tests/raster/test_cache_benchmark.py -q",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

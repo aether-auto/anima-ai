@@ -1,0 +1,41 @@
+{
+  "id": "cli-framework",
+  "title": "Agent-facing CLI framework and anima new",
+  "short_description": "Build the CLI skeleton with the agent contract on every command — --json output, typed exit codes (success/verify-failure/user-error/internal-error), strict stdout-data/stderr-diagnostics separation, agent-readable --help, global handler converting unexpected exceptions to INTERNAL.ERROR — plus anima new scaffolding a runnable project (project.py, beat-annotated script.md, out/).",
+  "long_description_md": "## Why this exists\n\nThe CLI is anima-ai's primary product surface: AI agents author Python projects, invoke commands, parse structured results, and iterate without needing to inspect a rendered frame. The product's differentiator is deterministic semantic verification, but that promise is only usable if command outcomes are reliable, machine-readable, and actionable. A raw traceback, mixed progress output, ambiguous nonzero status, or undocumented command shape would break the agent loop before the renderer or verifier can help.\n\nThis task establishes the reusable CLI boundary for Phase 1's first concrete workflow: `anima new`. It must create a project an agent can immediately inspect, edit, and run, while the same command framework becomes the mandatory path for Phase 1's `render`, `preview`, and `inspect`, and Phase 2's `verify` and later `assets` commands.\n\n## Roadmap fit\n\nPhase 1 delivers the typed scene graph, beat-driven timeline, first rasterized pixels, streaming render path, and the initial CLI workflow. `anima new` is explicitly a Phase 1 done condition: it must scaffold a runnable project containing `project.py`, a beat-annotated narration `script.md`, and an `out/` directory. The Phase 1 CLI contract is also a done condition: every shipped command must support `--json`, typed exit statuses, stdout/stderr separation, and agent-readable help.\n\nThis task depends on the Phase 0 repository, package entry point, test tooling, linting, and CI foundation. It also depends on `scene-graph-model`: that task owns the public project entry-point convention (the shape of `project.py`, including the pinned style-pack reference field) and this task only consumes it when scaffolding `anima new`, so the two tasks do not invent incompatible conventions in parallel. It must not implement scene-graph rendering, timeline compilation, semantic verification rules, maps, style-pack assets, subtitles, or video encoding; it supplies the stable interface through which those features will later be exposed.\n\n## Required CLI contract\n\nUse one shared result/error path for the root command and every shipped subcommand. Define and document stable typed exits: success `0`, internal error `1`, user error `2`, and verification failure `3` (the documented `anima verify` findings status). `--json` must emit exactly one structured result document to stdout for both success and expected failures; stdout must contain no progress lines, logging, warnings, or tracebacks. Human diagnostics, progress, and controlled error summaries belong on stderr. Unexpected exceptions must be caught at the outer command boundary, converted into a structured `INTERNAL.ERROR` result with a concise bug-report hint, and never expose a raw traceback in normal operation.\n\nGlobal flags must be centralized so future commands cannot accidentally diverge: `--json`, `--quiet`, and `--project`. Help must be concise agent documentation: it should describe the command purpose, required inputs, output mode, exit semantics, and next action rather than merely listing parser syntax. The CLI must remain non-interactive by default.\n\n## `anima new` scaffold\n\nImplement `anima new <destination>` as the first fully functional command. It accepts a style selection, records the selected/pinned style in the generated project source, and reports created paths in its normal and JSON results. It must create a minimal runnable `project.py` following the public project entry-point convention, a beat-annotated `script.md` aligned with the project's starter narration, and an empty `out/` directory for renders, previews, and reports. Generated project files must be tracked-text friendly; `out/` must be ignored by the generated project's `.gitignore`. Refuse to overwrite an existing destination as a typed user error, with an actionable diagnostic. No template operation may depend on network access or a shell command assembled from user input.\n\nThe scaffold is intentionally a small, valid starting point rather than a demo renderer. It should give an agent one obvious edit path—write beats in `script.md`, implement or extend scenes in `project.py`, then use the CLI workflow as subsequent Phase 1 commands arrive.",
+  "roadmap_phase": "Phase 1: Scene graph, timeline, and first pixels",
+  "depends_on": [
+    "repo-scaffold-ci",
+    "scene-graph-model"
+  ],
+  "complexity": "simple",
+  "research_engine": "gpt-terra",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Implement the shared `anima` CLI framework and root entry point. Apply one result serializer and error boundary to every shipped command; support global `--json`, `--quiet`, and `--project`; preserve strict stdout-data/stderr-diagnostics separation; document agent-oriented help; and enforce public exit statuses 0 (success), 1 (internal error), 2 (user error), and 3 (verification failure). Unexpected exceptions must produce a structured `INTERNAL.ERROR` response with no raw traceback in normal output.",
+      "verification": {
+        "type": "unit",
+        "command": "python -m pytest tests/cli/test_contract.py tests/cli/test_errors.py -q",
+        "steps": null
+      }
+    },
+    {
+      "description": "Implement `anima new <destination>` with style selection and non-interactive, overwrite-safe scaffolding. Generate a runnable public-entry-point `project.py`, a beat-annotated `script.md`, an `out/` directory, and generated-project ignore rules for `out/`. Return created-path and style metadata in the JSON result, and return malformed input, invalid destinations, and existing destinations as typed user errors.",
+      "verification": {
+        "type": "integration",
+        "command": "python -m pytest tests/integration/test_anima_new.py -q",
+        "steps": null
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "2026-07-13T19:46:23Z",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}

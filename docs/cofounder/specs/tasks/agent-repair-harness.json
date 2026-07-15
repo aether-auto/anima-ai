@@ -1,0 +1,54 @@
+{
+  "id": "agent-repair-harness",
+  "title": "Agent-in-the-loop verification repair harness",
+  "short_description": "Build the measured, repeatable in-repo harness of at least 10 deliberately-broken fixture projects where a fresh agent session given only the verify JSON must fix at least 9 without rendering — the regression suite that makes agent-fixability a tested property.",
+  "roadmap_phase": "Phase 2: Verification engine v1 + subtitles",
+  "depends_on": ["verify-structural-checks", "verify-layout-rules"],
+  "complexity": "complex",
+  "long_description_md": "## Why this exists\n\nproduct-spec.md's design basis for the whole verification report shape is the \"+37-40pp agent-task-completion evidence for structured repair suggestions\" -- the claim is that a good enough `fix_hint` lets an agent repair a broken scene from the JSON report alone, never rendering, never looking at a frame. That claim is currently just a design assumption baked into Finding's schema (non-empty `fix_hint` required, node_ids/beat_ids/t_window/expected/actual present). This task is where the assumption gets tested against reality: a harness of real broken projects, a real fresh agent session, and a real measured fix rate. If the number comes back below 9/10, that is signal the report schema or fix_hints are too vague -- exactly the kind of finding COFOUNDER_PERSONA.md requires reporting plainly, not quietly working around.\n\n## Roadmap fit\n\nRoadmap line 44 (Phase 2, last done-when bullet) states this explicitly: \">=10 deliberately-broken fixture projects; a fresh agent session given only verify JSON fixes >=9 without rendering -- measured, in-repo harness, repeatable.\" It depends on verify-structural-checks and verify-layout-rules because the fixture library needs real violations across both rule families (REF.*, TIMING.CLOSURE_MISMATCH, ANIMATION.OUTSIDE_VISIBILITY, BUILD.EXCEPTION from structural; OVERLAP.TEXT_TEXT, OVERLAP.TEXT_NODE, MARGIN.SAFE_AREA, FONT.MIN_SIZE, TIMING.READ_TIME, CONTRAST.LOW from layout) to be a meaningful test of fix_hint quality across the whole verify surface shipped so far. This is also the harness Phase 7 explicitly reuses (roadmap line 99, \"the harness from Phase 2, pointed at onboarding instead of repair\"), so its structure must be generic enough to repoint at a different task later, not hardcoded to \"repair only.\"\n\n## Scope\n\n- A fixture corpus of >=10 deliberately-broken project files under a dedicated directory (e.g. `tests/fixtures/agent_repair/`), each: (a) a known-good baseline project that passes verify cleanly, (b) a broken variant introducing exactly one deliberate violation (one structural, one layout/readability -- covering a spread across the rule catalog shipped by verify-structural-checks and verify-layout-rules, not 10 copies of the same code), and (c) the exact expected Finding code(s) the broken variant should produce, checked into the corpus as ground truth.\n- A harness script/CLI (e.g. `scripts/agent_repair_harness.py` or a pytest-invokable entry point) that: runs `anima verify --json` on each broken fixture, confirms the expected Finding code(s) actually fire (corpus integrity self-check -- a broken fixture that no longer reproduces its violation is itself a harness bug), and produces a clean per-fixture task packet (project files + verify JSON only, no prior conversation, no access to the baseline/answer) suitable for handing to a fresh agent session.\n- A documented, repeatable protocol for running the actual measurement: spin up one fresh agent session per fixture (or a batch protocol), give it only the project source + verify JSON output, instruct it to make verify pass without rendering, capture its edited project file, and score pass/fail by re-running `anima verify --json` against the diff-cleaned baseline... i.e. the scoring is itself mechanical (does verify now report `pass: true` and zero error-severity findings), not a subjective read of the agent's diff.\n- A results ledger (checked-in fixture/run log, e.g. `tests/fixtures/agent_repair/RESULTS.md` or JSON) recording the actual measured run: which fixtures were fixed, which weren't, and why (fix_hint too vague, wrong rule fired, agent misunderstood scope) for the ones that failed -- this is the real deliverable the roadmap line demands, not just harness code sitting unused.\n- The harness must be rerunnable (repeatable per roadmap wording) so it functions as an ongoing regression check whenever fix_hints or the report schema change, not a one-time manual exercise.\n\n## Out of scope\n\n- Implementing or modifying any verify rule, its Finding fields, or its fix_hint text -- owned by verify-structural-checks and verify-layout-rules; this task only exercises what they already ship. If a measured run reveals a bad fix_hint, that is reported as a finding/follow-up against those tasks' owners, not silently patched here.\n- Rendering the fixture projects to video at all -- explicitly excluded by design; the whole point is repair-without-rendering.\n- Phase 7's onboarding-flavored reuse of this harness (\"fresh agent, no prior context, produces a verified video using only docs\") -- that is a different task pointed at a different question, explicitly deferred to Phase 7 per roadmap line 99; this task only needs the harness to be structurally reusable, not to build the onboarding variant.\n- Subtitle-specific or map-specific broken fixtures -- subtitle-rendering ships in this same phase but map/pack rules ship in later phases; the corpus should cover the rule surface that exists at build time (structural + layout, subtitles optional if timing allows) and does not need to wait for or retrofit later-phase rule families.\n- Automating the fresh-agent-session invocation itself (e.g. spawning actual Claude/GPT API calls in CI) -- the measurement protocol is documented and mechanically scoreable, but running it against a live agent is a manual/human-triggered step given this project's zero-budget, no-paid-API constraint (COFOUNDER_PERSONA.md); CI enforces corpus integrity (fixtures reproduce their violations) automatically, not the live agent-fix-rate number itself.",
+  "research_engine": "sonnet",
+  "build_engine": null,
+  "deliverables": [
+    {
+      "description": "Fixture corpus of at least 10 deliberately-broken projects under tests/fixtures/agent_repair/, each pairing a passing baseline with a broken variant carrying exactly one deliberate violation and a checked-in expected-Finding-code ground truth, spanning both structural (REF.*, TIMING.CLOSURE_MISMATCH, ANIMATION.OUTSIDE_VISIBILITY, BUILD.EXCEPTION) and layout/readability (OVERLAP.TEXT_TEXT, OVERLAP.TEXT_NODE, MARGIN.SAFE_AREA, FONT.MIN_SIZE, TIMING.READ_TIME, CONTRAST.LOW) rule families.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/agent_repair/test_corpus_shape.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Corpus integrity self-check: running anima verify --json against every broken fixture actually reproduces its documented expected Finding code(s), and running it against every paired baseline reports pass:true with zero error-severity findings -- proving the corpus is real and not stale.",
+      "verification": {
+        "type": "integration",
+        "command": "pytest -q tests/agent_repair/test_corpus_integrity.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Harness entry point (scripts/agent_repair_harness.py) that packages each broken fixture into a clean, answer-free task packet (project source + verify JSON only) and mechanically scores a supplied candidate-fix directory by re-running anima verify --json and checking pass:true -- unit-tested against a synthetic already-fixed fixture (scores pass) and an untouched broken fixture (scores fail), proving the scoring logic is correct before it is ever pointed at a real agent session.",
+      "verification": {
+        "type": "unit",
+        "command": "pytest -q tests/agent_repair/test_harness_scoring.py",
+        "steps": null
+      }
+    },
+    {
+      "description": "Documented, repeatable measurement protocol (docs/cofounder/specs/tasks-support or in-repo docs referenced from the harness README) covering: how to hand a fixture packet to a fresh agent session, how to collect its edited project, how to score it via the harness, and the checked-in RESULTS ledger recording an actual completed run's per-fixture pass/fail with failure-cause notes for anything below the 9/10 bar -- reviewed for completeness and honesty of the recorded outcome (no result marked pass without a corresponding verify --json pass:true in the ledger).",
+      "verification": {
+        "type": "manual",
+        "command": null,
+        "steps": "Read the harness README/protocol doc and the checked-in RESULTS ledger together. Confirm the protocol names every step from fixture packaging through scoring with no ambiguous manual judgment substituted for the mechanical verify --json check. Cross-check at least 3 ledger entries marked pass against their corresponding fixture's verify --json output to confirm pass:true really was achieved, and confirm every entry marked fail has a concrete failure-cause note (bad fix_hint, wrong rule, agent misunderstanding) rather than a blank or vague explanation. Confirm the measured fix rate and whether it met or missed the >=9/10 bar is stated plainly, not hedged."
+      }
+    }
+  ],
+  "plan": null,
+  "status": "pending",
+  "worktree": null,
+  "results": null,
+  "learnings": null,
+  "created_at": "undefined",
+  "planned_at": null,
+  "started_at": null,
+  "completed_at": null
+}
