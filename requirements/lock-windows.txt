@@ -1,0 +1,23 @@
+# Hash-locked runtime dependencies for CPython 3.11/3.12 on Windows x86-64.
+# Regenerate intentionally when any runtime dependency changes.
+
+av==17.1.0 \
+    --hash=sha256:5df5c1172ef1cf65a1529d612f7da7798ce2cf82c1ff7212466b538a6cc7214c
+certifi==2026.6.17 \
+    --hash=sha256:2227dcbaafe0d2f59279d1762ddddc37783ed4354594f194ffc31d20f41fc3db
+numpy==2.2.6 \
+    --hash=sha256:c1f9540be57940698ed329904db803cf7a402f3fc200bfe599334c9bd84a40b2 \
+    --hash=sha256:e8213002e427c69c45a52bbd94163084025f533a55a59d6f9c5b820774ef3303
+packaging==26.2 \
+    --hash=sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e
+pyproj==3.7.1 \
+    --hash=sha256:5ad0ff443a785d84e2b380869fdd82e6bfc11eba6057d25b4409a9bbfa867970 \
+    --hash=sha256:aee664a9d806612af30a19dba49e55a7a78ebfec3e9d198f6a6176e1d140ec98
+shapely==2.1.2 \
+    --hash=sha256:743044b4cfb34f9a67205cee9279feaf60ba7d02e69febc2afc609047cb49179 \
+    --hash=sha256:c64d5c97b2f47e3cd9b712eaced3b061f2b71234b3fc263e0fcf7d889c6559dc
+skia-python==144.0.post2 \
+    --hash=sha256:2268d85e19dd22181fb780cfc59bfe1df33c9cad9ba0df4bf15ff8ee8b6430e5 \
+    --hash=sha256:e95ab76b3e1859e3dd5402e5ccba1c1a539c5d37a082a3a62e16261a4bebc3f6
+topojson==1.10 \
+    --hash=sha256:0879d727c7798939e3268e8969fa87c2cd23274189fe3d8038a0fb11ff263925

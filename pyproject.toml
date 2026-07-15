@@ -1,0 +1,45 @@
+[build-system]
+requires = ["packaging>=24.2", "setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anima-ai"
+version = "0.0.0.dev0"
+description = "Agent-authored, deterministically verifiable animated explainers"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+    "av==17.1.0",
+    "numpy==2.2.6",
+    "pyproj==3.7.1",
+    "shapely==2.1.2",
+    "skia-python==144.0.post2",
+    "topojson==1.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy==1.19.1",
+    "pytest==9.0.2",
+    "PyYAML==6.0.3",
+    "ruff==0.14.10",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "RUF", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src/anima"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]

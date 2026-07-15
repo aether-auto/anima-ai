@@ -1,0 +1,23 @@
+# Hash-locked runtime dependencies for CPython 3.11/3.12 on macOS ARM64.
+# Regenerate intentionally when any runtime dependency changes.
+
+av==17.1.0 \
+    --hash=sha256:43ebbe977f19a7f2d2bd1a4e119675a0b15e05852cf7309846b6ab922ba7ffe9
+certifi==2026.6.17 \
+    --hash=sha256:2227dcbaafe0d2f59279d1762ddddc37783ed4354594f194ffc31d20f41fc3db
+numpy==2.2.6 \
+    --hash=sha256:c820a93b0255bc360f53eca31a0e676fd1101f673dda8da93454a12e23fc5f7a \
+    --hash=sha256:de749064336d37e340f640b05f24e9e3dd678c57318c7289d222a8a2f543e90c
+packaging==26.2 \
+    --hash=sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e
+pyproj==3.7.1 \
+    --hash=sha256:263b54ba5004b6b957d55757d846fc5081bc02980caa0279c4fc95fa0fff6067 \
+    --hash=sha256:d61bf8ab04c73c1da08eedaf21a103b72fa5b0a9b854762905f65ff8b375d394
+shapely==2.1.2 \
+    --hash=sha256:16a9c722ba774cf50b5d4541242b4cce05aafd44a015290c82ba8a16931ff63d \
+    --hash=sha256:ba4d1333cc0bc94381d6d4308d2e4e008e0bd128bdcff5573199742ee3634359
+skia-python==144.0.post2 \
+    --hash=sha256:7408129bf595645f5d895ed6459248611c4931f41417c4f487c34728cefcdf34 \
+    --hash=sha256:d8bf9a203448a98324c108bbbfa3a9f94ff8514212ae832a81d2b60a5a7dbbfe
+topojson==1.10 \
+    --hash=sha256:0879d727c7798939e3268e8969fa87c2cd23274189fe3d8038a0fb11ff263925
