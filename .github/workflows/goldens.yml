@@ -6,15 +6,16 @@ name: Goldens
 # so an agent can inspect them. This workflow NEVER blesses baselines — updating
 # a baseline is a deliberate, container-gated bless run outside CI.
 #
-# The container image is pinned by digest. The digest below is a PLACEHOLDER:
-# until golden-container.yml has published the golden image to GHCR (flagged to
-# Arnav; see that file), no such image exists, so this workflow is manual-only
-# (workflow_dispatch) to avoid failing every push/PR against a non-existent
-# image. TODO(GHCR): once the image is published, replace the placeholder digest
-# with the real one and add `push:` / `pull_request:` triggers here.
+# The container image is pinned by the real GHCR manifest digest (published
+# 2026-07-15 via golden-container.yml, approved by Arnav). Bumping the golden
+# environment = publish a new image, then update this digest and the
+# container_ref in tests/golden/manifest.json together.
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
 
 permissions:
   contents: read
@@ -23,7 +24,7 @@ jobs:
   goldens:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/arnavmarda/anima-golden@sha256:0000000000000000000000000000000000000000000000000000000000000000
+      image: ghcr.io/aether-auto/anima-golden@sha256:a977a80c2d5e2374c99c76d979a2fa2090dd0074406604f456bceca72f22009d
     steps:
       - uses: actions/checkout@v4
 

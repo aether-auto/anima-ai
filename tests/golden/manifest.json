@@ -1,6 +1,6 @@
 [
   {
-    "container_ref": "ghcr.io/arnavmarda/anima-golden@sha256:efd96690f79222d0909355d608ffb13dfd49b412496fdc2c9b21000c480d2f72",
+    "container_ref": "ghcr.io/aether-auto/anima-golden@sha256:a977a80c2d5e2374c99c76d979a2fa2090dd0074406604f456bceca72f22009d",
     "fixture": "anima.testing.fixtures:trivial_shape",
     "height": 256,
     "id": "trivial-shape-fixture",

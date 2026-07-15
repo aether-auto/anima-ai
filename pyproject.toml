@@ -34,7 +34,13 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-anima = ["assets/fonts/**/*.json", "assets/fonts/**/*.md", "assets/fonts/**/*.ttf", "assets/fonts/**/*.otf"]
+anima = [
+    "assets/fonts/**/*.json",
+    "assets/fonts/**/*.md",
+    "assets/fonts/**/*.otf",
+    "assets/fonts/**/*.ttf",
+    "assets/fonts/**/*.txt",
+]
 "anima.data" = ["catalog.json"]
 "anima.data.natural_earth" = ["*.txt", "ne_110m/*.geojson", "ne_50m/*.geojson"]
 
