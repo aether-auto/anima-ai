@@ -128,6 +128,43 @@ def test_bad_fixture_path_rejected(tmp_path: Path) -> None:
         registry.load_manifest(tmp_path)
 
 
+def _write_raw(tmp_path: Path, obj: dict[str, object]) -> None:
+    registry.manifest_path(tmp_path).parent.mkdir(parents=True, exist_ok=True)
+    registry.manifest_path(tmp_path).write_text(json.dumps([obj], indent=2, sort_keys=True) + "\n")
+
+
+def test_truncated_digest_container_ref_rejected(tmp_path: Path) -> None:
+    obj = _baseline("foo").to_json_obj()
+    obj["container_ref"] = "ghcr.io/anima/anima-golden@sha256:abc123"  # too short.
+    _write_raw(tmp_path, obj)
+    with pytest.raises(ManifestError, match="digest"):
+        registry.load_manifest(tmp_path)
+
+
+def test_absolute_png_path_rejected(tmp_path: Path) -> None:
+    obj = _baseline("foo").to_json_obj()
+    obj["png_path"] = "/etc/passwd.png"
+    _write_raw(tmp_path, obj)
+    with pytest.raises(ManifestError, match="png_path"):
+        registry.load_manifest(tmp_path)
+
+
+def test_png_path_traversal_rejected(tmp_path: Path) -> None:
+    obj = _baseline("foo").to_json_obj()
+    obj["png_path"] = "tests/golden/baselines/../../../evil.png"
+    _write_raw(tmp_path, obj)
+    with pytest.raises(ManifestError, match="png_path"):
+        registry.load_manifest(tmp_path)
+
+
+def test_png_path_outside_baselines_rejected(tmp_path: Path) -> None:
+    obj = _baseline("foo").to_json_obj()
+    obj["png_path"] = "src/anima/evil.png"
+    _write_raw(tmp_path, obj)
+    with pytest.raises(ManifestError, match="png_path"):
+        registry.load_manifest(tmp_path)
+
+
 def test_tolerance_out_of_range_rejected(tmp_path: Path) -> None:
     obj = _baseline("foo").to_json_obj()
     obj["tolerance"] = 1.5

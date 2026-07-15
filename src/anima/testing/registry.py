@@ -17,8 +17,9 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 from anima.testing import pixelcompare
@@ -29,6 +30,10 @@ WORK_RELDIR = ".golden-work"
 
 _TOLERANCE_MIN = 0.0
 _TOLERANCE_MAX = 1.0
+
+# A container_ref must be pinned by a full 64-hex sha256 digest (immutable), not
+# a mutable tag. e.g. ghcr.io/owner/anima-golden@sha256:<64 hex>.
+_DIGEST_REF_RE = re.compile(r"^\S+@sha256:[0-9a-f]{64}$")
 
 CanonicalParams = dict[str, Any]
 
@@ -61,6 +66,29 @@ class GoldenBaseline:
             "tolerance": self.tolerance,
             "container_ref": self.container_ref,
         }
+
+
+def _validate_png_path(baseline_id: str, png_path: str) -> None:
+    """Reject baseline PNG paths that escape ``tests/golden/baselines/``.
+
+    The manifest is the source of truth for which files ``update`` may replace,
+    so an absolute path, a ``..`` traversal, or a path outside the baselines
+    directory is a hard failure — otherwise a mistyped manifest could bless an
+    arbitrary file on disk.
+    """
+    pure = PurePosixPath(png_path)
+    prefix = BASELINES_RELDIR + "/"
+    if (
+        pure.is_absolute()
+        or ".." in pure.parts
+        or not png_path.startswith(prefix)
+        or pure.suffix != ".png"
+        or png_path == prefix
+    ):
+        raise ManifestError(
+            f"baseline {baseline_id!r} png_path must be a relative path of the form "
+            f"{prefix}<name>.png, got {png_path!r}"
+        )
 
 
 def canonicalize_params(params: dict[str, Any]) -> CanonicalParams:
@@ -119,14 +147,16 @@ def baseline_from_json(obj: dict[str, Any]) -> GoldenBaseline:
     for dim in ("width", "height"):
         if not isinstance(obj[dim], int) or obj[dim] <= 0:
             raise ManifestError(f"baseline {obj['id']!r} {dim} must be a positive int")
-    if "sha256:" not in str(obj["container_ref"]):
+    if not _DIGEST_REF_RE.match(str(obj["container_ref"])):
         raise ManifestError(
-            f"baseline {obj['id']!r} container_ref must be pinned by digest (tag@sha256:...)"
+            f"baseline {obj['id']!r} container_ref must be pinned by a full digest "
+            "(ref@sha256:<64 hex>), not a mutable tag or truncated digest"
         )
     if ":" not in str(obj["fixture"]):
         raise ManifestError(
             f"baseline {obj['id']!r} fixture must be a dotted path 'module:callable'"
         )
+    _validate_png_path(str(obj["id"]), str(obj["png_path"]))
     return GoldenBaseline(
         id=str(obj["id"]),
         fixture=str(obj["fixture"]),

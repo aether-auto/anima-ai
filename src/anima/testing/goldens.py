@@ -135,6 +135,8 @@ def _write_report(work: Path, baseline: GoldenBaseline, report: dict[str, Any]) 
 
 def cmd_update(root: Path, baselines: list[GoldenBaseline]) -> int:
     env_ref = os.environ.get(CONTAINER_REF_ENV, "")
+    # Preflight ALL selected baselines before replacing any committed PNG, so a
+    # failure partway through can never leave a partial bless on disk.
     for baseline in baselines:
         if env_ref != baseline.container_ref:
             raise GoldenError(
@@ -142,12 +144,13 @@ def cmd_update(root: Path, baselines: list[GoldenBaseline]) -> int:
                 f"does not match pinned container_ref {baseline.container_ref!r}. "
                 "Baselines can only be blessed inside the pinned golden container."
             )
+        if not _candidate_path(root, baseline).exists():
+            raise GoldenError(
+                f"no candidate for {baseline.id!r} at {_candidate_path(root, baseline)}; "
+                "run 'generate' first"
+            )
     for baseline in baselines:
         candidate_path = _candidate_path(root, baseline)
-        if not candidate_path.exists():
-            raise GoldenError(
-                f"no candidate for {baseline.id!r} at {candidate_path}; run 'generate' first"
-            )
         target = root / baseline.png_path
         target.parent.mkdir(parents=True, exist_ok=True)
         # Atomic promote: replace within the same filesystem under the repo root.

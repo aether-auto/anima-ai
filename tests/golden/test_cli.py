@@ -125,6 +125,42 @@ def test_update_blesses_inside_pinned_container(
     assert goldens.main(["--root", str(tmp_path), "compare", "--all"]) == 0
 
 
+def _two_baselines() -> list[GoldenBaseline]:
+    return [
+        GoldenBaseline(
+            id=bid,
+            fixture="clitestfix:solid",
+            params={},
+            width=8,
+            height=8,
+            png_path=f"tests/golden/baselines/{bid}.png",
+            tolerance=0.1,
+            container_ref=_REF,
+        )
+        for bid in ("solid_a", "solid_b")
+    ]
+
+
+def test_update_preflight_prevents_partial_bless(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    baselines = _two_baselines()
+    registry.write_manifest(tmp_path, baselines)
+    black = np.zeros((8, 8, 4), dtype=np.uint8)
+    black[..., 3] = 255
+    for baseline in baselines:
+        (tmp_path / baseline.png_path).parent.mkdir(parents=True, exist_ok=True)
+        pixelcompare.write_png(tmp_path / baseline.png_path, black)
+    # Generate a candidate for only ONE of the two selected baselines.
+    goldens.main(["--root", str(tmp_path), "generate", "--id", "solid_a"])
+    monkeypatch.setenv(goldens.CONTAINER_REF_ENV, _REF)
+    before = {b.id: (tmp_path / b.png_path).read_bytes() for b in baselines}
+    # update --all must refuse up front (solid_b has no candidate) and touch nothing.
+    assert goldens.main(["--root", str(tmp_path), "update", "--all"]) == 2
+    after = {b.id: (tmp_path / b.png_path).read_bytes() for b in baselines}
+    assert before == after  # no partial bless of solid_a.
+
+
 def test_select_requires_all_or_id(tmp_path: Path) -> None:
     _setup(tmp_path, commit_correct_baseline=True)
     # Neither --all nor --id -> operational error.
