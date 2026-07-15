@@ -81,7 +81,7 @@ def canonicalize_params(params: dict[str, Any]) -> CanonicalParams:
             return value
         if isinstance(value, dict):
             return {key: norm(value[key]) for key in sorted(value)}
-        if isinstance(value, (list, tuple)):
+        if isinstance(value, list | tuple):
             return [norm(item) for item in value]
         return value
 
