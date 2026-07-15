@@ -48,6 +48,23 @@ def test_goldens_least_privilege() -> None:
     assert doc["permissions"] == {"contents": "read"}
 
 
+def test_goldens_renders_from_checked_out_source() -> None:
+    # The job must reinstall the checked-out package so it does not test the
+    # stale image-baked source.
+    text = _GOLDENS.read_text()
+    assert "pip install --no-deps --no-build-isolation -e ." in text
+
+
+def test_container_publish_is_manual_only() -> None:
+    # No auto-publish: golden-container.yml must NOT trigger on push (that would
+    # publish to GHCR without approval). Manual workflow_dispatch only.
+    doc = yaml.safe_load(_CONTAINER.read_text())
+    # PyYAML parses the bare key `on` as the boolean True.
+    triggers = doc[True]
+    assert "workflow_dispatch" in triggers
+    assert "push" not in triggers
+
+
 def test_container_workflow_parses() -> None:
     assert yaml.safe_load(_CONTAINER.read_text()), "golden-container.yml did not parse"
 

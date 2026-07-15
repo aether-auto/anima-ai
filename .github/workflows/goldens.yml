@@ -6,13 +6,15 @@ name: Goldens
 # so an agent can inspect them. This workflow NEVER blesses baselines — updating
 # a baseline is a deliberate, container-gated bless run outside CI.
 #
-# The container image is pinned by digest. Until the golden-container workflow
-# has published to GHCR (flagged to Arnav; see golden-container.yml) this digest
-# is a placeholder and the workflow is asserted-only, not executed.
+# The container image is pinned by digest. The digest below is a PLACEHOLDER:
+# until golden-container.yml has published the golden image to GHCR (flagged to
+# Arnav; see that file), no such image exists, so this workflow is manual-only
+# (workflow_dispatch) to avoid failing every push/PR against a non-existent
+# image. TODO(GHCR): once the image is published, replace the placeholder digest
+# with the real one and add `push:` / `pull_request:` triggers here.
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,6 +26,11 @@ jobs:
       image: ghcr.io/arnavmarda/anima-golden@sha256:0000000000000000000000000000000000000000000000000000000000000000
     steps:
       - uses: actions/checkout@v4
+
+      # Re-point the editable install at the checked-out source so candidates
+      # render from THIS revision's fixtures/renderer, not the image-baked copy.
+      - name: Install checked-out package
+        run: pip install --no-deps --no-build-isolation -e .
 
       - name: Generate candidate renders
         run: python -m anima.testing.goldens generate --all

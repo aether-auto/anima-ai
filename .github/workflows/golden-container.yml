@@ -11,12 +11,11 @@ name: Golden Container
 # but never executed.
 
 on:
-  push:
-    paths:
-      - docker/golden.Dockerfile
-      - requirements/lock-linux.txt
-      - requirements/build-linux.txt
-      - .github/workflows/golden-container.yml
+  # Manual dispatch ONLY. Publishing to GHCR is an external, irreversible action
+  # under Arnav's account and must be approved first (COFOUNDER_PERSONA.md). Do
+  # NOT add a `push:` trigger — an auto-publish on every push touching the
+  # Dockerfile would create GHCR packages without approval. Once repo creation +
+  # GHCR publish are approved, this is run deliberately from the Actions UI.
   workflow_dispatch:
 
 permissions:
