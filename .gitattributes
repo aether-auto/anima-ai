@@ -1,0 +1,12 @@
+# Byte-exact determinism: canonical JSON fixtures and golden baselines are
+# compared as raw bytes, so line endings must be LF on every OS — no autocrlf.
+* text=auto eol=lf
+
+# Binary assets — never touch line endings.
+*.png binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.ico binary
+Icon binary
