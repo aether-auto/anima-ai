@@ -31,7 +31,13 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-anima = ["assets/fonts/**/*.json", "assets/fonts/**/*.md", "assets/fonts/**/*.ttf", "assets/fonts/**/*.otf"]
+anima = [
+    "assets/fonts/**/*.json",
+    "assets/fonts/**/*.md",
+    "assets/fonts/**/*.otf",
+    "assets/fonts/**/*.ttf",
+    "assets/fonts/**/*.txt",
+]
 
 [tool.setuptools.dynamic]
 version = {attr = "anima._version.__version__"}

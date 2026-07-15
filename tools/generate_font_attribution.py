@@ -31,6 +31,7 @@ def render_attribution(entries: list[dict[str, object]]) -> str:
                 f"- Version: {entry['version']}",
                 f"- SHA-256: `{entry['sha256']}`",
                 f"- License: {LICENSE_NAMES[license_spdx]} (`{license_spdx}`)",
+                f"- License file: `{entry['license_file']}`",
                 f"- Copyright: {entry['copyright_holder']}",
                 f"- Source: {entry['source_url']}",
                 "",

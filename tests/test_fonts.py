@@ -30,6 +30,7 @@ REQUIRED_FIELDS = {
     "version",
     "sha256",
     "license_spdx",
+    "license_file",
     "copyright_holder",
     "source_url",
 }
@@ -71,6 +72,18 @@ def test_manifest_checksum_matches_bundled_file(entry: dict[str, object]) -> Non
     digest = hashlib.sha256(font_path.read_bytes()).hexdigest()
 
     assert digest == entry["sha256"]
+
+
+@pytest.mark.parametrize(
+    "entry", _manifest() if MANIFEST_PATH.exists() else [], ids=lambda entry: str(entry["filename"])
+)
+def test_manifest_license_text_is_bundled(entry: dict[str, object]) -> None:
+    license_path = FONTS_DIR / str(entry["license_file"])
+
+    text = license_path.read_text(encoding="utf-8")
+
+    assert "SIL OPEN FONT LICENSE Version 1.1" in text
+    assert str(entry["copyright_holder"]) in text.splitlines()[0]
 
 
 @pytest.mark.parametrize(
