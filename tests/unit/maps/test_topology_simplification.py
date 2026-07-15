@@ -3,13 +3,14 @@ from __future__ import annotations
 import json
 
 import pytest
+from shapely import box
+from shapely.geometry import shape
+from shapely.ops import unary_union
+
 from anima.data.simplification import (
     TopologyParameters,
     simplify_feature_collection,
 )
-from shapely import box
-from shapely.geometry import shape
-from shapely.ops import unary_union
 
 
 def _adjacent_collection(reverse: bool = False) -> dict[str, object]:

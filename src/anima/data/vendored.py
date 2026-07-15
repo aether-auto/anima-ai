@@ -233,6 +233,10 @@ def normalize_natural_earth(
 ) -> dict[str, Any]:
     """Normalize Natural Earth Admin 0 features to stable canonical IDs."""
 
+    from shapely.geometry import mapping
+
+    from .simplification import _repair_polygonal
+
     working = copy.deepcopy(collection)
     features = working.get("features")
     if not isinstance(features, list):
@@ -243,6 +247,13 @@ def normalize_natural_earth(
         properties = feature.get("properties")
         if not isinstance(properties, dict):
             raise ValueError("Natural Earth feature properties must contain a mapping")
+        geometry = feature.get("geometry")
+        if isinstance(geometry, dict):
+            shaped = shape(geometry)
+            if not shaped.is_valid:
+                # Upstream Natural Earth releases ship a handful of
+                # self-intersecting rings; repair them deterministically.
+                feature["geometry"] = mapping(_repair_polygonal(shaped))
         canonical_codes = tuple(
             str(properties[key]).strip().casefold()
             for key in ("ADM0_A3", "ISO_A3", "SOV_A3")
@@ -259,7 +270,9 @@ def normalize_natural_earth(
         properties["territory_id"] = three_letter
         aliases = {
             str(properties[key]).strip().casefold()
-            for key in ("ISO_A3", "ISO_A2")
+            # The *_EH fields carry real codes where upstream marks the plain
+            # ISO fields -99 (France, Norway, and friends).
+            for key in ("ISO_A3", "ISO_A3_EH", "ISO_A2", "ISO_A2_EH")
             if properties.get(key) not in (None, "", -99, "-99")
         }
         properties["aliases"] = sorted(aliases - {three_letter})
@@ -275,6 +288,11 @@ def normalize_historical_snapshots(
 ) -> dict[str, Any]:
     """Normalize dated historical-basemaps snapshots into valid-time features."""
 
+    from shapely import unary_union
+    from shapely.geometry import mapping
+
+    from .simplification import _repair_polygonal
+
     if not snapshots:
         raise ValueError("historical normalization requires at least one snapshot")
     years = sorted(snapshots)
@@ -286,6 +304,12 @@ def normalize_historical_snapshots(
         if not isinstance(features, list):
             raise ValueError(f"historical snapshot {year} requires features list")
         next_start = starts[years[position + 1]] if position + 1 < len(years) else None
+
+        # Source snapshots contain anonymous unclaimed-land features, split
+        # polities repeated under one NAME, and invalid rings. Cleaning is
+        # deterministic: drop nameless features (they have no canonical
+        # identity to index), repair invalid rings, and union same-name parts.
+        cleaned: dict[str, tuple[dict[str, Any], str, list[Any]]] = {}
         for feature in features:
             if not isinstance(feature, dict):
                 raise ValueError(f"historical snapshot {year} feature must contain a mapping")
@@ -296,17 +320,58 @@ def normalize_historical_snapshots(
                 )
             name = properties.get("NAME")
             if not isinstance(name, str) or not name.strip():
-                raise ValueError(f"historical snapshot {year} feature requires NAME")
-            territory_id = _territory_slug(name)
-            feature["id"] = territory_id
-            properties["id"] = territory_id
-            properties["territory_id"] = territory_id
-            properties["name"] = name.strip()
-            properties["aliases"] = []
-            properties["valid_from"] = starts[year].isoformat()
-            properties["valid_to"] = None if next_start is None else next_start.isoformat()
-            properties["source_year"] = year
-        normalized = normalize_feature_collection(working, quantization=quantization)
+                continue
+            try:
+                territory_id = _territory_slug(name)
+            except ValueError:
+                # Names like "?" carry no identity; treat them as anonymous.
+                continue
+            geometry = feature.get("geometry")
+            if not isinstance(geometry, dict):
+                continue
+            shaped = shape(geometry)
+            if not shaped.is_valid:
+                shaped = _repair_polygonal(shaped)
+            if shaped.is_empty or shaped.area < 1e-9:
+                # Degenerate sliver territories collapse under quantization
+                # (the 1e-6 world grid step is ~3.6e-4 degrees); drop them.
+                continue
+            entry = cleaned.get(territory_id)
+            if entry is None:
+                cleaned[territory_id] = (properties, name, [shaped])
+            else:
+                entry[2].append(shaped)
+
+        rebuilt: list[dict[str, Any]] = []
+        for territory_id in sorted(cleaned):
+            properties, name, shapes = cleaned[territory_id]
+            merged = shapes[0] if len(shapes) == 1 else unary_union(shapes)
+            if not merged.is_valid:
+                merged = _repair_polygonal(merged)
+            if merged.is_empty:
+                continue
+            merged_properties = dict(properties)
+            merged_properties["id"] = territory_id
+            merged_properties["territory_id"] = territory_id
+            merged_properties["name"] = name.strip()
+            merged_properties["aliases"] = []
+            merged_properties["valid_from"] = starts[year].isoformat()
+            merged_properties["valid_to"] = None if next_start is None else next_start.isoformat()
+            merged_properties["source_year"] = year
+            rebuilt.append(
+                {
+                    "type": "Feature",
+                    "id": territory_id,
+                    "properties": merged_properties,
+                    "geometry": mapping(merged),
+                }
+            )
+        if not rebuilt:
+            raise ValueError(f"historical snapshot {year} has no indexable named territories")
+        normalized = normalize_feature_collection(
+            {"type": "FeatureCollection", "features": rebuilt},
+            quantization=quantization,
+        )
         combined.extend(normalized["features"])
     combined.sort(
         key=lambda feature: (
@@ -433,9 +498,9 @@ __all__ = [
     "dataset_spec",
     "load_geojson",
     "load_map_dataset",
+    "normalize_feature_collection",
     "normalize_historical_snapshots",
     "normalize_natural_earth",
-    "normalize_feature_collection",
     "parse_catalog",
     "read_resource",
     "verify_vendored_data",

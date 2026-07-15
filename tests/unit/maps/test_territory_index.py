@@ -3,9 +3,10 @@ from __future__ import annotations
 from datetime import date
 
 import pytest
+from shapely import Polygon
+
 from anima.data.territory_index import TerritoryIndex
 from anima.maps import DatasetRegistry, MapDataset, MapDate, TerritoryVersion, ValidityInterval
-from shapely import Polygon
 
 
 def _square(x: float) -> Polygon:
@@ -97,6 +98,26 @@ def test_direct_lookup_accepts_scoped_ids_aliases_and_years() -> None:
     assert dataset.resolve("history:german-empire", at=1918).geometry.equals(_square(0))
     assert dataset.resolve("deu", at="1919-01-01").geometry.equals(_square(1))
     assert dataset.canonical_id("history:deu", at=1918) == "history:germany"
+
+
+def test_alias_resolution_is_bound_to_declaring_version_validity() -> None:
+    dataset = MapDataset(
+        "history",
+        (
+            TerritoryVersion(
+                "germany",
+                _square(0),
+                ValidityInterval(1871, 1919),
+                aliases=("german-empire",),
+            ),
+            TerritoryVersion("germany", _square(1), ValidityInterval(1919, None)),
+        ),
+    )
+
+    assert dataset.resolve("german-empire", at=1900).geometry.equals(_square(0))
+    assert dataset.resolve("germany", at=1950).geometry.equals(_square(1))
+    with pytest.raises(KeyError, match=r"alias 'german-empire'.*no geometry at 1950"):
+        dataset.resolve("german-empire", at=1950)
 
 
 def test_dataset_enumeration_is_canonical_and_sorted() -> None:

@@ -8,7 +8,9 @@ import math
 from dataclasses import dataclass
 from typing import Any, cast
 
-from shapely.geometry import shape
+from shapely import make_valid, unary_union
+from shapely.geometry import mapping, shape
+from shapely.geometry.base import BaseGeometry
 from topojson import Topology
 
 
@@ -102,6 +104,24 @@ class SimplifiedTopology:
         ) + "\n"
 
 
+def _polygonal(geometry: BaseGeometry) -> BaseGeometry:
+    """Return only the valid Polygon/MultiPolygon content of a geometry."""
+
+    if geometry.geom_type in {"Polygon", "MultiPolygon"} and geometry.is_valid:
+        return geometry
+    if geometry.geom_type == "GeometryCollection":
+        parts = [part for part in geometry.geoms if part.geom_type in {"Polygon", "MultiPolygon"}]
+        if parts:
+            return unary_union(parts)
+    return geometry.buffer(0)
+
+
+def _repair_polygonal(geometry: BaseGeometry) -> BaseGeometry:
+    """Deterministically repair invalid rings, dropping collapsed parts."""
+
+    return _polygonal(make_valid(geometry, method="structure", keep_collapsed=False))
+
+
 def _canonical_features(collection: dict[str, Any]) -> list[dict[str, Any]]:
     if collection.get("type") != "FeatureCollection":
         raise ValueError("topology input must be a GeoJSON FeatureCollection")
@@ -187,6 +207,13 @@ def simplify_feature_collection(
     exported["features"] = sorted(exported["features"], key=lambda item: str(item["id"]))
     for feature in exported["features"]:
         shaped = shape(feature["geometry"])
+        if not shaped.is_valid:
+            # Quantization can pinch rings into bowtie self-intersections; repair
+            # deterministically and keep only the polygonal components.
+            shaped = _repair_polygonal(shaped)
+            feature["geometry"] = json.loads(
+                json.dumps(mapping(shaped), ensure_ascii=False, allow_nan=False)
+            )
         if shaped.is_empty or not shaped.is_valid:
             raise ValueError(f"simplification produced invalid geometry: {feature['id']}")
 

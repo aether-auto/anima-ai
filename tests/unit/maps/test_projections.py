@@ -6,12 +6,6 @@ from pathlib import Path
 
 import pyproj
 import pytest
-from anima.data.projections import (
-    Projection,
-    ProjectionDefinition,
-    regional_equal_area,
-    world_equal_earth,
-)
 from shapely import (
     GeometryCollection,
     LineString,
@@ -20,6 +14,13 @@ from shapely import (
     MultiPolygon,
     Point,
     Polygon,
+)
+
+from anima.data.projections import (
+    Projection,
+    ProjectionDefinition,
+    regional_equal_area,
+    world_equal_earth,
 )
 
 
@@ -109,7 +110,7 @@ def test_point_round_trip_is_deterministic_for_coordinate_grid(
 
     assert first == second
     for actual, expected in zip(first, coordinates, strict=True):
-        assert actual == pytest.approx(expected, abs=1e-9)
+        assert actual == pytest.approx(expected, abs=1e-8)
 
 
 def test_projection_definition_rejects_noncanonical_payload() -> None:

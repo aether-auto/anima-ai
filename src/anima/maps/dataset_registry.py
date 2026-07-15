@@ -103,6 +103,12 @@ class MapDataset:
         candidates = self._versions_by_id.get(territory_id)
         if candidates is None:
             raise KeyError(f"unknown territory {reference!r} in dataset {self.dataset_id!r}")
+        if territory_id != requested_id:
+            # An alias is bound to the versions that declare it, so alias lookups
+            # never leak into date ranges where the alias did not apply.
+            candidates = tuple(
+                version for version in candidates if requested_id in version.aliases
+            )
 
         if at is None:
             if len(candidates) == 1:
@@ -118,11 +124,19 @@ class MapDataset:
         matches = tuple(item for item in candidates if item.validity.contains(instant))
         if not matches:
             ranges = ", ".join(
-                f"[{item.validity.start or '-infinity'}, {item.validity.end or 'infinity'})"
+                "[{}, {})".format(
+                    item.validity.start.isoformat() if item.validity.start else "-infinity",
+                    item.validity.end.isoformat() if item.validity.end else "infinity",
+                )
                 for item in candidates
             )
+            described = (
+                f"territory {self.dataset_id}:{territory_id}"
+                if territory_id == requested_id
+                else f"alias {requested_id!r} of territory {self.dataset_id}:{territory_id}"
+            )
             raise KeyError(
-                f"territory {self.dataset_id}:{territory_id} has no geometry at "
+                f"{described} has no geometry at "
                 f"{instant.isoformat()}; available intervals: {ranges}"
             )
         return ResolvedTerritory(self.dataset_id, matches[0])

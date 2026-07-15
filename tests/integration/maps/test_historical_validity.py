@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from shapely import box
+
 from anima.data.territory_index import TerritoryIndex
 from anima.maps import DatasetRegistry, MapDataset, TerritoryVersion, ValidityInterval
-from shapely import box
 
 
 def test_historical_resolution_changes_geometry_at_exact_transition() -> None:

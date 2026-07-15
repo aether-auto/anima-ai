@@ -5,6 +5,7 @@ from hashlib import sha256
 
 import anima_ai_data
 import pytest
+
 from anima.data import vendored
 from anima.data.vendored import (
     DatasetSpec,
