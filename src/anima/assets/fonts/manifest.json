@@ -6,9 +6,11 @@
     "weight": 400,
     "style": "normal",
     "filename": "crude/Calistoga-Regular.ttf",
+    "version": "Version 1.010; ttfautohint (v1.8.4.7-5d5b)",
+    "sha256": "85a5accb2453368357d432fd0edf4701545cac7551946711c06085677fd1399f",
     "license_spdx": "OFL-1.1",
     "copyright_holder": "The Calistoga Project Authors",
-    "source_url": "https://github.com/google/fonts/tree/main/ofl/calistoga"
+    "source_url": "https://raw.githubusercontent.com/google/fonts/03781cf7a714af8431d14b6f337f923c774429d7/ofl/calistoga/Calistoga-Regular.ttf"
   },
   {
     "pack": "crude",
@@ -17,9 +19,11 @@
     "weight": 400,
     "style": "normal",
     "filename": "crude/Lato-Regular.ttf",
+    "version": "Version 2.015; 2015-08-06; http://www.latofonts.com/",
+    "sha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251",
     "license_spdx": "OFL-1.1",
-    "copyright_holder": "tyPoland, Łukasz Dziedzic",
-    "source_url": "https://github.com/google/fonts/tree/main/ofl/lato"
+    "copyright_holder": "tyPoland Lukasz Dziedzic",
+    "source_url": "https://raw.githubusercontent.com/google/fonts/03781cf7a714af8431d14b6f337f923c774429d7/ofl/lato/Lato-Regular.ttf"
   },
   {
     "pack": "flat",
@@ -27,10 +31,12 @@
     "family": "Exo 2 ExtraBold",
     "weight": 800,
     "style": "normal",
-    "filename": "flat/Exo2ExtraBold-Regular.ttf",
+    "filename": "flat/Exo2-ExtraBold.ttf",
+    "version": "Version 2.001; ttfautohint (v1.8.3)",
+    "sha256": "754f4becaef2f9f6c156d5295bf06cef69e31220578bf8d03ce41fea1d03bb2c",
     "license_spdx": "OFL-1.1",
     "copyright_holder": "The Exo 2 Project Authors",
-    "source_url": "https://github.com/google/fonts/tree/main/ofl/exo2"
+    "source_url": "https://raw.githubusercontent.com/NDISCOVER/Exo-2.0/182060cd38adf3cde0d22add3f8009d30bd48cde/fonts/ttf/Exo2-ExtraBold.ttf"
   },
   {
     "pack": "flat",
@@ -39,8 +45,10 @@
     "weight": 400,
     "style": "normal",
     "filename": "flat/Inter-Regular.otf",
+    "version": "Version 4.000;git-a52131595",
+    "sha256": "be6d709dcb730ddaf050cbdae6fe89bd56d5d14dc66885639bbf6f06bd03521b",
     "license_spdx": "OFL-1.1",
     "copyright_holder": "The Inter Project Authors",
-    "source_url": "https://github.com/google/fonts/tree/main/ofl/inter"
+    "source_url": "https://github.com/rsms/inter/releases/download/v4.0/Inter-4.0.zip"
   }
 ]

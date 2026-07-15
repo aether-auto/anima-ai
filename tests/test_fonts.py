@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.resources as resources
 import json
 import subprocess
@@ -26,6 +27,8 @@ REQUIRED_FIELDS = {
     "weight",
     "style",
     "filename",
+    "version",
+    "sha256",
     "license_spdx",
     "copyright_holder",
     "source_url",
@@ -62,11 +65,23 @@ def test_manifest_has_vetted_roles_and_metadata() -> None:
 @pytest.mark.parametrize(
     "entry", _manifest() if MANIFEST_PATH.exists() else [], ids=lambda entry: str(entry["filename"])
 )
+def test_manifest_checksum_matches_bundled_file(entry: dict[str, object]) -> None:
+    font_path = FONTS_DIR / str(entry["filename"])
+
+    digest = hashlib.sha256(font_path.read_bytes()).hexdigest()
+
+    assert digest == entry["sha256"]
+
+
+@pytest.mark.parametrize(
+    "entry", _manifest() if MANIFEST_PATH.exists() else [], ids=lambda entry: str(entry["filename"])
+)
 def test_font_loads(entry: dict[str, object]) -> None:
     font_path = FONTS_DIR / str(entry["filename"])
 
     with TTFont(font_path) as font:
         assert font["name"].names
+        assert font["OS/2"].usWeightClass == entry["weight"]
 
 
 @pytest.mark.parametrize(
