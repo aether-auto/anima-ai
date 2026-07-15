@@ -1,0 +1,4 @@
+Natural Earth vector data are in the public domain.
+
+Source terms: https://www.naturalearthdata.com/about/terms-of-use/
+No permission is needed to use Natural Earth data. Attribution is optional.

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anima-ai-data"
+version = "0.0.0.dev0"
+description = "Version-matched historical map resources for anima-ai"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+dependencies = [
+    "anima-ai==0.0.0.dev0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"anima_ai_data.historical_basemaps" = ["*.txt", "*.geojson"]

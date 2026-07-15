@@ -18,6 +18,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+maps-data = [
+    "anima-ai-data==0.0.0.dev0",
+]
 dev = [
     "fonttools==4.60.1",
     "hypothesis==6.156.6",
@@ -38,6 +41,8 @@ anima = [
     "assets/fonts/**/*.ttf",
     "assets/fonts/**/*.txt",
 ]
+"anima.data" = ["catalog.json"]
+"anima.data.natural_earth" = ["*.txt", "ne_110m/*.geojson", "ne_50m/*.geojson"]
 
 [tool.setuptools.dynamic]
 version = {attr = "anima._version.__version__"}
@@ -58,8 +63,13 @@ known-first-party = ["anima"]
 python_version = "3.10"
 strict = true
 files = ["src/anima"]
+mypy_path = ["packages/anima-ai-data/src"]
+
+[[tool.mypy.overrides]]
+module = ["shapely", "shapely.*", "topojson"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
-pythonpath = ["src"]
+pythonpath = ["src", "packages/anima-ai-data/src"]
 testpaths = ["tests"]
