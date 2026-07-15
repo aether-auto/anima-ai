@@ -1,5 +1,5 @@
 """Agent-authored, deterministically verifiable animation."""
 
-from typing import Final
+from anima._version import __version__
 
-__version__: Final = "0.0.0.dev0"
+__all__ = ["__version__"]

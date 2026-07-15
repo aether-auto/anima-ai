@@ -1,0 +1,397 @@
+{
+  "project": {
+    "engine_version": "0.0.0.dev0",
+    "fps": 24.0,
+    "resolution": {
+      "height": 720,
+      "width": 1280
+    },
+    "scenes": [
+      {
+        "id": "intro",
+        "layers": [
+          {
+            "id": "art",
+            "nodes": [
+              {
+                "geometry": {
+                  "height": 1080.0,
+                  "type": "rectangle",
+                  "width": 1920.0
+                },
+                "id": "background",
+                "layer": "art",
+                "style_role": "canvas",
+                "transform": {
+                  "anchor": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "rotation": 0.0,
+                  "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  }
+                },
+                "type": "shape",
+                "visibility": {
+                  "end": null,
+                  "start": null
+                },
+                "z": -10
+              },
+              {
+                "geometry": {
+                  "radius": 96.0,
+                  "type": "circle"
+                },
+                "id": "sun",
+                "layer": "art",
+                "style_role": null,
+                "transform": {
+                  "anchor": {
+                    "x": 0.5,
+                    "y": 0.5
+                  },
+                  "position": {
+                    "x": 1500.0,
+                    "y": 160.0
+                  },
+                  "rotation": 12.5,
+                  "scale": {
+                    "x": 1.1,
+                    "y": 0.9
+                  }
+                },
+                "type": "shape",
+                "visibility": {
+                  "end": 8.5,
+                  "start": 0.0
+                },
+                "z": 0
+              },
+              {
+                "geometry": {
+                  "radius_x": 180.0,
+                  "radius_y": 60.0,
+                  "type": "ellipse"
+                },
+                "id": "cloud",
+                "layer": "art",
+                "style_role": null,
+                "transform": {
+                  "anchor": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "rotation": 0.0,
+                  "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  }
+                },
+                "type": "shape",
+                "visibility": {
+                  "end": null,
+                  "start": 1.0
+                },
+                "z": 0
+              },
+              {
+                "geometry": {
+                  "points": [
+                    {
+                      "x": 0.0,
+                      "y": 300.0
+                    },
+                    {
+                      "x": 320.0,
+                      "y": 0.0
+                    },
+                    {
+                      "x": 640.0,
+                      "y": 300.0
+                    }
+                  ],
+                  "type": "polygon"
+                },
+                "id": "mountain",
+                "layer": "art",
+                "style_role": null,
+                "transform": {
+                  "anchor": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "rotation": 0.0,
+                  "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  }
+                },
+                "type": "shape",
+                "visibility": {
+                  "end": null,
+                  "start": null
+                },
+                "z": 1
+              },
+              {
+                "commands": [
+                  {
+                    "point": {
+                      "x": 100.0,
+                      "y": 700.0
+                    },
+                    "type": "move_to"
+                  },
+                  {
+                    "point": {
+                      "x": 400.0,
+                      "y": 620.0
+                    },
+                    "type": "line_to"
+                  },
+                  {
+                    "control1": {
+                      "x": 500.0,
+                      "y": 580.0
+                    },
+                    "control2": {
+                      "x": 700.0,
+                      "y": 760.0
+                    },
+                    "point": {
+                      "x": 900.0,
+                      "y": 650.0
+                    },
+                    "type": "cubic_to"
+                  },
+                  {
+                    "type": "close_path"
+                  },
+                  {
+                    "point": {
+                      "x": 1000.0,
+                      "y": 650.0
+                    },
+                    "type": "move_to"
+                  },
+                  {
+                    "point": {
+                      "x": 1200.0,
+                      "y": 620.0
+                    },
+                    "type": "line_to"
+                  }
+                ],
+                "id": "route",
+                "layer": "art",
+                "style_role": "route.primary",
+                "transform": {
+                  "anchor": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "rotation": 0.0,
+                  "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  }
+                },
+                "type": "path",
+                "visibility": {
+                  "end": null,
+                  "start": null
+                },
+                "z": 2
+              }
+            ]
+          },
+          {
+            "id": "labels",
+            "nodes": [
+              {
+                "children": [
+                  {
+                    "content": "Anima — 世界 🌍",
+                    "font_role": "heading",
+                    "id": "title",
+                    "layer": "labels",
+                    "size": 72.0,
+                    "style_role": null,
+                    "transform": {
+                      "anchor": {
+                        "x": 0.0,
+                        "y": 0.0
+                      },
+                      "position": {
+                        "x": 0.0,
+                        "y": 0.0
+                      },
+                      "rotation": 0.0,
+                      "scale": {
+                        "x": 1.0,
+                        "y": 1.0
+                      }
+                    },
+                    "type": "text",
+                    "visibility": {
+                      "end": null,
+                      "start": null
+                    },
+                    "z": 0
+                  },
+                  {
+                    "children": [
+                      {
+                        "content": "Nested label",
+                        "font_role": "caption",
+                        "id": "nested-caption",
+                        "layer": "labels",
+                        "size": 22.0,
+                        "style_role": null,
+                        "transform": {
+                          "anchor": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "rotation": 0.0,
+                          "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                          }
+                        },
+                        "type": "text",
+                        "visibility": {
+                          "end": null,
+                          "start": null
+                        },
+                        "z": -1
+                      }
+                    ],
+                    "id": "nested-group",
+                    "layer": "labels",
+                    "style_role": null,
+                    "transform": {
+                      "anchor": {
+                        "x": 0.0,
+                        "y": 0.0
+                      },
+                      "position": {
+                        "x": 40.0,
+                        "y": 90.0
+                      },
+                      "rotation": 0.0,
+                      "scale": {
+                        "x": 1.0,
+                        "y": 1.0
+                      }
+                    },
+                    "type": "group",
+                    "visibility": {
+                      "end": null,
+                      "start": null
+                    },
+                    "z": 0
+                  }
+                ],
+                "id": "title-group",
+                "layer": "labels",
+                "style_role": "panel",
+                "transform": {
+                  "anchor": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "rotation": 0.0,
+                  "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  }
+                },
+                "type": "group",
+                "visibility": {
+                  "end": 7.0,
+                  "start": null
+                },
+                "z": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "outro",
+        "layers": [
+          {
+            "id": "marks",
+            "nodes": [
+              {
+                "geometry": {
+                  "radius": 12.0,
+                  "type": "circle"
+                },
+                "id": "outro-dot",
+                "layer": "marks",
+                "style_role": null,
+                "transform": {
+                  "anchor": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "rotation": 0.0,
+                  "scale": {
+                    "x": 1.0,
+                    "y": 1.0
+                  }
+                },
+                "type": "shape",
+                "visibility": {
+                  "end": null,
+                  "start": null
+                },
+                "z": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "seed": 8675309,
+    "style_pack": {
+      "id": "crude",
+      "version": "1.4.2"
+    },
+    "wpm": 165.0
+  },
+  "schema_version": "1.0"
+}
