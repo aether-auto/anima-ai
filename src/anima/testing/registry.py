@@ -35,6 +35,11 @@ _TOLERANCE_MAX = 1.0
 # a mutable tag. e.g. ghcr.io/owner/anima-golden@sha256:<64 hex>.
 _DIGEST_REF_RE = re.compile(r"^\S+@sha256:[0-9a-f]{64}$")
 
+# Baseline IDs become filenames under .golden-work/ (candidate, diff, report,
+# actual). Restrict them to a safe charset with no path separators so a manifest
+# id can never escape the working directory or overwrite a committed baseline.
+_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+
 CanonicalParams = dict[str, Any]
 
 
@@ -136,6 +141,10 @@ def baseline_from_json(obj: dict[str, Any]) -> GoldenBaseline:
     missing = [key for key in required if key not in obj]
     if missing:
         raise ManifestError(f"baseline is missing fields: {', '.join(missing)}")
+    if not _ID_RE.match(str(obj["id"])) or str(obj["id"]) in (".", ".."):
+        raise ManifestError(
+            f"baseline id {obj['id']!r} must match [A-Za-z0-9._-] with no path separators"
+        )
     if not isinstance(obj["params"], dict):
         raise ManifestError(f"baseline {obj['id']!r} params must be an object")
     tolerance = float(obj["tolerance"])

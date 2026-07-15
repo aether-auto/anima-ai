@@ -141,6 +141,16 @@ def test_truncated_digest_container_ref_rejected(tmp_path: Path) -> None:
         registry.load_manifest(tmp_path)
 
 
+@pytest.mark.parametrize("bad_id", ["../evil", "a/b", "..", ".", "with space"])
+def test_unsafe_baseline_id_rejected(tmp_path: Path, bad_id: str) -> None:
+    obj = _baseline("foo").to_json_obj()
+    obj["id"] = bad_id
+    obj["png_path"] = "tests/golden/baselines/safe.png"
+    _write_raw(tmp_path, obj)
+    with pytest.raises(ManifestError, match="baseline id"):
+        registry.load_manifest(tmp_path)
+
+
 def test_absolute_png_path_rejected(tmp_path: Path) -> None:
     obj = _baseline("foo").to_json_obj()
     obj["png_path"] = "/etc/passwd.png"
