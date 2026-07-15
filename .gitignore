@@ -1,0 +1,20 @@
+# cofounder:start — cofounder artifacts are local-only by default.
+# Delete a line to start committing that artifact; cofounder never re-adds
+# lines inside this block once it exists.
+.worktrees/
+graphify-out/
+docs/cofounder/
+PROJECT.md
+AGENTS.md
+.claude/cofounder.local.md
+# cofounder:end
+
+# Python environments, build outputs, and tool caches.
+.venv/
+*.egg-info/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
