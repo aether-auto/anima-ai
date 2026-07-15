@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anima-ai"
-version = "0.0.0.dev0"
+dynamic = ["version"]
 description = "Agent-authored, deterministically verifiable animated explainers"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "fonttools==4.60.1",
     "mypy==1.19.1",
     "pytest==9.0.2",
     "PyYAML==6.0.3",
@@ -27,6 +28,12 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+anima = ["assets/fonts/**/*.json", "assets/fonts/**/*.md", "assets/fonts/**/*.ttf", "assets/fonts/**/*.otf"]
+
+[tool.setuptools.dynamic]
+version = {attr = "anima._version.__version__"}
 
 [tool.ruff]
 target-version = "py310"
@@ -42,4 +49,5 @@ files = ["src/anima"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
+pythonpath = ["src"]
 testpaths = ["tests"]
