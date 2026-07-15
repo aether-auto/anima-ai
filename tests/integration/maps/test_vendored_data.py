@@ -46,6 +46,12 @@ def test_natural_earth_scales_are_real_normalized_country_collections() -> None:
             dataset_spec(dataset_id).resources[0].path,
         )
 
+        # Every scale must load into the resolver: shipped aliases must never
+        # shadow canonical IDs or collide across features.
+        dataset = load_map_dataset(dataset_id)
+        assert dataset.resolve("fr").territory_id == "fra"
+        assert dataset.resolve("us").territory_id == "usa"
+
 
 def test_historical_basemaps_cover_multiple_eras_and_resolve_dates() -> None:
     collection = load_geojson("historical-basemaps")

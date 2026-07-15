@@ -278,6 +278,21 @@ def normalize_natural_earth(
         properties["aliases"] = sorted(aliases - {three_letter})
         properties["valid_from"] = None
         properties["valid_to"] = None
+
+    # Dependencies reuse their parent's ISO codes (Ashmore & Cartier carries
+    # AUS), so aliases that shadow any canonical ID or that multiple features
+    # claim must be dropped for the dataset to load into MapDataset.
+    canonical_ids = {feature["id"] for feature in features}
+    alias_owners: dict[str, set[str]] = {}
+    for feature in features:
+        for alias in feature["properties"]["aliases"]:
+            alias_owners.setdefault(alias, set()).add(feature["id"])
+    for feature in features:
+        feature["properties"]["aliases"] = [
+            alias
+            for alias in feature["properties"]["aliases"]
+            if alias not in canonical_ids and len(alias_owners[alias]) == 1
+        ]
     return normalize_feature_collection(working, quantization=quantization)
 
 
