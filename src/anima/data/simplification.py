@@ -6,7 +6,7 @@ import copy
 import json
 import math
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, cast
 
 from shapely.geometry import shape
 from topojson import Topology
@@ -21,11 +21,17 @@ class TopologyParameters:
     prevent_oversimplify: bool = True
 
     def __post_init__(self) -> None:
-        if isinstance(self.quantization, bool) or self.quantization < 2:
+        if not isinstance(self.quantization, int) or isinstance(self.quantization, bool):
             raise ValueError("quantization must be an integer of at least 2")
+        if self.quantization < 2:
+            raise ValueError("quantization must be an integer of at least 2")
+        if isinstance(self.tolerance, bool):
+            raise ValueError("tolerance must be finite and non-negative")
         tolerance = float(self.tolerance)
         if not math.isfinite(tolerance) or tolerance < 0:
             raise ValueError("tolerance must be finite and non-negative")
+        if not isinstance(self.prevent_oversimplify, bool):
+            raise ValueError("prevent_oversimplify must be boolean")
         object.__setattr__(self, "tolerance", tolerance)
 
     def to_dict(self) -> dict[str, object]:
@@ -48,7 +54,7 @@ class SimplifiedTopology:
         geometries = self.topology["objects"]["territories"]["geometries"]
         for geometry in geometries:
             if str(geometry.get("id")) == feature_id:
-                return geometry
+                return cast(dict[str, Any], geometry)
         raise KeyError(f"unknown topology feature id: {feature_id}")
 
     def arc_references(self, feature_id: str) -> tuple[int, ...]:
@@ -69,7 +75,10 @@ class SimplifiedTopology:
     def shared_arc_indices(self, first_id: str, second_id: str) -> tuple[int, ...]:
         """Return unsigned raw arc indexes shared by two features."""
 
-        first = {reference if reference >= 0 else ~reference for reference in self.arc_references(first_id)}
+        first = {
+            reference if reference >= 0 else ~reference
+            for reference in self.arc_references(first_id)
+        }
         second = {
             reference if reference >= 0 else ~reference
             for reference in self.arc_references(second_id)

@@ -1,0 +1,6 @@
+historical-basemaps by André Ourednik and contributors
+Source: https://github.com/aourednik/historical-basemaps
+License: GNU General Public License v3.0 only
+
+Historical boundaries are disputed and approximate. Source maintainers recommend
+verification against additional sources before academic use.

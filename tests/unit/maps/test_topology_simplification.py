@@ -3,14 +3,13 @@ from __future__ import annotations
 import json
 
 import pytest
-from shapely import box
-from shapely.geometry import shape
-from shapely.ops import unary_union
-
 from anima.data.simplification import (
     TopologyParameters,
     simplify_feature_collection,
 )
+from shapely import box
+from shapely.geometry import shape
+from shapely.ops import unary_union
 
 
 def _adjacent_collection(reverse: bool = False) -> dict[str, object]:
@@ -74,8 +73,14 @@ def test_parameters_are_explicit_and_validated() -> None:
 
     with pytest.raises(ValueError, match="quantization"):
         TopologyParameters(quantization=1)
+    with pytest.raises(ValueError, match="quantization"):
+        TopologyParameters(quantization=10.5)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match="tolerance"):
         TopologyParameters(tolerance=-0.01)
+    with pytest.raises(ValueError, match="tolerance"):
+        TopologyParameters(tolerance=True)
+    with pytest.raises(ValueError, match="prevent_oversimplify"):
+        TopologyParameters(prevent_oversimplify=1)  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize("tolerance", (0.0, 0.05, 0.2))

@@ -5,18 +5,18 @@ from __future__ import annotations
 import copy
 import json
 import re
+import unicodedata
+from collections.abc import Mapping
 from dataclasses import dataclass
 from functools import lru_cache
 from hashlib import sha256
 from importlib.resources import files
 from pathlib import PurePosixPath
-from typing import Any, Mapping
+from typing import Any
 
 from shapely.geometry import shape
 
-from anima.maps import MapDataset, TerritoryVersion, ValidityInterval
-
-from .simplification import TopologyParameters, simplify_feature_collection
+from anima.maps import MapDataset, TerritoryVersion, ValidityInterval, coerce_date
 
 _SHA256 = re.compile(r"[0-9a-f]{64}")
 
@@ -42,7 +42,7 @@ class ResourceSpec:
         object.__setattr__(self, "path", _relative_path(self.path, field="resource path"))
         if not _SHA256.fullmatch(self.sha256):
             raise ValueError(f"resource checksum must be lowercase SHA-256: {self.sha256!r}")
-        if isinstance(self.size, bool) or self.size <= 0:
+        if not isinstance(self.size, int) or isinstance(self.size, bool) or self.size <= 0:
             raise ValueError("resource size must be a positive integer")
 
 
@@ -64,8 +64,14 @@ class DatasetSpec:
             raise ValueError(f"invalid dataset id: {self.dataset_id!r}")
         if not self.source_name.strip() or not self.source_version.strip():
             raise ValueError(f"dataset source name/version must be pinned: {dataset_id}")
-        if not self.package.startswith("anima.data."):
-            raise ValueError(f"dataset package must live under anima.data: {self.package!r}")
+        if not (
+            self.package.startswith("anima.data.")
+            or self.package.startswith("anima_ai_data.")
+        ):
+            raise ValueError(
+                "dataset package must live under anima.data or anima_ai_data: "
+                f"{self.package!r}"
+            )
         if not self.resources:
             raise ValueError(f"dataset must declare resources: {dataset_id}")
         object.__setattr__(self, "dataset_id", dataset_id)
@@ -98,7 +104,7 @@ def parse_catalog(raw: object) -> tuple[DatasetSpec, ...]:
             ResourceSpec(
                 path=str(resource["path"]),
                 sha256=str(resource["sha256"]),
-                size=int(resource["size"]),
+                size=resource["size"],
             )
             for resource in raw_resources
             if isinstance(resource, dict)
@@ -172,6 +178,8 @@ def normalize_feature_collection(
 ) -> dict[str, Any]:
     """Normalize IDs and coordinates through shared-arc topojson quantization."""
 
+    from .simplification import TopologyParameters, simplify_feature_collection
+
     working = copy.deepcopy(collection)
     features = working.get("features")
     if not isinstance(features, list):
@@ -204,7 +212,127 @@ def normalize_feature_collection(
     return result
 
 
+def _territory_slug(value: str) -> str:
+    normalized = unicodedata.normalize("NFKC", value).strip().casefold()
+    slug: list[str] = []
+    for character in normalized:
+        if character.isalnum():
+            slug.append(character)
+        elif slug and slug[-1] != "-":
+            slug.append("-")
+    identifier = "".join(slug).strip("-")
+    if not identifier:
+        raise ValueError(f"territory name has no identifier characters: {value!r}")
+    return identifier
+
+
+def normalize_natural_earth(
+    collection: dict[str, Any],
+    *,
+    quantization: int = 1_000_001,
+) -> dict[str, Any]:
+    """Normalize Natural Earth Admin 0 features to stable canonical IDs."""
+
+    working = copy.deepcopy(collection)
+    features = working.get("features")
+    if not isinstance(features, list):
+        raise ValueError("Natural Earth input requires features list")
+    for feature in features:
+        if not isinstance(feature, dict):
+            raise ValueError("Natural Earth feature must contain a mapping")
+        properties = feature.get("properties")
+        if not isinstance(properties, dict):
+            raise ValueError("Natural Earth feature properties must contain a mapping")
+        canonical_codes = tuple(
+            str(properties[key]).strip().casefold()
+            for key in ("ADM0_A3", "ISO_A3", "SOV_A3")
+            if properties.get(key) not in (None, "", -99, "-99")
+        )
+        three_letter = next((code for code in canonical_codes if len(code) == 3), None)
+        if three_letter is None:
+            natural_earth_id = properties.get("NE_ID")
+            if natural_earth_id in (None, ""):
+                raise ValueError("Natural Earth feature lacks stable ADM0_A3/ISO_A3/NE_ID")
+            three_letter = f"ne-{natural_earth_id}"
+        feature["id"] = three_letter
+        properties["id"] = three_letter
+        properties["territory_id"] = three_letter
+        aliases = {
+            str(properties[key]).strip().casefold()
+            for key in ("ISO_A3", "ISO_A2")
+            if properties.get(key) not in (None, "", -99, "-99")
+        }
+        properties["aliases"] = sorted(aliases - {three_letter})
+        properties["valid_from"] = None
+        properties["valid_to"] = None
+    return normalize_feature_collection(working, quantization=quantization)
+
+
+def normalize_historical_snapshots(
+    snapshots: Mapping[int, dict[str, Any]],
+    *,
+    quantization: int = 1_000_001,
+) -> dict[str, Any]:
+    """Normalize dated historical-basemaps snapshots into valid-time features."""
+
+    if not snapshots:
+        raise ValueError("historical normalization requires at least one snapshot")
+    years = sorted(snapshots)
+    starts = {year: coerce_date(year) for year in years}
+    combined: list[dict[str, Any]] = []
+    for position, year in enumerate(years):
+        working = copy.deepcopy(snapshots[year])
+        features = working.get("features")
+        if not isinstance(features, list):
+            raise ValueError(f"historical snapshot {year} requires features list")
+        next_start = starts[years[position + 1]] if position + 1 < len(years) else None
+        for feature in features:
+            if not isinstance(feature, dict):
+                raise ValueError(f"historical snapshot {year} feature must contain a mapping")
+            properties = feature.get("properties")
+            if not isinstance(properties, dict):
+                raise ValueError(
+                    f"historical snapshot {year} feature properties must contain a mapping"
+                )
+            name = properties.get("NAME")
+            if not isinstance(name, str) or not name.strip():
+                raise ValueError(f"historical snapshot {year} feature requires NAME")
+            territory_id = _territory_slug(name)
+            feature["id"] = territory_id
+            properties["id"] = territory_id
+            properties["territory_id"] = territory_id
+            properties["name"] = name.strip()
+            properties["aliases"] = []
+            properties["valid_from"] = starts[year].isoformat()
+            properties["valid_to"] = None if next_start is None else next_start.isoformat()
+            properties["source_year"] = year
+        normalized = normalize_feature_collection(working, quantization=quantization)
+        combined.extend(normalized["features"])
+    combined.sort(
+        key=lambda feature: (
+            str(feature["id"]),
+            str(feature.get("properties", {}).get("valid_from") or ""),
+        )
+    )
+    return {"features": combined, "type": "FeatureCollection"}
+
+
+def _check_package_version(spec: DatasetSpec) -> None:
+    if not spec.package.startswith("anima_ai_data."):
+        return
+    from anima_ai_data import __version__ as companion_version
+
+    from anima import __version__ as main_version
+
+    if companion_version != main_version:
+        raise ValueError(
+            "companion package version mismatch: "
+            f"anima-ai-data {companion_version}; anima-ai {main_version}"
+        )
+
+
 def _checked_payload(spec: DatasetSpec, resource: ResourceSpec) -> bytes:
+    _check_package_version(spec)
     payload = read_resource(spec.package, resource.path)
     if len(payload) != resource.size:
         raise ValueError(
@@ -278,6 +406,11 @@ def verify_vendored_data() -> tuple[str, ...]:
 
     errors: list[str] = []
     for spec in _catalog():
+        try:
+            _check_package_version(spec)
+        except (ModuleNotFoundError, ValueError) as error:
+            errors.append(str(error))
+            continue
         for path in (spec.license_path, spec.attribution_path):
             try:
                 if not read_resource(spec.package, path).strip():
@@ -300,6 +433,8 @@ __all__ = [
     "dataset_spec",
     "load_geojson",
     "load_map_dataset",
+    "normalize_historical_snapshots",
+    "normalize_natural_earth",
     "normalize_feature_collection",
     "parse_catalog",
     "read_resource",

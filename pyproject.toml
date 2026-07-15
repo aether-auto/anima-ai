@@ -18,6 +18,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+maps-data = [
+    "anima-ai-data==0.0.0.dev0",
+]
 dev = [
     "mypy==1.19.1",
     "pytest==9.0.2",
@@ -27,6 +30,10 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"anima.data" = ["catalog.json"]
+"anima.data.natural_earth" = ["*.txt", "ne_110m/*.geojson", "ne_50m/*.geojson"]
 
 [tool.ruff]
 target-version = "py310"
@@ -39,7 +46,13 @@ select = ["B", "E", "F", "I", "RUF", "UP"]
 python_version = "3.10"
 strict = true
 files = ["src/anima"]
+mypy_path = ["packages/anima-ai-data/src"]
+
+[[tool.mypy.overrides]]
+module = ["shapely", "shapely.*", "topojson"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
+pythonpath = ["src", "packages/anima-ai-data/src"]

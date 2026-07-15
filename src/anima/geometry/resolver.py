@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from shapely import Point, box
+from shapely.geometry.base import BaseGeometry
 
 from anima.maps import DatasetRegistry, DateLike, ResolvedTerritory
 
@@ -51,7 +52,7 @@ class GeometryResolver:
 
     def _query(
         self,
-        probe: Point | object,
+        probe: BaseGeometry,
         *,
         at: DateLike,
         dataset_id: str | None,
@@ -72,4 +73,3 @@ class GeometryResolver:
                 if matched:
                     matches.append(record)
         return tuple(sorted(matches, key=lambda item: item.scoped_id))
-

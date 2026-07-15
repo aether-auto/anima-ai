@@ -3,10 +3,9 @@ from __future__ import annotations
 from datetime import date
 
 import pytest
-from shapely import Polygon
-
 from anima.data.territory_index import TerritoryIndex
-from anima.maps import DatasetRegistry, MapDataset, TerritoryVersion, ValidityInterval
+from anima.maps import DatasetRegistry, MapDataset, MapDate, TerritoryVersion, ValidityInterval
+from shapely import Polygon
 
 
 def _square(x: float) -> Polygon:
@@ -22,13 +21,37 @@ def test_validity_intervals_are_half_open() -> None:
     assert newer.contains(date(1918, 1, 1))
 
 
+def test_validity_overlap_handles_supported_date_boundaries() -> None:
+    final_day = ValidityInterval(date.max, None)
+    first_day = ValidityInterval(None, date(1, 1, 2))
+
+    assert final_day.overlaps(final_day)
+    assert first_day.overlaps(ValidityInterval(date.min, date(1, 1, 2)))
+
+
+def test_boolean_is_not_accepted_as_year() -> None:
+    with pytest.raises(TypeError, match="unsupported date value: bool"):
+        ValidityInterval().contains(True)  # type: ignore[arg-type]
+
+
+def test_signed_proleptic_dates_cover_bce_historical_snapshots() -> None:
+    ancient = ValidityInterval(-10_000, 1)
+
+    assert ancient.start == MapDate(-10_000, 1, 1)
+    assert ancient.start.isoformat() == "-10000-01-01"
+    assert ancient.contains("-0044-03-15")
+    assert not ancient.contains(1)
+    with pytest.raises(ValueError, match="year zero"):
+        ValidityInterval(0, 1)
+
+
 def test_dataset_rejects_overlapping_versions_for_same_territory() -> None:
     versions = (
         TerritoryVersion("state", _square(0), ValidityInterval(1900, 1920)),
         TerritoryVersion("state", _square(1), ValidityInterval(1919, 1930)),
     )
 
-    with pytest.raises(ValueError, match="overlapping validity intervals.*state"):
+    with pytest.raises(ValueError, match=r"overlapping validity intervals.*state"):
         MapDataset("history", versions)
 
 
@@ -38,7 +61,17 @@ def test_dataset_rejects_alias_collision_between_canonical_ids() -> None:
         TerritoryVersion("beta", _square(1), aliases=("shared",)),
     )
 
-    with pytest.raises(ValueError, match="alias 'shared'.*alpha.*beta"):
+    with pytest.raises(ValueError, match=r"alias 'shared'.*alpha.*beta"):
+        MapDataset("modern", versions)
+
+
+def test_dataset_rejects_alias_shadowing_canonical_id() -> None:
+    versions = (
+        TerritoryVersion("alpha", _square(0), aliases=("beta",)),
+        TerritoryVersion("beta", _square(1)),
+    )
+
+    with pytest.raises(ValueError, match=r"alias 'beta'.*shadows canonical territory"):
         MapDataset("modern", versions)
 
 
@@ -131,4 +164,3 @@ def test_registry_rejects_duplicate_dataset_ids() -> None:
 
     with pytest.raises(ValueError, match="duplicate dataset id: modern"):
         DatasetRegistry((first, second))
-

@@ -13,7 +13,7 @@ from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
 os.environ["PROJ_NETWORK"] = "OFF"
-network.set_network_enabled(active=False)
+network.set_network_enabled(active=False)  # type: ignore[attr-defined]
 
 
 def _finite_origin(longitude: float, latitude: float) -> tuple[float, float]:
@@ -51,6 +51,8 @@ class ProjectionDefinition:
     always_xy: bool = True
 
     def __post_init__(self) -> None:
+        if not isinstance(self.always_xy, bool):
+            raise ValueError("always_xy must be boolean")
         if self.source_crs != "EPSG:4326":
             raise ValueError("source_crs must be EPSG:4326")
         if not self.always_xy:
@@ -80,7 +82,11 @@ class ProjectionDefinition:
 
     def to_json(self) -> str:
         return json.dumps(
-            self.to_dict(), ensure_ascii=True, allow_nan=False, sort_keys=True, separators=(",", ":")
+            self.to_dict(),
+            ensure_ascii=True,
+            allow_nan=False,
+            sort_keys=True,
+            separators=(",", ":"),
         ) + "\n"
 
     @classmethod
@@ -101,12 +107,15 @@ class ProjectionDefinition:
             origin = (float(raw_origin[0]), float(raw_origin[1]))
         else:
             raise ValueError("projection origin must be null or [longitude, latitude]")
+        raw_always_xy = raw["always_xy"]
+        if not isinstance(raw_always_xy, bool):
+            raise ValueError("projection always_xy must be boolean")
         return cls(
             method=str(raw["method"]),
             target_crs=str(raw["target_crs"]),
             origin=origin,
             source_crs=str(raw["source_crs"]),
-            always_xy=bool(raw["always_xy"]),
+            always_xy=raw_always_xy,
         )
 
 
@@ -130,7 +139,7 @@ def regional_equal_area(longitude: float, latitude: float) -> ProjectionDefiniti
 class Projection:
     """Forward/inverse coordinate and Shapely-geometry transformer."""
 
-    __slots__ = ("definition", "_forward", "_inverse")
+    __slots__ = ("_forward", "_inverse", "definition")
 
     def __init__(self, definition: ProjectionDefinition) -> None:
         self.definition = definition

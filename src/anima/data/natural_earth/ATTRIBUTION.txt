@@ -1,0 +1,3 @@
+Natural Earth 1:110m and 1:50m Admin 0 Countries
+Source: https://www.naturalearthdata.com/
+Natural Earth data are public domain. Attribution is optional and appreciated.

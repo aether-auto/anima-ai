@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from shapely.geometry import shape
-
 from anima.data.simplification import TopologyParameters, simplify_feature_collection
 from anima.data.vendored import load_geojson
+from shapely.geometry import shape
 
 
 def _country_pair() -> dict[str, object]:

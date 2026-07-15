@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import Mapping
 
 from shapely.geometry.base import BaseGeometry
 
@@ -41,15 +41,10 @@ class TerritoryVersion:
         if not self.geometry.is_valid:
             raise ValueError(f"territory geometry must be valid: {territory_id}")
 
-        aliases = tuple(
-            sorted(
-                {
-                    normalize_identifier(alias, kind="territory alias")
-                    for alias in self.aliases
-                    if normalize_identifier(alias, kind="territory alias") != territory_id
-                }
-            )
-        )
+        normalized_aliases = {
+            normalize_identifier(alias, kind="territory alias") for alias in self.aliases
+        }
+        aliases = tuple(sorted(normalized_aliases - {territory_id}))
         object.__setattr__(self, "territory_id", territory_id)
         object.__setattr__(self, "aliases", aliases)
         object.__setattr__(self, "properties", MappingProxyType(dict(self.properties)))
@@ -82,4 +77,3 @@ class ResolvedTerritory:
     def bbox(self) -> tuple[float, float, float, float]:
         min_x, min_y, max_x, max_y = self.geometry.bounds
         return float(min_x), float(min_y), float(max_x), float(max_y)
-

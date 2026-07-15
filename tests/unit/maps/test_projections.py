@@ -6,6 +6,12 @@ from pathlib import Path
 
 import pyproj
 import pytest
+from anima.data.projections import (
+    Projection,
+    ProjectionDefinition,
+    regional_equal_area,
+    world_equal_earth,
+)
 from shapely import (
     GeometryCollection,
     LineString,
@@ -14,13 +20,6 @@ from shapely import (
     MultiPolygon,
     Point,
     Polygon,
-)
-
-from anima.data.projections import (
-    Projection,
-    ProjectionDefinition,
-    regional_equal_area,
-    world_equal_earth,
 )
 
 
@@ -126,3 +125,19 @@ def test_projection_definition_rejects_noncanonical_payload() -> None:
 
     with pytest.raises(ValueError, match="always_xy must be true"):
         ProjectionDefinition.from_json(payload)
+
+
+def test_projection_definition_rejects_truthy_non_boolean_always_xy() -> None:
+    payload = world_equal_earth().to_dict()
+    payload["always_xy"] = "true"
+
+    with pytest.raises(ValueError, match="always_xy must be boolean"):
+        ProjectionDefinition.from_json(json.dumps(payload))
+
+    with pytest.raises(ValueError, match="always_xy must be boolean"):
+        ProjectionDefinition(
+            method="equal-earth",
+            target_crs="EPSG:8857",
+            origin=None,
+            always_xy=1,  # type: ignore[arg-type]
+        )

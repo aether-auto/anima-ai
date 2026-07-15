@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import Iterable, Mapping
 
 from shapely.geometry import mapping, shape
 
@@ -45,13 +45,20 @@ class MapDataset:
             )
         )
         if not ordered:
-            raise ValueError(f"dataset must contain at least one territory: {normalized_dataset_id}")
+            raise ValueError(
+                f"dataset must contain at least one territory: {normalized_dataset_id}"
+            )
 
         grouped: dict[str, list[TerritoryVersion]] = defaultdict(list)
         aliases: dict[str, str] = {}
+        canonical_ids = {version.territory_id for version in ordered}
         for version in ordered:
             grouped[version.territory_id].append(version)
             for alias in version.aliases:
+                if alias in canonical_ids:
+                    raise ValueError(
+                        f"alias {alias!r} for {version.territory_id!r} shadows canonical territory"
+                    )
                 owner = aliases.get(alias)
                 if owner is not None and owner != version.territory_id:
                     raise ValueError(
@@ -224,4 +231,3 @@ class DatasetRegistry:
 
     def enumerate(self) -> tuple[MapDataset, ...]:
         return tuple(self._datasets[key] for key in sorted(self._datasets))
-
