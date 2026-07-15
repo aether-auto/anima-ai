@@ -1,0 +1,75 @@
+"""Public Phase 1 scene-graph authoring contract."""
+
+from anima.scene_graph.codec import (
+    SCHEMA_VERSION,
+    dumps_project,
+    loads_project,
+    project_from_dict,
+    project_to_dict,
+)
+from anima.scene_graph.errors import (
+    SceneGraphDecodeError,
+    SceneGraphError,
+    SceneGraphValidationError,
+)
+from anima.scene_graph.model import Layer, Project, Scene
+from anima.scene_graph.nodes import (
+    Circle,
+    ClosePath,
+    CubicTo,
+    Ellipse,
+    Geometry,
+    Group,
+    LineTo,
+    MoveTo,
+    Node,
+    Path,
+    PathCommand,
+    Polygon,
+    Rectangle,
+    Shape,
+    ShapeGeometry,
+    Text,
+)
+from anima.scene_graph.values import (
+    Resolution,
+    StylePackRef,
+    Transform,
+    Vector2,
+    VisibilityWindow,
+)
+
+__all__ = [
+    "SCHEMA_VERSION",
+    "Circle",
+    "ClosePath",
+    "CubicTo",
+    "Ellipse",
+    "Geometry",
+    "Group",
+    "Layer",
+    "LineTo",
+    "MoveTo",
+    "Node",
+    "Path",
+    "PathCommand",
+    "Polygon",
+    "Project",
+    "Rectangle",
+    "Resolution",
+    "Scene",
+    "SceneGraphDecodeError",
+    "SceneGraphError",
+    "SceneGraphValidationError",
+    "Shape",
+    "ShapeGeometry",
+    "StylePackRef",
+    "Text",
+    "Transform",
+    "Vector2",
+    "VisibilityWindow",
+    "dumps_project",
+    "loads_project",
+    "project_from_dict",
+    "project_to_dict",
+]

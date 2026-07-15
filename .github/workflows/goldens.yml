@@ -1,0 +1,47 @@
+name: Goldens
+
+# Deterministic golden-image regression: run entirely inside the pinned-digest
+# golden container, generate every fixture's candidate, then compare against the
+# committed baselines. On any mismatch, upload the actual/diff/report artifacts
+# so an agent can inspect them. This workflow NEVER blesses baselines — updating
+# a baseline is a deliberate, container-gated bless run outside CI.
+#
+# The container image is pinned by digest. The digest below is a PLACEHOLDER:
+# until golden-container.yml has published the golden image to GHCR (flagged to
+# Arnav; see that file), no such image exists, so this workflow is manual-only
+# (workflow_dispatch) to avoid failing every push/PR against a non-existent
+# image. TODO(GHCR): once the image is published, replace the placeholder digest
+# with the real one and add `push:` / `pull_request:` triggers here.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  goldens:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/arnavmarda/anima-golden@sha256:0000000000000000000000000000000000000000000000000000000000000000
+    steps:
+      - uses: actions/checkout@v4
+
+      # Re-point the editable install at the checked-out source so candidates
+      # render from THIS revision's fixtures/renderer, not the image-baked copy.
+      - name: Install checked-out package
+        run: pip install --no-deps --no-build-isolation -e .
+
+      - name: Generate candidate renders
+        run: python -m anima.testing.goldens generate --all
+
+      - name: Compare candidates against committed baselines
+        run: python -m anima.testing.goldens compare --all
+
+      - name: Upload actual / diff / report artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-diffs
+          path: .golden-work/
+          if-no-files-found: warn
