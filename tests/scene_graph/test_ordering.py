@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import MappingProxyType
 
 import pytest
+
 from anima.scene_graph import (
     Circle,
     Group,

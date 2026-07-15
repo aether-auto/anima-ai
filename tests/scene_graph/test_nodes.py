@@ -4,6 +4,7 @@ from dataclasses import FrozenInstanceError
 from typing import Literal
 
 import pytest
+
 from anima.scene_graph import (
     Circle,
     ClosePath,

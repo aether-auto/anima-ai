@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 
 import pytest
+
 from anima.scene_graph import (
     Circle,
     Ellipse,

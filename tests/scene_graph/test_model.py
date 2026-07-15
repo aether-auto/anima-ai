@@ -3,8 +3,9 @@ from __future__ import annotations
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 
-import anima
 import pytest
+
+import anima
 from anima.scene_graph import (
     Layer,
     Project,
