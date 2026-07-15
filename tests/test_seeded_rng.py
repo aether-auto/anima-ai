@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import textwrap
@@ -202,10 +203,12 @@ def test_seeded_rng_is_cross_process_and_hash_seed_stable() -> None:
 
     outputs = []
     for hash_seed in ("0", "1", "1337"):
+        child_env = dict(os.environ)
+        child_env["PYTHONHASHSEED"] = hash_seed
         result = subprocess.run(
             [sys.executable, "-c", script],
             cwd=".",
-            env={"PYTHONHASHSEED": hash_seed, "PATH": "/usr/bin:/bin"},
+            env=child_env,
             capture_output=True,
             text=True,
             check=True,

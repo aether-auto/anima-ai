@@ -60,6 +60,7 @@ rendered project.
 from __future__ import annotations
 
 import hashlib
+import math
 from typing import Final
 
 _MASK64: Final[int] = (1 << 64) - 1
@@ -158,7 +159,13 @@ class RNGStream:
                 f"high - low must be finite, got low={low!r}, high={high!r} "
                 f"(span={span!r})"
             )
-        return low + span * self.random()
+        value = low + span * self.random()
+        # Floating-point rounding of `low + span * random()` can round the
+        # result up to exactly `high` even though `random()` never returns
+        # 1.0 -- clamp back into the documented half-open [low, high) range.
+        if value >= high and low < high:
+            value = math.nextafter(high, low)
+        return value
 
 
 def _is_finite(value: float) -> bool:
