@@ -18,3 +18,7 @@ __pycache__/
 .ruff_cache/
 build/
 dist/
+
+# macOS junk
+.DS_Store
+Icon?
